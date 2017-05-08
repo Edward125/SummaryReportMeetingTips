@@ -13,6 +13,13 @@ namespace SummaryReportMeetingTips
         public frmMain()
         {
             InitializeComponent();
+            this.StartPosition = FormStartPosition.Manual;
+            this.Location = new System.Drawing.Point(10, 10);
+        }
+
+        private void frmMain_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
