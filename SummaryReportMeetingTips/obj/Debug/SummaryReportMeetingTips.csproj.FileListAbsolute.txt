@@ -1,6 +1,5 @@
 D:\Edward\SummaryReportMeetingTips\SummaryReportMeetingTips\bin\Debug\SummaryReportMeetingTips.exe
 D:\Edward\SummaryReportMeetingTips\SummaryReportMeetingTips\bin\Debug\SummaryReportMeetingTips.pdb
-D:\Edward\SummaryReportMeetingTips\SummaryReportMeetingTips\obj\Debug\SummaryReportMeetingTips.csprojResolveAssemblyReference.cache
 D:\Edward\SummaryReportMeetingTips\SummaryReportMeetingTips\obj\Debug\SummaryReportMeetingTips.frmMain.resources
 D:\Edward\SummaryReportMeetingTips\SummaryReportMeetingTips\obj\Debug\SummaryReportMeetingTips.Properties.Resources.resources
 D:\Edward\SummaryReportMeetingTips\SummaryReportMeetingTips\obj\Debug\SummaryReportMeetingTips.csproj.GenerateResource.Cache
