@@ -35,8 +35,10 @@
             this.txtRawDataFile = new System.Windows.Forms.TextBox();
             this.btnImportData = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.datagridRawData = new System.Windows.Forms.DataGridView();
             this.tabControl1.SuspendLayout();
             this.tabRawData.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.datagridRawData)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -51,6 +53,7 @@
             // 
             // tabRawData
             // 
+            this.tabRawData.Controls.Add(this.datagridRawData);
             this.tabRawData.Controls.Add(this.textBox1);
             this.tabRawData.Controls.Add(this.btnImportData);
             this.tabRawData.Controls.Add(this.txtRawDataFile);
@@ -108,6 +111,15 @@
             this.textBox1.Size = new System.Drawing.Size(665, 22);
             this.textBox1.TabIndex = 3;
             // 
+            // datagridRawData
+            // 
+            this.datagridRawData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.datagridRawData.Location = new System.Drawing.Point(6, 38);
+            this.datagridRawData.Name = "datagridRawData";
+            this.datagridRawData.RowTemplate.Height = 23;
+            this.datagridRawData.Size = new System.Drawing.Size(1233, 516);
+            this.datagridRawData.TabIndex = 4;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
@@ -121,6 +133,7 @@
             this.tabControl1.ResumeLayout(false);
             this.tabRawData.ResumeLayout(false);
             this.tabRawData.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.datagridRawData)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -134,6 +147,7 @@
         private System.Windows.Forms.Button btnImportData;
         private System.Windows.Forms.TextBox txtRawDataFile;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.DataGridView datagridRawData;
     }
 }
 

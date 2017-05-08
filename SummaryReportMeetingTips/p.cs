@@ -18,9 +18,6 @@ namespace SummaryReportMeetingTips
 
         #endregion
 
-
-
-
         /// <summary>
         /// check folder,if not exist,create it
         /// </summary>
@@ -41,7 +38,6 @@ namespace SummaryReportMeetingTips
             }
             return true;
         }
-
 
         /// <summary>
         /// init database
@@ -65,7 +61,6 @@ namespace SummaryReportMeetingTips
 
             return true;
         }
-
 
         // string sql = "create table highscores (name varchar(20), score int)";
         /// <summary>
@@ -133,6 +128,14 @@ namespace SummaryReportMeetingTips
         }
 
 
+        public static bool createRawDataTable()
+        {
+
+            string sql = "CREATE TABLE IF NOT EXIST t_rawdata(depcode varchar(6),seccode varchar(6),opid varchar(9),engname varchar(30),reportmeetingtype varchar(20),workcontent varchar(255),workdetail varchar(255),worktype varchar(20),isinworkbook varchar(3),ismywork varchar(3),singleworktime decimal,weeklyworkfre int,weeklyworktime decimal,monthlyworktime decimal,";
+
+
+            return true;
+        }
 
 
     }

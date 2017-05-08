@@ -7,3 +7,4 @@ D:\Edward\SummaryReportMeetingTips\SummaryReportMeetingTips\obj\Debug\SummaryRep
 D:\Edward\SummaryReportMeetingTips\SummaryReportMeetingTips\obj\Debug\SummaryReportMeetingTips.pdb
 D:\Edward\SummaryReportMeetingTips\SummaryReportMeetingTips\bin\Debug\System.Data.SQLite.dll
 D:\Edward\SummaryReportMeetingTips\SummaryReportMeetingTips\bin\Debug\System.Data.SQLite.pdb
+D:\Edward\SummaryReportMeetingTips\SummaryReportMeetingTips\obj\Debug\SummaryReportMeetingTips.csprojResolveAssemblyReference.cache
