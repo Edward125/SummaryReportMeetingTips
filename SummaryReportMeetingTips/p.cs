@@ -38,11 +38,7 @@ namespace SummaryReportMeetingTips
                     MessageBox.Show("Create directory fail,detail:" + ex.Message, "Create Directory Fail...", MessageBoxButtons.OK, MessageBoxIcon.Error);
                      return false;
                 }
-
             }
-
-
-
             return true;
         }
 
@@ -61,13 +57,78 @@ namespace SummaryReportMeetingTips
                 }
                 catch (Exception ex)
                 {
-
                     MessageBox.Show("Create Data base fail,detail:" + ex.Message, "Create DB Fail...", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
             }
 
 
+            return true;
+        }
+
+
+        // string sql = "create table highscores (name varchar(20), score int)";
+        /// <summary>
+        /// create table 
+        /// </summary>
+        /// <param name="sql">sql</param>
+        /// <returns>create ok,return true;create ng,return false</returns>
+        public static bool createTable(string sql)
+        {
+            SQLiteConnection conn = new SQLiteConnection(dbConnectionString);
+            try
+            {
+                conn.Open();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Connect to database fail," + ex.Message);
+                return false;
+            }
+
+            try
+            {
+                SQLiteCommand command = new SQLiteCommand(sql, conn);
+                command.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Create TABLE fail," + ex.Message);
+                conn.Close();
+                return false;
+
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// update data to sqlite
+        /// </summary>
+        /// <param name="sql">sql</param>
+        /// <returns>success,return true;fail,return false</returns>
+        public static bool updateData2DB(string sql)
+        {
+            SQLiteConnection conn = new SQLiteConnection(dbConnectionString);
+
+            try
+            {
+                conn.Open();
+                SQLiteCommand cmd = new SQLiteCommand(sql, conn);
+                //cmd.CommandText = sql;
+                cmd.ExecuteNonQuery();
+                conn.Close();
+
+            }
+            catch (Exception ex)
+            {
+                conn.Close();
+                MessageBox.Show("Execute sql: " + sql + " fail," + ex.Message);
+                return false;
+            }
             return true;
         }
 
