@@ -8,3 +8,13 @@ D:\Edward\SummaryReportMeetingTips\SummaryReportMeetingTips\obj\Debug\SummaryRep
 D:\Edward\SummaryReportMeetingTips\SummaryReportMeetingTips\bin\Debug\System.Data.SQLite.dll
 D:\Edward\SummaryReportMeetingTips\SummaryReportMeetingTips\bin\Debug\System.Data.SQLite.pdb
 D:\Edward\SummaryReportMeetingTips\SummaryReportMeetingTips\obj\Debug\SummaryReportMeetingTips.csprojResolveAssemblyReference.cache
+Z:\Users\Edward\EdwardCode\SummaryReportMeetingTips\SummaryReportMeetingTips\obj\Debug\SummaryReportMeetingTips.exe
+Z:\Users\Edward\EdwardCode\SummaryReportMeetingTips\SummaryReportMeetingTips\obj\Debug\SummaryReportMeetingTips.pdb
+Z:\Users\Edward\EdwardCode\SummaryReportMeetingTips\SummaryReportMeetingTips\bin\Debug\SummaryReportMeetingTips.exe
+Z:\Users\Edward\EdwardCode\SummaryReportMeetingTips\SummaryReportMeetingTips\bin\Debug\SummaryReportMeetingTips.pdb
+Z:\Users\Edward\EdwardCode\SummaryReportMeetingTips\SummaryReportMeetingTips\bin\Debug\System.Data.SQLite.dll
+Z:\Users\Edward\EdwardCode\SummaryReportMeetingTips\SummaryReportMeetingTips\bin\Debug\System.Data.SQLite.pdb
+Z:\Users\Edward\EdwardCode\SummaryReportMeetingTips\SummaryReportMeetingTips\obj\Debug\SummaryReportMeetingTips.frmMain.resources
+Z:\Users\Edward\EdwardCode\SummaryReportMeetingTips\SummaryReportMeetingTips\obj\Debug\SummaryReportMeetingTips.Properties.Resources.resources
+Z:\Users\Edward\EdwardCode\SummaryReportMeetingTips\SummaryReportMeetingTips\obj\Debug\SummaryReportMeetingTips.csproj.GenerateResource.Cache
+Z:\Users\Edward\EdwardCode\SummaryReportMeetingTips\SummaryReportMeetingTips\obj\Debug\SummaryReportMeetingTips.csprojResolveAssemblyReference.cache

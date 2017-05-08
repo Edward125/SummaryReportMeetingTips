@@ -30,12 +30,15 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabRawData = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.lblRawData = new System.Windows.Forms.Label();
-            this.txtRawDataFile = new System.Windows.Forms.TextBox();
-            this.btnImportData = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.datagridRawData = new System.Windows.Forms.DataGridView();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.btnImportData = new System.Windows.Forms.Button();
+            this.txtRawDataFile = new System.Windows.Forms.TextBox();
+            this.lblRawData = new System.Windows.Forms.Label();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.btnAnalyzeFile = new System.Windows.Forms.Button();
+            this.comboSheetList = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.tabRawData.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datagridRawData)).BeginInit();
@@ -48,11 +51,13 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1253, 587);
+            this.tabControl1.Size = new System.Drawing.Size(1253, 574);
             this.tabControl1.TabIndex = 0;
             // 
             // tabRawData
             // 
+            this.tabRawData.Controls.Add(this.comboSheetList);
+            this.tabRawData.Controls.Add(this.btnAnalyzeFile);
             this.tabRawData.Controls.Add(this.datagridRawData);
             this.tabRawData.Controls.Add(this.textBox1);
             this.tabRawData.Controls.Add(this.btnImportData);
@@ -61,20 +66,45 @@
             this.tabRawData.Location = new System.Drawing.Point(4, 23);
             this.tabRawData.Name = "tabRawData";
             this.tabRawData.Padding = new System.Windows.Forms.Padding(3);
-            this.tabRawData.Size = new System.Drawing.Size(1245, 560);
+            this.tabRawData.Size = new System.Drawing.Size(1245, 547);
             this.tabRawData.TabIndex = 0;
             this.tabRawData.Text = "RawData";
             this.tabRawData.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
+            // datagridRawData
             // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 23);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1245, 503);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.datagridRawData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.datagridRawData.Location = new System.Drawing.Point(6, 38);
+            this.datagridRawData.Name = "datagridRawData";
+            this.datagridRawData.RowTemplate.Height = 23;
+            this.datagridRawData.Size = new System.Drawing.Size(1233, 503);
+            this.datagridRawData.TabIndex = 4;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(762, 10);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(477, 22);
+            this.textBox1.TabIndex = 3;
+            // 
+            // btnImportData
+            // 
+            this.btnImportData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnImportData.Location = new System.Drawing.Point(670, 9);
+            this.btnImportData.Name = "btnImportData";
+            this.btnImportData.Size = new System.Drawing.Size(86, 23);
+            this.btnImportData.TabIndex = 2;
+            this.btnImportData.Text = "Import Data";
+            this.btnImportData.UseVisualStyleBackColor = true;
+            this.btnImportData.Click += new System.EventHandler(this.btnImportData_Click);
+            // 
+            // txtRawDataFile
+            // 
+            this.txtRawDataFile.Location = new System.Drawing.Point(105, 10);
+            this.txtRawDataFile.Name = "txtRawDataFile";
+            this.txtRawDataFile.Size = new System.Drawing.Size(304, 22);
+            this.txtRawDataFile.TabIndex = 1;
+            this.txtRawDataFile.DoubleClick += new System.EventHandler(this.txtRawDataFile_DoubleClick);
             // 
             // lblRawData
             // 
@@ -85,46 +115,51 @@
             this.lblRawData.TabIndex = 0;
             this.lblRawData.Text = "Raw Data File:";
             // 
-            // txtRawDataFile
+            // tabPage2
             // 
-            this.txtRawDataFile.Location = new System.Drawing.Point(105, 10);
-            this.txtRawDataFile.Name = "txtRawDataFile";
-            this.txtRawDataFile.Size = new System.Drawing.Size(371, 22);
-            this.txtRawDataFile.TabIndex = 1;
-            this.txtRawDataFile.DoubleClick += new System.EventHandler(this.txtRawDataFile_DoubleClick);
+            this.tabPage2.Location = new System.Drawing.Point(4, 23);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(1245, 560);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // btnImportData
+            // statusStrip1
             // 
-            this.btnImportData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnImportData.Location = new System.Drawing.Point(482, 9);
-            this.btnImportData.Name = "btnImportData";
-            this.btnImportData.Size = new System.Drawing.Size(86, 23);
-            this.btnImportData.TabIndex = 2;
-            this.btnImportData.Text = "Import Data";
-            this.btnImportData.UseVisualStyleBackColor = true;
-            this.btnImportData.Click += new System.EventHandler(this.btnImportData_Click);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 589);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1277, 22);
+            this.statusStrip1.TabIndex = 1;
+            this.statusStrip1.Text = "statusStrip1";
             // 
-            // textBox1
+            // btnAnalyzeFile
             // 
-            this.textBox1.Location = new System.Drawing.Point(574, 10);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(665, 22);
-            this.textBox1.TabIndex = 3;
+            this.btnAnalyzeFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAnalyzeFile.Location = new System.Drawing.Point(415, 10);
+            this.btnAnalyzeFile.Name = "btnAnalyzeFile";
+            this.btnAnalyzeFile.Size = new System.Drawing.Size(86, 23);
+            this.btnAnalyzeFile.TabIndex = 5;
+            this.btnAnalyzeFile.Text = "Analyze File";
+            this.btnAnalyzeFile.UseVisualStyleBackColor = true;
+            this.btnAnalyzeFile.Click += new System.EventHandler(this.btnAnalyzeFile_Click);
             // 
-            // datagridRawData
+            // comboSheetList
             // 
-            this.datagridRawData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.datagridRawData.Location = new System.Drawing.Point(6, 38);
-            this.datagridRawData.Name = "datagridRawData";
-            this.datagridRawData.RowTemplate.Height = 23;
-            this.datagridRawData.Size = new System.Drawing.Size(1233, 516);
-            this.datagridRawData.TabIndex = 4;
+            this.comboSheetList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboSheetList.FormattingEnabled = true;
+            this.comboSheetList.Location = new System.Drawing.Point(507, 11);
+            this.comboSheetList.Name = "comboSheetList";
+            this.comboSheetList.Size = new System.Drawing.Size(157, 22);
+            this.comboSheetList.TabIndex = 6;
+            this.comboSheetList.SelectedIndexChanged += new System.EventHandler(this.comboSheetList_SelectedIndexChanged);
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1277, 611);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "frmMain";
@@ -135,6 +170,7 @@
             this.tabRawData.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datagridRawData)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -148,6 +184,9 @@
         private System.Windows.Forms.TextBox txtRawDataFile;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.DataGridView datagridRawData;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.Button btnAnalyzeFile;
+        private System.Windows.Forms.ComboBox comboSheetList;
     }
 }
 

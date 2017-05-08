@@ -71,6 +71,8 @@ namespace SummaryReportMeetingTips
         #endregion
 
 
+        private DataSet ds = new DataSet();
+
 
         private void frmMain_Load(object sender, EventArgs e)
         {
@@ -112,20 +114,7 @@ namespace SummaryReportMeetingTips
             }
         }
 
-        private void btnImportData_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(txtRawDataFile.Text.Trim()))
-                return;
-
-            if (!File.Exists(txtRawDataFile.Text.Trim()))
-            {
-                MessageBox.Show("U select raw data file is not exist,pls check...", "File Not Exist", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                txtRawDataFile.SelectAll();
-                txtRawDataFile.Focus();
-                return;
-            }
-
-        }
+ 
 
 
         #region DataSet
@@ -167,6 +156,7 @@ namespace SummaryReportMeetingTips
 
             foreach (var sheetName in GetExcelSheetNames(connectionString))
             {
+                
                 using (OleDbConnection con = new OleDbConnection(connectionString))
                 {
                     Console.WriteLine(sheetName);
@@ -186,7 +176,62 @@ namespace SummaryReportMeetingTips
 
         }
 
+        static bool DataSetParse(string fileName, out DataSet ds,ComboBox combo)
+        {
+            combo.Items.Clear();
+            // string connectionString = string.Format("provider=Microsoft.Jet.OLEDB.4.0; data source={0};Extended Properties=Excel 8.0;", fileName);
 
+
+            ////2003（Microsoft.Jet.Oledb.4.0）
+            //string strConn = string.Format("Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};Extended Properties='Excel 8.0;HDR=Yes;IMEX=1;'", excelFilePath);
+            ////2010（Microsoft.ACE.OLEDB.12.0）
+            //string strConn = string.Format("Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties='Excel 8.0;HDR=Yes;IMEX=1;'", excelFilePath);
+
+            string connectionString = string.Empty;
+            System.IO.FileInfo fi = new System.IO.FileInfo(fileName);
+            //MessageBox.Show(fi.Extension);
+            DataSet data = new DataSet();
+            try
+            {
+                if (fi.Extension == ".xls")
+                    connectionString = string.Format("Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};Extended Properties='Excel 8.0;HDR=Yes;IMEX=1;'", fileName);
+                if (fi.Extension == ".xlsx")
+                    connectionString = string.Format("Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties='Excel 8.0;HDR=Yes;IMEX=1;'", fileName);
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+                ds = data;
+                return false;
+            }
+
+
+
+
+
+
+            foreach (var sheetName in GetExcelSheetNames(connectionString))
+            {
+                combo.Items.Add(sheetName);
+                using (OleDbConnection con = new OleDbConnection(connectionString))
+                {
+                    Console.WriteLine(sheetName);
+                    var dataTable = new System.Data.DataTable(sheetName);
+                    string query = string.Format("SELECT * FROM [{0}]", sheetName);
+                    con.Open();
+                    OleDbDataAdapter adapter = new OleDbDataAdapter(query, con);
+                    adapter.Fill(dataTable);
+                    data.Tables.Add(dataTable);
+
+                }
+            }
+
+            ds = data;
+
+            return true;
+
+        }
 
         static string[] GetExcelSheetNames(string connectionString)
         {
@@ -207,12 +252,54 @@ namespace SummaryReportMeetingTips
             foreach (DataRow row in dt.Rows)
             {
                 excelSheetNames[i] = row["TABLE_NAME"].ToString();
+                
+               
                 i++;
+                
             }
 
             return excelSheetNames;
         }
 
         #endregion
+
+        private void btnAnalyzeFile_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtRawDataFile.Text.Trim()))
+                return;
+
+            if (!File.Exists(txtRawDataFile.Text.Trim()))
+            {
+                MessageBox.Show("U select raw data file is not exist,pls check...", "File Not Exist", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                txtRawDataFile.SelectAll();
+                txtRawDataFile.Focus();
+                return;
+            }
+
+           
+            if (!DataSetParse(txtRawDataFile.Text.Trim(), out ds, this.comboSheetList))
+                return;
+
+
+
+            if (this.comboSheetList.Items.Count > 0)
+            {
+                this.comboSheetList.SelectedIndex = 0;
+                datagridRawData.DataSource = ds.Tables[0];
+            }
+
+
+        }
+
+        private void btnImportData_Click(object sender, EventArgs e)
+        {
+
+            
+        }
+
+        private void comboSheetList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            datagridRawData.DataSource = ds.Tables[comboSheetList.SelectedIndex];
+        }
     }
 }
