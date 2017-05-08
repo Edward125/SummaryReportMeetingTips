@@ -28,31 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabMain = new System.Windows.Forms.TabControl();
             this.tabRawData = new System.Windows.Forms.TabPage();
             this.datagridRawData = new System.Windows.Forms.DataGridView();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.btnImportData = new System.Windows.Forms.Button();
             this.txtRawDataFile = new System.Windows.Forms.TextBox();
             this.lblRawData = new System.Windows.Forms.Label();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabReport = new System.Windows.Forms.TabPage();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.btnAnalyzeFile = new System.Windows.Forms.Button();
             this.comboSheetList = new System.Windows.Forms.ComboBox();
-            this.tabControl1.SuspendLayout();
+            this.tabMeeting = new System.Windows.Forms.TabPage();
+            this.tabMain.SuspendLayout();
             this.tabRawData.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datagridRawData)).BeginInit();
             this.SuspendLayout();
             // 
-            // tabControl1
+            // tabMain
             // 
-            this.tabControl1.Controls.Add(this.tabRawData);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(12, 12);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1253, 574);
-            this.tabControl1.TabIndex = 0;
+            this.tabMain.Controls.Add(this.tabRawData);
+            this.tabMain.Controls.Add(this.tabReport);
+            this.tabMain.Controls.Add(this.tabMeeting);
+            this.tabMain.Location = new System.Drawing.Point(12, 12);
+            this.tabMain.Name = "tabMain";
+            this.tabMain.SelectedIndex = 0;
+            this.tabMain.Size = new System.Drawing.Size(1253, 574);
+            this.tabMain.TabIndex = 0;
             // 
             // tabRawData
             // 
@@ -115,15 +117,15 @@
             this.lblRawData.TabIndex = 0;
             this.lblRawData.Text = "Raw Data File:";
             // 
-            // tabPage2
+            // tabReport
             // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 23);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1245, 560);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabReport.Location = new System.Drawing.Point(4, 23);
+            this.tabReport.Name = "tabReport";
+            this.tabReport.Padding = new System.Windows.Forms.Padding(3);
+            this.tabReport.Size = new System.Drawing.Size(1245, 547);
+            this.tabReport.TabIndex = 1;
+            this.tabReport.Text = "Report";
+            this.tabReport.UseVisualStyleBackColor = true;
             // 
             // statusStrip1
             // 
@@ -154,18 +156,27 @@
             this.comboSheetList.TabIndex = 6;
             this.comboSheetList.SelectedIndexChanged += new System.EventHandler(this.comboSheetList_SelectedIndexChanged);
             // 
+            // tabMeeting
+            // 
+            this.tabMeeting.Location = new System.Drawing.Point(4, 23);
+            this.tabMeeting.Name = "tabMeeting";
+            this.tabMeeting.Size = new System.Drawing.Size(1245, 547);
+            this.tabMeeting.TabIndex = 2;
+            this.tabMeeting.Text = "Meeting";
+            this.tabMeeting.UseVisualStyleBackColor = true;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1277, 611);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.tabMain);
             this.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "frmMain";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.frmMain_Load);
-            this.tabControl1.ResumeLayout(false);
+            this.tabMain.ResumeLayout(false);
             this.tabRawData.ResumeLayout(false);
             this.tabRawData.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datagridRawData)).EndInit();
@@ -176,9 +187,9 @@
 
         #endregion
 
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl tabMain;
         private System.Windows.Forms.TabPage tabRawData;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabReport;
         private System.Windows.Forms.Label lblRawData;
         private System.Windows.Forms.Button btnImportData;
         private System.Windows.Forms.TextBox txtRawDataFile;
@@ -187,6 +198,7 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.Button btnAnalyzeFile;
         private System.Windows.Forms.ComboBox comboSheetList;
+        private System.Windows.Forms.TabPage tabMeeting;
     }
 }
 

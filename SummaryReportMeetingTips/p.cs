@@ -16,6 +16,13 @@ namespace SummaryReportMeetingTips
         public static string appDataDB = appFolder + @"\DB.sqlite";
         public static string dbConnectionString = "Data Source=" + @appDataDB;
 
+
+        public enum WorkType
+        {
+            Report,
+            Meeting
+        }
+
         #endregion
 
         /// <summary>
