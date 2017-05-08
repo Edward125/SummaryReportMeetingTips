@@ -114,8 +114,6 @@ namespace SummaryReportMeetingTips
             }
         }
 
- 
-
 
         #region DataSet
 
@@ -294,12 +292,74 @@ namespace SummaryReportMeetingTips
         private void btnImportData_Click(object sender, EventArgs e)
         {
 
+            if (this.comboSheetList.SelectedIndex == -1)
+                return;
+
+            if (!checkFormat(ds, comboSheetList))
+                return;
+
+
+
             
         }
 
         private void comboSheetList_SelectedIndexChanged(object sender, EventArgs e)
         {
             datagridRawData.DataSource = ds.Tables[comboSheetList.SelectedIndex];
+        }
+
+
+
+        private bool checkFormat(DataSet ds,ComboBox combo)
+        {
+
+            try
+            {
+                ds.Tables[combo.SelectedIndex].Rows[0]["部門代碼"].ToString();
+            }
+            catch (ArgumentException ex)
+            {
+
+                MessageBox.Show(ex.Message + ",pls check format...", "Format Fail...", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                return false;
+            }
+
+            try
+            {
+                ds.Tables[combo.SelectedIndex].Rows[0]["課別代碼"].ToString();
+            }
+            catch (ArgumentException ex)
+            {
+
+                MessageBox.Show(ex.Message + ",pls check format...", "Format Fail...", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                return false;
+            }
+
+            try
+            {
+                ds.Tables[combo.SelectedIndex].Rows[0]["工號"].ToString();
+            }
+            catch (ArgumentException ex)
+            {
+
+                MessageBox.Show(ex.Message + ",pls check format...", "Format Fail...", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                return false;
+            }
+
+            try
+            {
+                ds.Tables[combo.SelectedIndex].Rows[0]["英文姓名"].ToString();
+            }
+            catch (ArgumentException ex)
+            {
+
+                MessageBox.Show(ex.Message + ",pls check format...", "Format Fail...", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                return false;
+            }
+
+
+           
+            return true;
         }
     }
 }

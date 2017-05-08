@@ -50,6 +50,13 @@ namespace SummaryReportMeetingTips
                 try
                 {
                     SQLiteConnection.CreateFile(appDataDB);
+                    if (!createDefaultTable())
+                    {
+                        //File.Delete(appDataDB);
+                        return false;
+                    }
+
+
                 }
                 catch (Exception ex)
                 {
@@ -57,6 +64,9 @@ namespace SummaryReportMeetingTips
                     return false;
                 }
             }
+
+
+           
 
 
             return true;
@@ -128,11 +138,81 @@ namespace SummaryReportMeetingTips
         }
 
 
-        public static bool createRawDataTable()
+        public static bool createMeetingRawDataTable()
         {
 
-            string sql = "CREATE TABLE IF NOT EXIST t_rawdata(depcode varchar(6),seccode varchar(6),opid varchar(9),engname varchar(30),reportmeetingtype varchar(20),workcontent varchar(255),workdetail varchar(255),worktype varchar(20),isinworkbook varchar(3),ismywork varchar(3),singleworktime decimal,weeklyworkfre int,weeklyworktime decimal,monthlyworktime decimal,";
+            string sql = @"CREATE TABLE IF NOT EXISTS t_meetingrawdata(
+id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT ,
+depcode varchar(6),
+seccode varchar(6),
+opid varchar(9),
+engname varchar(30),
+meetingtype varchar(20),
+workcontent varchar(255),
+workdetail varchar(255),
+worktype varchar(20),
+isinworkbook varchar(3),
+ismywork varchar(3),
+vanva varchar(3),
+singleworktime decimal(10,4) NULL,
+weeklyworkfreq int(11),
+weeklyworktime decimal(10,4) NULL,
+monthlyworktime decimal(10,4) NULL,
+caller varchar(10),
+callerdep varchar(10),
+callerlevel varchar(10),
+optimizemethod varchar(20),
+weeklysavetime decimal(10,4),
+description varchar(255),
+reviewdate date,
+reviewer varchar(30))";
+            if (!createTable(sql))
+                return false;
+            return true;
+        }
 
+        public static bool createReportRawDataTable()
+        {
+
+            string sql = @"CREATE TABLE IF NOT EXISTS t_reportrawdata(
+id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT ,
+depcode varchar(6),
+seccode varchar(6),
+opid varchar(9),
+engname varchar(30),
+reporttype varchar(20),
+workcontent varchar(255),
+workdetail varchar(255),
+worktype varchar(20),
+isinworkbook varchar(3),
+ismywork varchar(3),
+vanva varchar(3),
+singleworktime decimal(10,4) NULL,
+weeklyworkfreq int(11),
+weeklyworktime decimal(10,4) NULL,
+monthlyworktime decimal(10,4) NULL,
+reportobject varchar(10),
+reporttype2 varchar(10),
+reportmethod varchar(10),
+optimizemethod varchar(20),
+weeklysavetime decimal(10,4),
+description varchar(255),
+reviewdate date,
+reviewer varchar(30))";
+            if (!createTable(sql))
+                return false;
+            return true;
+        }
+
+
+
+        public static bool createDefaultTable()
+        {
+            if (!createMeetingRawDataTable())
+                return false;
+
+            if (!createReportRawDataTable())
+                return false;
 
             return true;
         }
