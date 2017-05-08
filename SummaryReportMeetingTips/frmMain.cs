@@ -83,6 +83,13 @@ namespace SummaryReportMeetingTips
             Form1_Resize(new object(), new EventArgs());//x,y可在实例化时赋值,最后这句是新加的，在MDI时有用
             //
             txtRawDataFile.SetWatermark("Double Click here to select the raw data file(.xls,.xlsx)");
+
+            if (!p.CheckFolder())
+                Environment.Exit(0);
+            if (!p.InitDataDB())
+                Environment.Exit(0);
+
+
         }
 
         private void txtRawDataFile_DoubleClick(object sender, EventArgs e)
