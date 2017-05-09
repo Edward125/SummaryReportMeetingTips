@@ -203,6 +203,7 @@
             this.trviewMeeting.Name = "trviewMeeting";
             this.trviewMeeting.Size = new System.Drawing.Size(400, 502);
             this.trviewMeeting.TabIndex = 0;
+            this.trviewMeeting.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.trviewMeeting_AfterSelect);
             // 
             // statusStrip1
             // 

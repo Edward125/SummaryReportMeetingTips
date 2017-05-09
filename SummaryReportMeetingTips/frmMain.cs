@@ -734,6 +734,7 @@ reviewer) VALUES (@_depcode,
             {
                 loadTreeViewData(trviewReport, p.WorkType.Report );
                 trviewReport.Sort();
+                
             }
             if (e.TabPage == tabMeeting )
             {
@@ -805,16 +806,24 @@ reviewer) VALUES (@_depcode,
 
 
           //  p.querySum("SELECT sum (weeklyworktime)  FROM t_meetingrawdata  where workdetail = '生产会议'");
-
+             string workdetial = "";
             try
             {
-                tsslStatus.Text = trviewReport.SelectedNode.Text;
+              workdetial  =  trviewReport.SelectedNode.Parent.Text;
+              workdetial = trviewReport.SelectedNode.Text;
             }
             catch (Exception)
             {
-                
-              //  throw;
+
+                workdetial = "";
             }
+
+            if (!string.IsNullOrEmpty(workdetial))
+            {
+                tsslStatus.Text = workdetial;
+                loadData2ListView(lstviewReport, p.WorkType.Report, workdetial);
+            }
+
 
         }
 
@@ -826,22 +835,83 @@ reviewer) VALUES (@_depcode,
             listview.FullRowSelect = true;
             listview.Columns.Add("ID", 30, HorizontalAlignment.Center);            
             listview.Columns.Add("Sec.Code", 60, HorizontalAlignment.Center);
-            listview.Columns.Add("OPID", 40, HorizontalAlignment.Center);
-            listview.Columns.Add("Eng.Name", 40, HorizontalAlignment.Center);
-            if (worktype == p.WorkType.Meeting )
-                listview.Columns.Add("Meeting Paren Type", 80, HorizontalAlignment.Center);
-            if (worktype == p.WorkType.Report)
-                listview.Columns.Add("Report Type", 80, HorizontalAlignment.Center);
-            listview.Columns.Add("Work Detail", 80, HorizontalAlignment.Center);
-            listview.Columns.Add("单次工作时间(h)", 120, HorizontalAlignment.Center);
-            listview.Columns.Add("周工作频率(次)", 120, HorizontalAlignment.Center);
-            listview.Columns.Add("周工作时间(h)", 120, HorizontalAlignment.Center);
-            listview.Columns.Add("月工作时间(h)", 120, HorizontalAlignment.Center);
+            listview.Columns.Add("OPID", 60, HorizontalAlignment.Center);
+            listview.Columns.Add("Eng.Name", 90, HorizontalAlignment.Center);
+            //if (worktype == p.WorkType.Meeting )
+               // listview.Columns.Add("Meeting Type", 80, HorizontalAlignment.Center);
+           // if (worktype == p.WorkType.Report)
+               // listview.Columns.Add("Report Type", 80, HorizontalAlignment.Center);
+            listview.Columns.Add("Work Detail", 150, HorizontalAlignment.Center);
+            listview.Columns.Add("单次工作时间(h)", 80, HorizontalAlignment.Center);
+            listview.Columns.Add("周工作频率(次)", 80, HorizontalAlignment.Center);
+            listview.Columns.Add("周工作时间(h)", 80, HorizontalAlignment.Center);
+            listview.Columns.Add("月工作时间(h)", 80, HorizontalAlignment.Center);
         }
 
-        private void loadData2ListView(ListView listview, p.WorkType worktype)
+        private void loadData2ListView(ListView listview, p.WorkType worktype,string workdetail)
         {
+            listview.Items.Clear();
+            listview.BeginUpdate();//数据更新，UI暂时挂起，直到EndUpdate绘制控件，可以有效避免闪烁并大大提高加载速度 
+            //
+            string sql = "";
+            if (worktype == p.WorkType.Meeting)
+                sql = "SELECT * FROM t_meetingrawdata WHERE workdetail = '" + workdetail + "' order by seccode ASC";
+            if (worktype == p.WorkType .Report)
+                sql = "SELECT * FROM t_reportrawdata WHERE workdetail = '" + workdetail + "' order by seccode ASC";
 
+            //MessageBox.Show(sql);
+
+            SQLiteConnection conn = new SQLiteConnection(p.dbConnectionString);
+            conn.Open();
+            SQLiteCommand cmd = new SQLiteCommand(sql, conn);
+            SQLiteDataReader re = cmd.ExecuteReader();
+            if (re.HasRows)
+            {
+                while (re.Read())
+                {
+
+                    ListViewItem lt = new ListViewItem();
+                    lt = listview.Items.Add(re["id"].ToString());
+                    lt.SubItems.Add(re["seccode"].ToString());
+                    lt.SubItems.Add(re["opid"].ToString());
+                    lt.SubItems.Add(re["engname"].ToString());
+                    //if (worktype == p.WorkType.Report)
+                       // lt.SubItems.Add(re["reporttype"].ToString());
+                    //if (worktype == p.WorkType.Meeting)
+                       // lt.SubItems.Add(re["meetingtype"].ToString());
+                    lt.SubItems.Add (re["workdetail"].ToString());
+                    lt.SubItems.Add(re["singleworktime"].ToString());
+                    lt.SubItems.Add(re["weeklyworkfreq"].ToString());
+                    lt.SubItems.Add(re["weeklyworktime"].ToString());
+                    lt.SubItems.Add(re["monthlyworktime"].ToString());
+                }
+
+
+            }
+            conn.Close();
+            listview.EndUpdate();//结束数据处理，UI界面一次性绘制。
+            
+        }
+
+        private void trviewMeeting_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            string workdetial = "";
+            try
+            {
+                workdetial = trviewMeeting.SelectedNode.Parent.Text;
+                workdetial = trviewMeeting.SelectedNode.Text;
+            }
+            catch (Exception)
+            {
+
+                workdetial = "";
+            }
+
+            if (!string.IsNullOrEmpty(workdetial))
+            {
+                tsslStatus.Text = workdetial;
+                loadData2ListView(lstviewMeeting, p.WorkType.Meeting , workdetial);
+            }
         }
 
     }
