@@ -96,6 +96,12 @@ namespace SummaryReportMeetingTips
             tabMain.SelectedIndex = 1;
             setListview(lstviewMeeting, p.WorkType.Meeting);
             setListview(lstviewReport, p.WorkType.Report);
+            //
+            comboRawDataType.SelectedIndex = 0;
+
+            loadRawdata2DataGrid();
+
+
         }
 
         private void txtRawDataFile_DoubleClick(object sender, EventArgs e)
@@ -305,8 +311,7 @@ namespace SummaryReportMeetingTips
             if (comboSheetList.Text.Trim() == "會議$")                
                 sql = "SELECT COUNT(*) FROM t_meetingrawdata";
             if (comboSheetList.Text.Trim() == "Report$")
-                sql = "SELECT COUNT(*) FROM t_reportrawdata";
-                           
+                sql = "SELECT COUNT(*) FROM t_reportrawdata";             
             int line = 0;
             queryCount(sql, out line);
             if (line > 0)
@@ -407,7 +412,7 @@ namespace SummaryReportMeetingTips
                 {
                     for (int i = 0; i < ds.Tables[combo.SelectedIndex].Rows.Count; i++)
                     {
-                        textBox1.Text = ds.Tables[combo.SelectedIndex].Rows.Count.ToString();
+                        //textBox1.Text = ds.Tables[combo.SelectedIndex].Rows.Count.ToString();
                         if (worktype == p.WorkType.Meeting)
                         {
                             cmd.CommandText =
@@ -723,13 +728,10 @@ reviewer) VALUES (@_depcode,
             conn.Close();
          }
         
-        private void tabMain_SelectedIndexChanged(object sender, EventArgs e)
-        {
-          
-        }
 
         private void tabMain_Selected(object sender, TabControlEventArgs e)
         {
+            tsslStatus.Text = "";
             if (e.TabPage == tabReport )
             {
                 loadTreeViewData(trviewReport, p.WorkType.Report );
@@ -740,6 +742,10 @@ reviewer) VALUES (@_depcode,
             {
                 loadTreeViewData(trviewMeeting, p.WorkType.Meeting);
                 trviewMeeting.Sort();
+            }
+            if (e.TabPage == tabRawData)
+            {
+                loadRawdata2DataGrid();
             }
   
         }
@@ -803,29 +809,57 @@ reviewer) VALUES (@_depcode,
 
         private void trviewReport_AfterSelect(object sender, TreeViewEventArgs e)
         {
+            loadInfo2toolStrip(p.WorkType.Report, lstviewReport, trviewReport);
+        }
 
 
-          //  p.querySum("SELECT sum (weeklyworktime)  FROM t_meetingrawdata  where workdetail = '生产会议'");
-             string workdetial = "";
+
+
+
+
+        private void loadInfo2toolStrip(p.WorkType worktype,ListView listview,TreeView treview)
+        {
+            listview.Items.Clear();
+            string workdetail = "";
             try
             {
-              workdetial  =  trviewReport.SelectedNode.Parent.Text;
-              workdetial = trviewReport.SelectedNode.Text;
+                workdetail = treview.SelectedNode.Parent.Text;
+                workdetail = treview.SelectedNode.Text;
             }
             catch (Exception)
             {
 
-                workdetial = "";
+                workdetail = "";
             }
 
-            if (!string.IsNullOrEmpty(workdetial))
+            if (!string.IsNullOrEmpty(workdetail))
             {
-                tsslStatus.Text = workdetial;
-                loadData2ListView(lstviewReport, p.WorkType.Report, workdetial);
+                int icount  = -1;
+                decimal totaltime = 0;
+                if (worktype == p.WorkType.Report)
+                {
+                    string sql = "SELECT COUNT (workdetail) FROM t_reportrawdata WHERE workdetail = '" + workdetail + "'";
+                    icount = p.queryCount(sql);
+                    sql = "SELECT SUM (weeklyworktime) FROM t_reportrawdata WHERE workdetail = '" + workdetail + "'";
+                    totaltime  = p.querySum(sql);
+                    loadData2ListView(listview , p.WorkType.Report, workdetail);
+                }
+
+                if (worktype == p.WorkType.Meeting)
+                {
+                    string sql = "SELECT COUNT (workdetail) FROM t_meetingrawdata WHERE workdetail = '" + workdetail + "'";
+                    icount  = p.queryCount(sql);
+                    sql = "SELECT SUM (weeklyworktime) FROM t_meetingrawdata WHERE workdetail = '" + workdetail + "'";
+                    totaltime = p.querySum(sql);
+                    loadData2ListView(listview, p.WorkType.Meeting, workdetail);
+                }
+
+
+                tsslStatus.ForeColor = Color.Blue;
+                tsslStatus.Text = workdetail + " | itemscount:" + icount + " | weeklyworktime(h):" + totaltime;
             }
-
-
         }
+
 
         private void setListview(ListView listview, p.WorkType worktype)
         {
@@ -909,7 +943,7 @@ reviewer) VALUES (@_depcode,
             lt.SubItems.Add("");
             lt.SubItems.Add("");
             if (worktype == p.WorkType.Meeting)
-                 sql = "SELECT SUM (weeklywordtime) FROM t_meetingrawdata WHERE workdetail = '" + workdetail + "'";
+                 sql = "SELECT SUM (weeklyworktime) FROM t_meetingrawdata WHERE workdetail = '" + workdetail + "'";
 
             if (worktype == p.WorkType.Report)
                  sql = "SELECT SUM (weeklyworktime) FROM t_reportrawdata WHERE workdetail = '" + workdetail + "'";
@@ -927,24 +961,102 @@ reviewer) VALUES (@_depcode,
 
         private void trviewMeeting_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            string workdetial = "";
+
+            loadInfo2toolStrip(p.WorkType.Meeting, lstviewMeeting, trviewMeeting);
+        }
+
+
+        private DataTable queryRawData(p.WorkType worktype)
+        {
+            DataTable dt = new DataTable();
+            string sql = "";
+            if (worktype == p.WorkType.Meeting)
+                sql = "SELECT * FROM t_meetingrawdata";
+            if (worktype == p.WorkType.Report)
+                sql = "SELECT * FROM t_reportrawdata";
+
+            SQLiteConnection conn = new SQLiteConnection(p.dbConnectionString);
+            conn.Open();
+            SQLiteCommand cmd = new SQLiteCommand(sql, conn);
+            SQLiteDataReader re = cmd.ExecuteReader();
+
             try
             {
-                workdetial = trviewMeeting.SelectedNode.Parent.Text;
-                workdetial = trviewMeeting.SelectedNode.Text;
+                dt.Load(re);
             }
             catch (Exception)
             {
-
-                workdetial = "";
+                
+                //throw;
             }
-
-            if (!string.IsNullOrEmpty(workdetial))
-            {
-                tsslStatus.Text = workdetial;
-                loadData2ListView(lstviewMeeting, p.WorkType.Meeting , workdetial);
-            }
+            
+            conn.Close();
+            return dt;
         }
 
+        private void btnQuery_Click(object sender, EventArgs e)
+        {
+            loadRawdata2DataGrid();
+        }
+
+
+        private void loadRawdata2DataGrid()
+        {
+            string sql = "";
+            int icount = -1;
+            decimal totaltime = 0;
+            p.WorkType worktype = (p.WorkType)Enum.Parse(typeof(p.WorkType), comboRawDataType.Text);
+            //
+            if (worktype == p.WorkType.Report)
+                sql = "SELECT COUNT(*) FROM t_meetingrawdata";
+            if (worktype == p.WorkType.Meeting)
+                sql = "SELECT COUNT(*) FROM t_reportrawdata";
+            icount = p.queryCount(sql);
+            //
+            if (worktype == p.WorkType.Report)
+                sql = "SELECT SUM(weeklyworktime) FROM t_meetingrawdata";
+            if (worktype == p.WorkType.Meeting)
+                sql = "SELECT SUM(weeklyworktime) FROM t_reportrawdata";
+            totaltime = p.querySum(sql);
+            DataTable dt = queryRawData(worktype);
+            datagridRawData.DataSource = dt;
+            datagridRawData.ReadOnly = true;
+            //AutoSizeColumn(datagridRawData);
+
+            tsslStatus.ForeColor = Color.Blue;
+            tsslStatus.Text = worktype.ToString() + ",there is " + icount + " records in database,total weekly worktime(h):" + totaltime;
+        }
+
+
+        /// <summary>
+        /// 使DataGridView的列自适应宽度
+        /// </summary>
+        /// <param name="dgViewFiles"></param>
+        private void AutoSizeColumn(DataGridView dgViewFiles)
+        {
+            int width = 0;
+            //使列自使用宽度
+            //对于DataGridView的每一个列都调整
+            for (int i = 0; i < dgViewFiles.Columns.Count; i++)
+            {
+                //将每一列都调整为自动适应模式
+                dgViewFiles.AutoResizeColumn(i, DataGridViewAutoSizeColumnMode.AllCells);
+                //记录整个DataGridView的宽度
+                width += dgViewFiles.Columns[i].Width;
+            }
+            //判断调整后的宽度与原来设定的宽度的关系，如果是调整后的宽度大于原来设定的宽度，
+            //则将DataGridView的列自动调整模式设置为显示的列即可，
+            //如果是小于原来设定的宽度，将模式改为填充。
+            if (width > dgViewFiles.Size.Width)
+            {
+                dgViewFiles.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            }
+            else
+            {
+                dgViewFiles.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            }
+            //冻结某列 从左开始 0，1，2
+            dgViewFiles.Columns[1].Frozen = true;
+        }
     }
 }

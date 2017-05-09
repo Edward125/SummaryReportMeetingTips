@@ -173,7 +173,7 @@ callerlevel varchar(10),
 optimizemethod varchar(20),
 weeklysavetime decimal(10,4),
 description varchar(255),
-reviewdate date,
+reviewdate varchar(20),
 reviewer varchar(30))";
             if (!createTable(sql))
                 return false;
@@ -206,7 +206,7 @@ reportmethod varchar(10),
 optimizemethod varchar(20),
 weeklysavetime decimal(10,4),
 description varchar(255),
-reviewdate date,
+reviewdate varchar(20),
 reviewer varchar(30))";
             if (!createTable(sql))
                 return false;
