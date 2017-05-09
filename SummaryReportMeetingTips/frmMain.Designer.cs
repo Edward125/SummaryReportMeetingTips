@@ -28,12 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.tabMain = new System.Windows.Forms.TabControl();
             this.tabRawData = new System.Windows.Forms.TabPage();
+            this.btnImportData = new System.Windows.Forms.Button();
+            this.btnQuery = new System.Windows.Forms.Button();
+            this.comboRawDataType = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.comboSheetList = new System.Windows.Forms.ComboBox();
             this.btnAnalyzeFile = new System.Windows.Forms.Button();
             this.datagridRawData = new System.Windows.Forms.DataGridView();
-            this.btnImportData = new System.Windows.Forms.Button();
             this.txtRawDataFile = new System.Windows.Forms.TextBox();
             this.lblRawData = new System.Windows.Forms.Label();
             this.tabReport = new System.Windows.Forms.TabPage();
@@ -44,9 +48,6 @@
             this.trviewMeeting = new System.Windows.Forms.TreeView();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tsslStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.comboRawDataType = new System.Windows.Forms.ComboBox();
-            this.btnQuery = new System.Windows.Forms.Button();
             this.tabMain.SuspendLayout();
             this.tabRawData.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datagridRawData)).BeginInit();
@@ -86,6 +87,50 @@
             this.tabRawData.Text = "RawData";
             this.tabRawData.UseVisualStyleBackColor = true;
             // 
+            // btnImportData
+            // 
+            this.btnImportData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnImportData.Location = new System.Drawing.Point(913, 11);
+            this.btnImportData.Name = "btnImportData";
+            this.btnImportData.Size = new System.Drawing.Size(86, 23);
+            this.btnImportData.TabIndex = 2;
+            this.btnImportData.Text = "Import Data";
+            this.btnImportData.UseVisualStyleBackColor = true;
+            this.btnImportData.Click += new System.EventHandler(this.btnImportData_Click);
+            // 
+            // btnQuery
+            // 
+            this.btnQuery.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnQuery.Location = new System.Drawing.Point(1123, 11);
+            this.btnQuery.Name = "btnQuery";
+            this.btnQuery.Size = new System.Drawing.Size(116, 23);
+            this.btnQuery.TabIndex = 9;
+            this.btnQuery.Text = "Query Raw Data";
+            this.btnQuery.UseVisualStyleBackColor = true;
+            this.btnQuery.Click += new System.EventHandler(this.btnQuery_Click);
+            // 
+            // comboRawDataType
+            // 
+            this.comboRawDataType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboRawDataType.FormattingEnabled = true;
+            this.comboRawDataType.Items.AddRange(new object[] {
+            "Report",
+            "Meeting"});
+            this.comboRawDataType.Location = new System.Drawing.Point(1023, 12);
+            this.comboRawDataType.Name = "comboRawDataType";
+            this.comboRawDataType.Size = new System.Drawing.Size(94, 22);
+            this.comboRawDataType.TabIndex = 8;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(1003, 13);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(16, 19);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "|";
+            // 
             // comboSheetList
             // 
             this.comboSheetList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -115,17 +160,6 @@
             this.datagridRawData.RowTemplate.Height = 23;
             this.datagridRawData.Size = new System.Drawing.Size(1233, 503);
             this.datagridRawData.TabIndex = 4;
-            // 
-            // btnImportData
-            // 
-            this.btnImportData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnImportData.Location = new System.Drawing.Point(913, 11);
-            this.btnImportData.Name = "btnImportData";
-            this.btnImportData.Size = new System.Drawing.Size(86, 23);
-            this.btnImportData.TabIndex = 2;
-            this.btnImportData.Text = "Import Data";
-            this.btnImportData.UseVisualStyleBackColor = true;
-            this.btnImportData.Click += new System.EventHandler(this.btnImportData_Click);
             // 
             // txtRawDataFile
             // 
@@ -222,39 +256,6 @@
             this.tsslStatus.Name = "tsslStatus";
             this.tsslStatus.Size = new System.Drawing.Size(0, 17);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(1003, 13);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(16, 19);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "|";
-            // 
-            // comboRawDataType
-            // 
-            this.comboRawDataType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboRawDataType.FormattingEnabled = true;
-            this.comboRawDataType.Items.AddRange(new object[] {
-            "Report",
-            "Meeting"});
-            this.comboRawDataType.Location = new System.Drawing.Point(1023, 12);
-            this.comboRawDataType.Name = "comboRawDataType";
-            this.comboRawDataType.Size = new System.Drawing.Size(94, 22);
-            this.comboRawDataType.TabIndex = 8;
-            // 
-            // btnQuery
-            // 
-            this.btnQuery.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnQuery.Location = new System.Drawing.Point(1123, 11);
-            this.btnQuery.Name = "btnQuery";
-            this.btnQuery.Size = new System.Drawing.Size(116, 23);
-            this.btnQuery.TabIndex = 9;
-            this.btnQuery.Text = "Query Raw Data";
-            this.btnQuery.UseVisualStyleBackColor = true;
-            this.btnQuery.Click += new System.EventHandler(this.btnQuery_Click);
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
@@ -263,8 +264,10 @@
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tabMain);
             this.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmMain";
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.tabMain.ResumeLayout(false);
             this.tabRawData.ResumeLayout(false);

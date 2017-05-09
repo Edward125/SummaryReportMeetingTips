@@ -79,6 +79,7 @@ namespace SummaryReportMeetingTips
 
         private void frmMain_Load(object sender, EventArgs e)
         {
+            this.Text = Application.ProductName + "<only for internal use>,ver:" + Application.ProductVersion + ",author:edward_song@yeah.net";
             //
             //窗体放大缩小
             this.Resize += new EventHandler(Form1_Resize);
@@ -1087,6 +1088,15 @@ reviewer) VALUES (@_depcode,
             }
             //冻结某列 从左开始 0，1，2
             dgViewFiles.Columns[1].Frozen = true;
+        }
+
+        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult dr = MessageBox.Show("Are u sure to exit?", "Exit or Not", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dr == DialogResult.Yes)
+                Environment.Exit(0);
+            if (dr == DialogResult.No)
+                e.Cancel = true;
         }
     }
 }
