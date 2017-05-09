@@ -93,8 +93,9 @@ namespace SummaryReportMeetingTips
                 Environment.Exit(0);
             if (!p.InitDataDB())
                 Environment.Exit(0);
-
             tabMain.SelectedIndex = 1;
+            setListview(lstviewMeeting, p.WorkType.Meeting);
+            setListview(lstviewReport, p.WorkType.Report);
         }
 
         private void txtRawDataFile_DoubleClick(object sender, EventArgs e)
@@ -814,11 +815,34 @@ reviewer) VALUES (@_depcode,
                 
               //  throw;
             }
-            
+
         }
 
-    
+        private void setListview(ListView listview, p.WorkType worktype)
+        {
+            listview.MultiSelect = false;
+            listview.AutoArrange = true;
+            listview.GridLines = true;
+            listview.FullRowSelect = true;
+            listview.Columns.Add("ID", 30, HorizontalAlignment.Center);            
+            listview.Columns.Add("Sec.Code", 60, HorizontalAlignment.Center);
+            listview.Columns.Add("OPID", 40, HorizontalAlignment.Center);
+            listview.Columns.Add("Eng.Name", 40, HorizontalAlignment.Center);
+            if (worktype == p.WorkType.Meeting )
+                listview.Columns.Add("Meeting Paren Type", 80, HorizontalAlignment.Center);
+            if (worktype == p.WorkType.Report)
+                listview.Columns.Add("Report Type", 80, HorizontalAlignment.Center);
+            listview.Columns.Add("Work Detail", 80, HorizontalAlignment.Center);
+            listview.Columns.Add("单次工作时间(h)", 120, HorizontalAlignment.Center);
+            listview.Columns.Add("周工作频率(次)", 120, HorizontalAlignment.Center);
+            listview.Columns.Add("周工作时间(h)", 120, HorizontalAlignment.Center);
+            listview.Columns.Add("月工作时间(h)", 120, HorizontalAlignment.Center);
+        }
 
-   
+        private void loadData2ListView(ListView listview, p.WorkType worktype)
+        {
+
+        }
+
     }
 }
