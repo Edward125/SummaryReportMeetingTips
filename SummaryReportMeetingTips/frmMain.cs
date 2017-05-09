@@ -819,8 +819,10 @@ reviewer) VALUES (@_depcode,
 
         private void loadInfo2toolStrip(p.WorkType worktype,ListView listview,TreeView treview)
         {
+            bool _bSelectParentNode = false;
             listview.Items.Clear();
             string workdetail = "";
+            string sql = "";
             try
             {
                 workdetail = treview.SelectedNode.Parent.Text;
@@ -828,36 +830,55 @@ reviewer) VALUES (@_depcode,
             }
             catch (Exception)
             {
-
-                workdetail = "";
+                _bSelectParentNode = true;
+                workdetail = treview.SelectedNode.Text;
             }
 
+            //-------------------------------------
             if (!string.IsNullOrEmpty(workdetail))
             {
-                int icount  = -1;
+                int icount = -1;
                 decimal totaltime = 0;
                 if (worktype == p.WorkType.Report)
                 {
-                    string sql = "SELECT COUNT (workdetail) FROM t_reportrawdata WHERE workdetail = '" + workdetail + "'";
+                    if (_bSelectParentNode)
+                       sql = "SELECT COUNT (reporttype) FROM t_reportrawdata WHERE reporttype = '" + workdetail + "'";
+                    else 
+                        sql = "SELECT COUNT (workdetail) FROM t_reportrawdata WHERE workdetail = '" + workdetail + "'";
                     icount = p.queryCount(sql);
-                    sql = "SELECT SUM (weeklyworktime) FROM t_reportrawdata WHERE workdetail = '" + workdetail + "'";
-                    totaltime  = p.querySum(sql);
-                    loadData2ListView(listview , p.WorkType.Report, workdetail);
+                    if (_bSelectParentNode)
+                        sql = "SELECT SUM (weeklyworktime) FROM t_reportrawdata WHERE reporttype = '" + workdetail + "'";
+                    else 
+                        sql = "SELECT SUM (weeklyworktime) FROM t_reportrawdata WHERE workdetail = '" + workdetail + "'";
+                    totaltime = p.querySum(sql);
+                    loadData2ListView(listview, p.WorkType.Report, workdetail, _bSelectParentNode);
                 }
 
                 if (worktype == p.WorkType.Meeting)
                 {
-                    string sql = "SELECT COUNT (workdetail) FROM t_meetingrawdata WHERE workdetail = '" + workdetail + "'";
-                    icount  = p.queryCount(sql);
-                    sql = "SELECT SUM (weeklyworktime) FROM t_meetingrawdata WHERE workdetail = '" + workdetail + "'";
+                    if (_bSelectParentNode)
+                        sql = "SELECT COUNT (meetingtype) FROM t_meetingrawdata WHERE meetingtype = '" + workdetail + "'";
+                    else 
+                        sql = "SELECT COUNT (workdetail) FROM t_meetingrawdata WHERE workdetail = '" + workdetail + "'";
+                    icount = p.queryCount(sql);
+                    if (_bSelectParentNode )
+                        sql = "SELECT SUM (weeklyworktime) FROM t_meetingrawdata WHERE meetingtype = '" + workdetail + "'";
+                    else 
+                        sql = "SELECT SUM (weeklyworktime) FROM t_meetingrawdata WHERE workdetail = '" + workdetail + "'";
                     totaltime = p.querySum(sql);
-                    loadData2ListView(listview, p.WorkType.Meeting, workdetail);
+                    loadData2ListView(listview, p.WorkType.Meeting, workdetail, _bSelectParentNode);
                 }
 
 
                 tsslStatus.ForeColor = Color.Blue;
                 tsslStatus.Text = workdetail + " | itemscount:" + icount + " | weeklyworktime(h):" + totaltime;
             }
+
+
+
+
+
+      
         }
 
 
@@ -882,15 +903,20 @@ reviewer) VALUES (@_depcode,
             listview.Columns.Add("月工作时间(h)", 80, HorizontalAlignment.Center);
         }
 
-        private void loadData2ListView(ListView listview, p.WorkType worktype,string workdetail)
+        private void loadData2ListView(ListView listview, p.WorkType worktype,string workdetail,bool selectparentnode)
         {
             listview.Items.Clear();
             listview.BeginUpdate();//数据更新，UI暂时挂起，直到EndUpdate绘制控件，可以有效避免闪烁并大大提高加载速度 
             //
             string sql = "";
-            if (worktype == p.WorkType.Meeting)
+            if (worktype == p.WorkType.Meeting && selectparentnode)
+                sql = "SELECT * FROM t_meetingrawdata WHERE meetingtype = '" + workdetail + "' order by seccode ASC";
+            else
                 sql = "SELECT * FROM t_meetingrawdata WHERE workdetail = '" + workdetail + "' order by seccode ASC";
-            if (worktype == p.WorkType .Report)
+
+            if (worktype == p.WorkType .Report && selectparentnode)
+                sql = "SELECT * FROM t_reportrawdata WHERE reporttype = '" + workdetail + "' order by seccode ASC";
+            else
                 sql = "SELECT * FROM t_reportrawdata WHERE workdetail = '" + workdetail + "' order by seccode ASC";
 
             //MessageBox.Show(sql);
@@ -942,11 +968,15 @@ reviewer) VALUES (@_depcode,
             lt.SubItems.Add("");
             lt.SubItems.Add("");
             lt.SubItems.Add("");
-            if (worktype == p.WorkType.Meeting)
-                 sql = "SELECT SUM (weeklyworktime) FROM t_meetingrawdata WHERE workdetail = '" + workdetail + "'";
+            if (worktype == p.WorkType.Meeting && selectparentnode )
+                 sql = "SELECT SUM (weeklyworktime) FROM t_meetingrawdata WHERE meetingtype = '" + workdetail + "'";
+            else
+                sql = "SELECT SUM (weeklyworktime) FROM t_meetingrawdata WHERE workdetail = '" + workdetail + "'";
 
-            if (worktype == p.WorkType.Report)
-                 sql = "SELECT SUM (weeklyworktime) FROM t_reportrawdata WHERE workdetail = '" + workdetail + "'";
+            if (worktype == p.WorkType.Report && selectparentnode )
+                 sql = "SELECT SUM (weeklyworktime) FROM t_reportrawdata WHERE reporttype = '" + workdetail + "'";
+            else
+                sql = "SELECT SUM (weeklyworktime) FROM t_reportrawdata WHERE workdetail = '" + workdetail + "'";
 
             //MessageBox.Show(sql);
 
