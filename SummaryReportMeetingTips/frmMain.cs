@@ -401,8 +401,6 @@ namespace SummaryReportMeetingTips
                 SQLiteTransaction trans = conn.BeginTransaction();
                 cmd.Transaction = trans;
 
-
-
                 try
                 {
                     for (int i = 0; i < ds.Tables[combo.SelectedIndex].Rows.Count; i++)
@@ -623,15 +621,9 @@ reviewer) VALUES (@_depcode,
                             }
                             cmd.Parameters[22].Value = ds.Tables[combo.SelectedIndex].Rows[i]["reviewer"].ToString();
                            // textBox1.Text = i.ToString();
-
-
-                          
-
-
                         }
                         cmd.ExecuteNonQuery();
                          
-                        
                     }
 
                     trans.Commit();
@@ -683,6 +675,96 @@ reviewer) VALUES (@_depcode,
         }
 
 
+        private void loadTreeViewData(TreeView trview, p.WorkType worktype)
+        {
+            trview.Nodes.Clear();
 
+            string sql = "";
+            if (worktype == p.WorkType.Report)
+                sql = "SELECT * FROM t_reportrawdata";
+            if (worktype == p.WorkType.Meeting)
+                sql = "SELECT * FROM t_meetingrawdata";
+
+            //
+            SQLiteConnection conn = new SQLiteConnection(p.dbConnectionString);
+            conn.Open();
+            SQLiteCommand cmd = new SQLiteCommand(sql, conn);
+            SQLiteDataReader re = cmd.ExecuteReader();
+            if (re.HasRows)
+            {
+                while (re.Read())
+                {
+
+                    string _nodename = string.Empty;
+                    string _childnodename = string.Empty;
+
+                    if (worktype == p.WorkType.Meeting)
+                        _nodename = re["meetingtype"].ToString();
+                    if (worktype == p.WorkType.Report)
+                        _nodename = re["reporttype"].ToString();
+                    _childnodename = re["workdetail"].ToString();
+
+                    TreeNode tr = new TreeNode();
+                    tr.Text = _nodename;
+                    if (!nodeIsInTreView(tr, trview))
+                        trview.Nodes.Add(tr);
+
+
+          
+
+                 
+
+                }
+            }
+            conn.Close();
+
+           
+
+
+        }
+
+        private void tabMain_SelectedIndexChanged(object sender, EventArgs e)
+        {
+          
+        }
+
+        private void tabMain_Selected(object sender, TabControlEventArgs e)
+        {
+            if (e.TabPage == tabReport )
+            {
+                loadTreeViewData(trviewReport, p.WorkType.Report );
+                trviewReport.Sort();
+            }
+            if (e.TabPage == tabMeeting )
+            {
+                loadTreeViewData(trviewMeeting, p.WorkType.Meeting);
+                trviewMeeting.Sort();
+            }
+            //trviewReport.Sort();
+            //for (int i = 0; i < trviewReport.Nodes.Count; i++)
+            //{
+            //    MessageBox.Show(trviewReport.Nodes[i].Text);
+
+            //}
+        }
+
+        /// <summary>
+        /// check node is in treeview
+        /// </summary>
+        /// <param name="node">node</param>
+        /// <param name="trview">treeview</param>
+        /// <returns>exist,return true;not exist,return false </returns>
+        private bool nodeIsInTreView(TreeNode node,TreeView trview)
+        {
+            if (trview.Nodes.Count > 0)
+            {
+                for (int i = 0; i < trview.Nodes.Count; i++)
+                {
+                    if (trview.Nodes[i].Text.Trim().ToUpper() == node.Text.Trim().ToUpper())
+                        return true;
+                }
+            }
+            return false;
+        }
     }
 }

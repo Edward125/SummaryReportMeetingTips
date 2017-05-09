@@ -42,10 +42,13 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.trviewReport = new System.Windows.Forms.TreeView();
             this.lstviewReport = new System.Windows.Forms.ListView();
+            this.trviewMeeting = new System.Windows.Forms.TreeView();
+            this.lstviewMeeting = new System.Windows.Forms.ListView();
             this.tabMain.SuspendLayout();
             this.tabRawData.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datagridRawData)).BeginInit();
             this.tabReport.SuspendLayout();
+            this.tabMeeting.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabMain
@@ -58,6 +61,8 @@
             this.tabMain.SelectedIndex = 0;
             this.tabMain.Size = new System.Drawing.Size(1253, 574);
             this.tabMain.TabIndex = 0;
+            this.tabMain.SelectedIndexChanged += new System.EventHandler(this.tabMain_SelectedIndexChanged);
+            this.tabMain.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabMain_Selected);
             // 
             // tabRawData
             // 
@@ -155,6 +160,8 @@
             // 
             // tabMeeting
             // 
+            this.tabMeeting.Controls.Add(this.lstviewMeeting);
+            this.tabMeeting.Controls.Add(this.trviewMeeting);
             this.tabMeeting.Location = new System.Drawing.Point(4, 23);
             this.tabMeeting.Name = "tabMeeting";
             this.tabMeeting.Size = new System.Drawing.Size(1245, 547);
@@ -184,6 +191,23 @@
             this.lstviewReport.Size = new System.Drawing.Size(718, 502);
             this.lstviewReport.TabIndex = 1;
             this.lstviewReport.UseCompatibleStateImageBehavior = false;
+            this.lstviewReport.View = System.Windows.Forms.View.Details;
+            // 
+            // trviewMeeting
+            // 
+            this.trviewMeeting.Location = new System.Drawing.Point(3, 39);
+            this.trviewMeeting.Name = "trviewMeeting";
+            this.trviewMeeting.Size = new System.Drawing.Size(512, 502);
+            this.trviewMeeting.TabIndex = 0;
+            // 
+            // lstviewMeeting
+            // 
+            this.lstviewMeeting.Location = new System.Drawing.Point(521, 39);
+            this.lstviewMeeting.Name = "lstviewMeeting";
+            this.lstviewMeeting.Size = new System.Drawing.Size(718, 502);
+            this.lstviewMeeting.TabIndex = 1;
+            this.lstviewMeeting.UseCompatibleStateImageBehavior = false;
+            this.lstviewMeeting.View = System.Windows.Forms.View.Details;
             // 
             // frmMain
             // 
@@ -201,6 +225,7 @@
             this.tabRawData.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datagridRawData)).EndInit();
             this.tabReport.ResumeLayout(false);
+            this.tabMeeting.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -222,6 +247,8 @@
         private System.Windows.Forms.TabPage tabMeeting;
         private System.Windows.Forms.TreeView trviewReport;
         private System.Windows.Forms.ListView lstviewReport;
+        private System.Windows.Forms.TreeView trviewMeeting;
+        private System.Windows.Forms.ListView lstviewMeeting;
     }
 }
 
