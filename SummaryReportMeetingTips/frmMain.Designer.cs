@@ -162,6 +162,9 @@
             // 
             // lstviewReport
             // 
+            this.lstviewReport.BackColor = System.Drawing.Color.White;
+            this.lstviewReport.CheckBoxes = true;
+            this.lstviewReport.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstviewReport.Location = new System.Drawing.Point(409, 39);
             this.lstviewReport.Name = "lstviewReport";
             this.lstviewReport.Size = new System.Drawing.Size(830, 502);
@@ -190,6 +193,9 @@
             // 
             // lstviewMeeting
             // 
+            this.lstviewMeeting.BackColor = System.Drawing.Color.White;
+            this.lstviewMeeting.CheckBoxes = true;
+            this.lstviewMeeting.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstviewMeeting.Location = new System.Drawing.Point(409, 39);
             this.lstviewMeeting.Name = "lstviewMeeting";
             this.lstviewMeeting.Size = new System.Drawing.Size(830, 502);

@@ -833,7 +833,7 @@ reviewer) VALUES (@_depcode,
             listview.AutoArrange = true;
             listview.GridLines = true;
             listview.FullRowSelect = true;
-            listview.Columns.Add("ID", 30, HorizontalAlignment.Center);            
+            listview.Columns.Add("ID", 60, HorizontalAlignment.Center);            
             listview.Columns.Add("Sec.Code", 60, HorizontalAlignment.Center);
             listview.Columns.Add("OPID", 60, HorizontalAlignment.Center);
             listview.Columns.Add("Eng.Name", 90, HorizontalAlignment.Center);
@@ -865,14 +865,25 @@ reviewer) VALUES (@_depcode,
             conn.Open();
             SQLiteCommand cmd = new SQLiteCommand(sql, conn);
             SQLiteDataReader re = cmd.ExecuteReader();
+            ListViewItem lt = new ListViewItem();
             if (re.HasRows)
             {
                 while (re.Read())
                 {
-
-                    ListViewItem lt = new ListViewItem();
+                    p.SetListItemFont(lt, 9);
                     lt = listview.Items.Add(re["id"].ToString());
+                    p.SetListItemFont(lt, 9);
+                    string _seccode = re["seccode"].ToString();
                     lt.SubItems.Add(re["seccode"].ToString());
+                    if (_seccode.ToUpper() == "KD1210" || _seccode.ToUpper() == "KD1220")
+                        lt.ForeColor = Color.FromArgb(255, 51, 156, 150);
+                    if (_seccode.ToUpper() == "KD1230")
+                        lt.ForeColor = Color.FromArgb(255, 201, 137, 100);
+                       
+
+
+
+
                     lt.SubItems.Add(re["opid"].ToString());
                     lt.SubItems.Add(re["engname"].ToString());
                     //if (worktype == p.WorkType.Report)
@@ -889,6 +900,27 @@ reviewer) VALUES (@_depcode,
 
             }
             conn.Close();
+
+            lt = listview.Items.Add("Total");
+            lt.SubItems.Add("");
+            lt.SubItems.Add("");
+            lt.SubItems.Add("");
+            lt.SubItems.Add("");
+            lt.SubItems.Add("");
+            lt.SubItems.Add("");
+            if (worktype == p.WorkType.Meeting)
+                 sql = "SELECT SUM (weeklywordtime) FROM t_meetingrawdata WHERE workdetail = '" + workdetail + "'";
+
+            if (worktype == p.WorkType.Report)
+                 sql = "SELECT SUM (weeklyworktime) FROM t_reportrawdata WHERE workdetail = '" + workdetail + "'";
+
+            //MessageBox.Show(sql);
+
+            lt.SubItems.Add(p.querySum(sql).ToString());
+            lt.ForeColor = Color.FromArgb(255, 68,140, 211);
+            p.SetListItemFont(lt,9);
+           
+
             listview.EndUpdate();//结束数据处理，UI界面一次性绘制。
             
         }
