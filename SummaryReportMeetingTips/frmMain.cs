@@ -10,6 +10,7 @@ using System.IO;
 using System.Data.OleDb;
 using System.Data.SQLite;
 using System.Diagnostics;
+using System.Collections;
 
 namespace SummaryReportMeetingTips
 {
@@ -93,7 +94,7 @@ namespace SummaryReportMeetingTips
             if (!p.InitDataDB())
                 Environment.Exit(0);
 
-
+            tabMain.SelectedIndex = 1;
         }
 
         private void txtRawDataFile_DoubleClick(object sender, EventArgs e)
@@ -719,11 +720,7 @@ reviewer) VALUES (@_depcode,
                 }
             }
             conn.Close();
-
-           
-
-
-        }
+         }
         
         private void tabMain_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -783,6 +780,12 @@ reviewer) VALUES (@_depcode,
             return -1;
         }
 
+        /// <summary>
+        /// childnode is in the treeview node
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="childnode"></param>
+        /// <returns></returns>
         private bool childnodeIsInTreView(TreeNode node,  string  childnode)
         {
             if (node.Nodes.Count > 0)
@@ -795,5 +798,27 @@ reviewer) VALUES (@_depcode,
             }
             return false;
         }
+
+        private void trviewReport_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+
+
+          //  p.querySum("SELECT sum (weeklyworktime)  FROM t_meetingrawdata  where workdetail = '生产会议'");
+
+            try
+            {
+                tsslStatus.Text = trviewReport.SelectedNode.Text;
+            }
+            catch (Exception)
+            {
+                
+              //  throw;
+            }
+            
+        }
+
+    
+
+   
     }
 }

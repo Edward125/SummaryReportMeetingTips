@@ -38,17 +38,19 @@
             this.txtRawDataFile = new System.Windows.Forms.TextBox();
             this.lblRawData = new System.Windows.Forms.Label();
             this.tabReport = new System.Windows.Forms.TabPage();
-            this.tabMeeting = new System.Windows.Forms.TabPage();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.trviewReport = new System.Windows.Forms.TreeView();
             this.lstviewReport = new System.Windows.Forms.ListView();
-            this.trviewMeeting = new System.Windows.Forms.TreeView();
+            this.trviewReport = new System.Windows.Forms.TreeView();
+            this.tabMeeting = new System.Windows.Forms.TabPage();
             this.lstviewMeeting = new System.Windows.Forms.ListView();
+            this.trviewMeeting = new System.Windows.Forms.TreeView();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.tsslStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabMain.SuspendLayout();
             this.tabRawData.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datagridRawData)).BeginInit();
             this.tabReport.SuspendLayout();
             this.tabMeeting.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabMain
@@ -158,6 +160,23 @@
             this.tabReport.Text = "Report";
             this.tabReport.UseVisualStyleBackColor = true;
             // 
+            // lstviewReport
+            // 
+            this.lstviewReport.Location = new System.Drawing.Point(409, 39);
+            this.lstviewReport.Name = "lstviewReport";
+            this.lstviewReport.Size = new System.Drawing.Size(830, 502);
+            this.lstviewReport.TabIndex = 1;
+            this.lstviewReport.UseCompatibleStateImageBehavior = false;
+            this.lstviewReport.View = System.Windows.Forms.View.Details;
+            // 
+            // trviewReport
+            // 
+            this.trviewReport.Location = new System.Drawing.Point(3, 39);
+            this.trviewReport.Name = "trviewReport";
+            this.trviewReport.Size = new System.Drawing.Size(400, 502);
+            this.trviewReport.TabIndex = 0;
+            this.trviewReport.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.trviewReport_AfterSelect);
+            // 
             // tabMeeting
             // 
             this.tabMeeting.Controls.Add(this.lstviewMeeting);
@@ -169,45 +188,36 @@
             this.tabMeeting.Text = "Meeting";
             this.tabMeeting.UseVisualStyleBackColor = true;
             // 
+            // lstviewMeeting
+            // 
+            this.lstviewMeeting.Location = new System.Drawing.Point(409, 39);
+            this.lstviewMeeting.Name = "lstviewMeeting";
+            this.lstviewMeeting.Size = new System.Drawing.Size(830, 502);
+            this.lstviewMeeting.TabIndex = 1;
+            this.lstviewMeeting.UseCompatibleStateImageBehavior = false;
+            this.lstviewMeeting.View = System.Windows.Forms.View.Details;
+            // 
+            // trviewMeeting
+            // 
+            this.trviewMeeting.Location = new System.Drawing.Point(3, 39);
+            this.trviewMeeting.Name = "trviewMeeting";
+            this.trviewMeeting.Size = new System.Drawing.Size(400, 502);
+            this.trviewMeeting.TabIndex = 0;
+            // 
             // statusStrip1
             // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsslStatus});
             this.statusStrip1.Location = new System.Drawing.Point(0, 589);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1277, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
-            // trviewReport
+            // tsslStatus
             // 
-            this.trviewReport.Location = new System.Drawing.Point(3, 39);
-            this.trviewReport.Name = "trviewReport";
-            this.trviewReport.Size = new System.Drawing.Size(512, 502);
-            this.trviewReport.TabIndex = 0;
-            // 
-            // lstviewReport
-            // 
-            this.lstviewReport.Location = new System.Drawing.Point(521, 39);
-            this.lstviewReport.Name = "lstviewReport";
-            this.lstviewReport.Size = new System.Drawing.Size(718, 502);
-            this.lstviewReport.TabIndex = 1;
-            this.lstviewReport.UseCompatibleStateImageBehavior = false;
-            this.lstviewReport.View = System.Windows.Forms.View.Details;
-            // 
-            // trviewMeeting
-            // 
-            this.trviewMeeting.Location = new System.Drawing.Point(3, 39);
-            this.trviewMeeting.Name = "trviewMeeting";
-            this.trviewMeeting.Size = new System.Drawing.Size(512, 502);
-            this.trviewMeeting.TabIndex = 0;
-            // 
-            // lstviewMeeting
-            // 
-            this.lstviewMeeting.Location = new System.Drawing.Point(521, 39);
-            this.lstviewMeeting.Name = "lstviewMeeting";
-            this.lstviewMeeting.Size = new System.Drawing.Size(718, 502);
-            this.lstviewMeeting.TabIndex = 1;
-            this.lstviewMeeting.UseCompatibleStateImageBehavior = false;
-            this.lstviewMeeting.View = System.Windows.Forms.View.Details;
+            this.tsslStatus.Name = "tsslStatus";
+            this.tsslStatus.Size = new System.Drawing.Size(0, 17);
             // 
             // frmMain
             // 
@@ -226,6 +236,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.datagridRawData)).EndInit();
             this.tabReport.ResumeLayout(false);
             this.tabMeeting.ResumeLayout(false);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -249,6 +261,7 @@
         private System.Windows.Forms.ListView lstviewReport;
         private System.Windows.Forms.TreeView trviewMeeting;
         private System.Windows.Forms.ListView lstviewMeeting;
+        private System.Windows.Forms.ToolStripStatusLabel tsslStatus;
     }
 }
 

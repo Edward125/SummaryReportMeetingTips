@@ -4,6 +4,8 @@ using System.Text;
 using System.IO;
 using System.Windows.Forms;
 using System.Data.SQLite;
+using System.Drawing;
+using System.Text.RegularExpressions;
 
 namespace SummaryReportMeetingTips
 {
@@ -224,6 +226,152 @@ reviewer varchar(30))";
             return true;
         }
 
+        /// <summary>
+        /// calc percentage 
+        /// </summary>
+        /// <param name="member">分子</param>
+        /// <param name="denominator">分母</param>
+        /// <returns></returns>
+        public static string CalcPCT(decimal member, decimal denominator)
+        {
+            try
+            {
+                return string.Format("{0:0.00%}", member / denominator);
+            }
+            catch (Exception)
+            {
 
+                return "0.00%";
+            }
+
+
+
+        }
+
+
+        /// <summary>
+        /// 判断是否为工作日
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static bool IsWorkDay(DateTime dt)
+        {
+            //先从日期表中，查找不是上班时间，如果不是直接返回 false ，如果是，直接返回 true。
+            //如果在日期表中，找不到，则查找定义的日历，依据日历定义的周末时间来定义是否为工作日。
+            //获取日历中不上班的标准周末时间,判断是不是上班时间
+            if (dt.DayOfWeek == DayOfWeek.Sunday || dt.DayOfWeek == DayOfWeek.Saturday)
+                return false;
+            else
+                return true;
+        }
+
+
+
+        /// <summary>
+        /// check the string if it is decimal
+        /// </summary>
+        /// <param name="str">string </param>
+        /// <returns>Hex,return true;not hex,return false</returns>
+        public static bool IsDecimal(string str)
+        {
+            return Regex.IsMatch(str, @"^[0-9,.]*$");
+        }
+
+        /// <summary>
+        /// check the string if it is int
+        /// </summary>
+        /// <param name="str">string </param>
+        /// <returns>Hex,return true;not hex,return false</returns>
+        public static bool IsInt(string str)
+        {
+            return Regex.IsMatch(str, @"^[0-9]*$");
+        }
+
+
+        /// <summary>
+        /// 设置ListItem的字体大小,颜色
+        /// </summary>
+        /// <param name="li">需要设置的那一项</param>
+        /// <param name="fontSize">字体大小,如9</param>
+        public static void SetListItemFont(ListViewItem li, int fontSize)//Color fontColor)
+        {
+            System.Drawing.Font myFont;
+            string strName = "Calibri";
+            FontStyle myFontStyle;
+            int sngSize;
+            sngSize = fontSize;
+            //int intColorR = 255;
+            //int intColorG = 0;
+            //int intColorB = 0;
+            myFontStyle = FontStyle.Bold;
+            Color myColor;
+            myColor = Color.Red;
+            //myColor = fontColo
+
+            FontFamily myFontFamily;
+            myFontFamily = new FontFamily(strName);
+            myFont = new Font(myFontFamily, sngSize, myFontStyle, GraphicsUnit.Point);
+            li.Font = myFont;
+        }
+
+
+        /// <summary>
+        /// 设置ListItem的字体大小,颜色
+        /// </summary>
+        /// <param name="li">需要设置的那一项</param>
+        /// <param name="fontSize">字体大小,如9</param>
+        public static void SetListItemFont(ListViewItem li, int fontSize, Color fontColor)
+        {
+            System.Drawing.Font myFont;
+            string strName = "Calibri";
+            FontStyle myFontStyle;
+            int sngSize;
+            sngSize = fontSize;
+            //int intColorR = 255;
+            //int intColorG = 0;
+            //int intColorB = 0;
+            myFontStyle = FontStyle.Bold;
+            Color myColor;
+            myColor = fontColor;
+            //myColor = fontColo
+
+            FontFamily myFontFamily;
+            myFontFamily = new FontFamily(strName);
+            myFont = new Font(myFontFamily, sngSize, myFontStyle, GraphicsUnit.Point);
+            li.Font = myFont;
+        }
+
+
+        /// <summary>
+        /// 查询记录条数
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+       public static int  queryCount(string sql)
+        {
+
+            SQLiteConnection conn = new SQLiteConnection(dbConnectionString);
+            conn.Open();
+            SQLiteCommand cmd = new SQLiteCommand(sql, conn);
+            var i = cmd.ExecuteScalar();
+            conn.Close();
+            return Convert.ToInt16(i);
+        }
+
+       /// <summary>
+       /// 查询记录条数
+       /// </summary>
+       /// <param name="sql"></param>
+       /// <returns></returns>
+       public static decimal querySum(string sql)
+       {
+
+           SQLiteConnection conn = new SQLiteConnection(dbConnectionString);
+           conn.Open();
+           SQLiteCommand cmd = new SQLiteCommand(sql, conn);
+           var i = cmd.ExecuteScalar();
+           conn.Close();
+           return decimal.Round(Convert.ToDecimal(i), 4);
+       }
     }
 }
