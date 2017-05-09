@@ -681,9 +681,9 @@ reviewer) VALUES (@_depcode,
 
             string sql = "";
             if (worktype == p.WorkType.Report)
-                sql = "SELECT * FROM t_reportrawdata";
+                sql = "SELECT * FROM t_reportrawdata ORDER by reporttype ASC";
             if (worktype == p.WorkType.Meeting)
-                sql = "SELECT * FROM t_meetingrawdata";
+                sql = "SELECT * FROM t_meetingrawdata order by meetingtype ASC";
 
             //
             SQLiteConnection conn = new SQLiteConnection(p.dbConnectionString);
@@ -703,17 +703,19 @@ reviewer) VALUES (@_depcode,
                     if (worktype == p.WorkType.Report)
                         _nodename = re["reporttype"].ToString();
                     _childnodename = re["workdetail"].ToString();
-
-                    TreeNode tr = new TreeNode();
+                    //
+                    TreeNode tr = new TreeNode(_nodename);
                     tr.Text = _nodename;
                     if (!nodeIsInTreView(tr, trview))
                         trview.Nodes.Add(tr);
-
-
-          
-
-                 
-
+                    //
+                    int nodeindex = getNodeIndex(tr, trview) ;
+                    if (nodeindex  != -1)
+                    {
+                        tr = trview.Nodes[nodeindex];
+                        if (!childnodeIsInTreView (tr ,_childnodename))
+                            tr.Nodes.Add(_childnodename);
+                    }
                 }
             }
             conn.Close();
@@ -722,7 +724,7 @@ reviewer) VALUES (@_depcode,
 
 
         }
-
+        
         private void tabMain_SelectedIndexChanged(object sender, EventArgs e)
         {
           
@@ -740,12 +742,7 @@ reviewer) VALUES (@_depcode,
                 loadTreeViewData(trviewMeeting, p.WorkType.Meeting);
                 trviewMeeting.Sort();
             }
-            //trviewReport.Sort();
-            //for (int i = 0; i < trviewReport.Nodes.Count; i++)
-            //{
-            //    MessageBox.Show(trviewReport.Nodes[i].Text);
-
-            //}
+  
         }
 
         /// <summary>
@@ -761,6 +758,38 @@ reviewer) VALUES (@_depcode,
                 for (int i = 0; i < trview.Nodes.Count; i++)
                 {
                     if (trview.Nodes[i].Text.Trim().ToUpper() == node.Text.Trim().ToUpper())
+                        return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// get node in treeview index 
+        /// </summary>
+        /// <param name="node">node</param>
+        /// <param name="trview">treeview</param>
+        /// <returns></returns>
+        private int getNodeIndex(TreeNode node, TreeView trview)
+        {
+             if (trview.Nodes.Count > 0)
+            {
+                for (int i = 0; i < trview.Nodes.Count; i++)
+                {
+                    if (trview.Nodes[i].Text.Trim().ToUpper() == node.Text.Trim().ToUpper())
+                        return i;
+                }
+            }
+            return -1;
+        }
+
+        private bool childnodeIsInTreView(TreeNode node,  string  childnode)
+        {
+            if (node.Nodes.Count > 0)
+            {
+                for (int i = 0; i < node.Nodes.Count; i++)
+                {
+                    if (node.Nodes[i].Text.Trim().ToUpper() == childnode.Trim().ToUpper())
                         return true;
                 }
             }
