@@ -299,26 +299,35 @@ namespace SummaryReportMeetingTips
 
             if (!checkFormat(ds, comboSheetList))
                 return;
+            string sql = "";
+            if (comboSheetList.Text.Trim() == "會議$")                
+                sql = "SELECT COUNT(*) FROM t_meetingrawdata";
+            if (comboSheetList.Text.Trim() == "Report$")
+                sql = "SELECT COUNT(*) FROM t_reportrawdata";
+                           
+            int line = 0;
+            queryCount(sql, out line);
+            if (line > 0)
+            {
+                DialogResult dt = MessageBox.Show("There are " + line + " records in database ,r u sure to append the data?", "Append or Cancel?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (dt == DialogResult.Cancel)
+                    return;
+            }
+
 
             if (comboSheetList.Text.Trim() == "會議$")
             {
-                string sql = "SELECT COUNT(*) FROM t_meetingrawdata";
-                int line = 0;
-                queryCount(sql, out line);
-                if (line > 0)
-                {
-                    DialogResult dt = MessageBox.Show("There are " + line + " records in database ,r u sure to append the data?", "Append or Cancel?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-                    if (dt == DialogResult.Cancel)
-                        return;
-                }
-
                 this.Enabled = false;
                 updateRawData(ds, comboSheetList, p.WorkType.Meeting);
                 this.Enabled = true;
             }
 
-
-
+            if (comboSheetList.Text.Trim() == "Report$")
+            {
+                this.Enabled = false;
+                updateRawData(ds, comboSheetList, p.WorkType.Report);
+                this.Enabled = true;
+            }
         }
 
         private void comboSheetList_SelectedIndexChanged(object sender, EventArgs e)
@@ -398,7 +407,7 @@ namespace SummaryReportMeetingTips
                 {
                     for (int i = 0; i < ds.Tables[combo.SelectedIndex].Rows.Count; i++)
                     {
-
+                        textBox1.Text = ds.Tables[combo.SelectedIndex].Rows.Count.ToString();
                         if (worktype == p.WorkType.Meeting)
                         {
                             cmd.CommandText =
@@ -511,11 +520,11 @@ reviewer) VALUES (@_depcode,
                         if (worktype == p.WorkType.Report)
                         {
                             cmd.CommandText =
-                                @"INSERT INTO t_meetingrawdata (depcode,
+                                @"INSERT INTO t_reportrawdata (depcode,
 seccode,
 opid,
 engname,
-meetingtype,
+reporttype,
 workcontent,
 workdetail,
 worktype,
@@ -526,9 +535,9 @@ singleworktime,
 weeklyworkfreq,
 weeklyworktime,
 monthlyworktime,
-caller,
-callerdep,
-callerlevel,
+reportobject,
+reporttype2,
+reportmethod,
 optimizemethod,
 weeklysavetime,
 description,
@@ -537,7 +546,7 @@ reviewer) VALUES (@_depcode,
 @_seccode,
 @_opid,
 @_engname,
-@_meetingtype,
+@_reporttype,
 @_workcontent,
 @_workdetail,
 @_worktype,
@@ -548,9 +557,9 @@ reviewer) VALUES (@_depcode,
 @_weeklyworkfreq,
 @_weeklyworktime,
 @_monthlyworktime,
-@_caller,
-@_callerdep,
-@_callerlevel,
+@_reportobject,
+@_reporttype2,
+@_reportmethod,
 @_optimizemethod,
 @_weeklysavetime,
 @_description,
@@ -561,7 +570,7 @@ reviewer) VALUES (@_depcode,
                             cmd.Parameters.Add(new SQLiteParameter(@"_seccode", DbType.String));
                             cmd.Parameters.Add(new SQLiteParameter(@"_opid", DbType.String));
                             cmd.Parameters.Add(new SQLiteParameter(@"_engname", DbType.String));
-                            cmd.Parameters.Add(new SQLiteParameter(@"_meetingtype", DbType.String));
+                            cmd.Parameters.Add(new SQLiteParameter(@"_reporttype", DbType.String));
                             cmd.Parameters.Add(new SQLiteParameter(@"_workcontent", DbType.String));
                             cmd.Parameters.Add(new SQLiteParameter(@"_workdetail", DbType.String));
                             cmd.Parameters.Add(new SQLiteParameter(@"_worktype", DbType.String));
@@ -572,9 +581,9 @@ reviewer) VALUES (@_depcode,
                             cmd.Parameters.Add(new SQLiteParameter(@"_weeklyworkfreq", DbType.Decimal));
                             cmd.Parameters.Add(new SQLiteParameter(@"_weeklyworktime", DbType.Decimal));
                             cmd.Parameters.Add(new SQLiteParameter(@"_monthlyworktime", DbType.Decimal));
-                            cmd.Parameters.Add(new SQLiteParameter(@"_caller", DbType.String));
-                            cmd.Parameters.Add(new SQLiteParameter(@"_callerdep", DbType.String));
-                            cmd.Parameters.Add(new SQLiteParameter(@"_callerlevel", DbType.String));
+                            cmd.Parameters.Add(new SQLiteParameter(@"_reportobject", DbType.String));
+                            cmd.Parameters.Add(new SQLiteParameter(@"_reporttype2", DbType.String));
+                            cmd.Parameters.Add(new SQLiteParameter(@"_reportmethod", DbType.String));
                             cmd.Parameters.Add(new SQLiteParameter(@"_optimizemethod", DbType.String));
                             cmd.Parameters.Add(new SQLiteParameter(@"_weeklysavetime", DbType.String));
                             cmd.Parameters.Add(new SQLiteParameter(@"_description", DbType.String));
@@ -585,7 +594,7 @@ reviewer) VALUES (@_depcode,
                             cmd.Parameters[1].Value = ds.Tables[combo.SelectedIndex].Rows[i]["課別代碼"].ToString();
                             cmd.Parameters[2].Value = ds.Tables[combo.SelectedIndex].Rows[i]["工號"].ToString();
                             cmd.Parameters[3].Value = ds.Tables[combo.SelectedIndex].Rows[i]["英文姓名"].ToString();
-                            cmd.Parameters[4].Value = ds.Tables[combo.SelectedIndex].Rows[i]["会议类型"].ToString();
+                            cmd.Parameters[4].Value = ds.Tables[combo.SelectedIndex].Rows[i]["报告类型"].ToString();
                             cmd.Parameters[5].Value = ds.Tables[combo.SelectedIndex].Rows[i]["工作內容"].ToString();
                             cmd.Parameters[6].Value = ds.Tables[combo.SelectedIndex].Rows[i]["工作細目"].ToString();
                             cmd.Parameters[7].Value = ds.Tables[combo.SelectedIndex].Rows[i]["工作分类"].ToString();
@@ -596,9 +605,9 @@ reviewer) VALUES (@_depcode,
                             cmd.Parameters[12].Value = Convert.ToDecimal(ds.Tables[combo.SelectedIndex].Rows[i]["周工作频率（次）"]);
                             cmd.Parameters[13].Value = decimal.Round(Convert.ToDecimal(ds.Tables[combo.SelectedIndex].Rows[i]["周工時(分)"]) / 60, 4);
                             cmd.Parameters[14].Value = decimal.Round(Convert.ToDecimal(ds.Tables[combo.SelectedIndex].Rows[i]["月工时（分）"]) / 60, 4);
-                            cmd.Parameters[15].Value = ds.Tables[combo.SelectedIndex].Rows[i]["召集者"].ToString();
-                            cmd.Parameters[16].Value = ds.Tables[combo.SelectedIndex].Rows[i]["召集者部門"].ToString();
-                            cmd.Parameters[17].Value = ds.Tables[combo.SelectedIndex].Rows[i]["會議要求者級別"].ToString();
+                            cmd.Parameters[15].Value = ds.Tables[combo.SelectedIndex].Rows[i]["報告對象"].ToString();
+                            cmd.Parameters[16].Value = ds.Tables[combo.SelectedIndex].Rows[i]["報表類型"].ToString();
+                            cmd.Parameters[17].Value = ds.Tables[combo.SelectedIndex].Rows[i]["製作方式"].ToString();
                             cmd.Parameters[18].Value = ds.Tables[combo.SelectedIndex].Rows[i]["改善方法"].ToString();
                             cmd.Parameters[19].Value = ds.Tables[combo.SelectedIndex].Rows[i]["節省周工時"].ToString();
                             cmd.Parameters[20].Value = ds.Tables[combo.SelectedIndex].Rows[i]["描述"].ToString();
@@ -612,17 +621,17 @@ reviewer) VALUES (@_depcode,
                             {
                                 cmd.Parameters[21].Value = Convert.ToDateTime(_date).ToString("yyyy-MM-dd");
                             }
-
-
-
                             cmd.Parameters[22].Value = ds.Tables[combo.SelectedIndex].Rows[i]["reviewer"].ToString();
+                           // textBox1.Text = i.ToString();
 
+
+                          
 
 
                         }
-
-
                         cmd.ExecuteNonQuery();
+                         
+                        
                     }
 
                     trans.Commit();
@@ -630,7 +639,7 @@ reviewer) VALUES (@_depcode,
                 catch (Exception ex)
                 {
                     trans.Rollback();
-                    MessageBox.Show(ex.Message, "INSERT FAIL", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    MessageBox.Show(ex.Message  , "INSERT FAIL", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     conn.Close ();
                     return false;
                 }

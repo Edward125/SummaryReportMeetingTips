@@ -30,19 +30,22 @@
         {
             this.tabMain = new System.Windows.Forms.TabControl();
             this.tabRawData = new System.Windows.Forms.TabPage();
+            this.comboSheetList = new System.Windows.Forms.ComboBox();
+            this.btnAnalyzeFile = new System.Windows.Forms.Button();
             this.datagridRawData = new System.Windows.Forms.DataGridView();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.btnImportData = new System.Windows.Forms.Button();
             this.txtRawDataFile = new System.Windows.Forms.TextBox();
             this.lblRawData = new System.Windows.Forms.Label();
             this.tabReport = new System.Windows.Forms.TabPage();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.btnAnalyzeFile = new System.Windows.Forms.Button();
-            this.comboSheetList = new System.Windows.Forms.ComboBox();
             this.tabMeeting = new System.Windows.Forms.TabPage();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.trviewReport = new System.Windows.Forms.TreeView();
+            this.lstviewReport = new System.Windows.Forms.ListView();
             this.tabMain.SuspendLayout();
             this.tabRawData.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datagridRawData)).BeginInit();
+            this.tabReport.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabMain
@@ -72,6 +75,27 @@
             this.tabRawData.TabIndex = 0;
             this.tabRawData.Text = "RawData";
             this.tabRawData.UseVisualStyleBackColor = true;
+            // 
+            // comboSheetList
+            // 
+            this.comboSheetList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboSheetList.FormattingEnabled = true;
+            this.comboSheetList.Location = new System.Drawing.Point(507, 11);
+            this.comboSheetList.Name = "comboSheetList";
+            this.comboSheetList.Size = new System.Drawing.Size(157, 22);
+            this.comboSheetList.TabIndex = 6;
+            this.comboSheetList.SelectedIndexChanged += new System.EventHandler(this.comboSheetList_SelectedIndexChanged);
+            // 
+            // btnAnalyzeFile
+            // 
+            this.btnAnalyzeFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAnalyzeFile.Location = new System.Drawing.Point(415, 10);
+            this.btnAnalyzeFile.Name = "btnAnalyzeFile";
+            this.btnAnalyzeFile.Size = new System.Drawing.Size(86, 23);
+            this.btnAnalyzeFile.TabIndex = 5;
+            this.btnAnalyzeFile.Text = "Analyze File";
+            this.btnAnalyzeFile.UseVisualStyleBackColor = true;
+            this.btnAnalyzeFile.Click += new System.EventHandler(this.btnAnalyzeFile_Click);
             // 
             // datagridRawData
             // 
@@ -119,6 +143,8 @@
             // 
             // tabReport
             // 
+            this.tabReport.Controls.Add(this.lstviewReport);
+            this.tabReport.Controls.Add(this.trviewReport);
             this.tabReport.Location = new System.Drawing.Point(4, 23);
             this.tabReport.Name = "tabReport";
             this.tabReport.Padding = new System.Windows.Forms.Padding(3);
@@ -126,35 +152,6 @@
             this.tabReport.TabIndex = 1;
             this.tabReport.Text = "Report";
             this.tabReport.UseVisualStyleBackColor = true;
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 589);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1277, 22);
-            this.statusStrip1.TabIndex = 1;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // btnAnalyzeFile
-            // 
-            this.btnAnalyzeFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAnalyzeFile.Location = new System.Drawing.Point(415, 10);
-            this.btnAnalyzeFile.Name = "btnAnalyzeFile";
-            this.btnAnalyzeFile.Size = new System.Drawing.Size(86, 23);
-            this.btnAnalyzeFile.TabIndex = 5;
-            this.btnAnalyzeFile.Text = "Analyze File";
-            this.btnAnalyzeFile.UseVisualStyleBackColor = true;
-            this.btnAnalyzeFile.Click += new System.EventHandler(this.btnAnalyzeFile_Click);
-            // 
-            // comboSheetList
-            // 
-            this.comboSheetList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboSheetList.FormattingEnabled = true;
-            this.comboSheetList.Location = new System.Drawing.Point(507, 11);
-            this.comboSheetList.Name = "comboSheetList";
-            this.comboSheetList.Size = new System.Drawing.Size(157, 22);
-            this.comboSheetList.TabIndex = 6;
-            this.comboSheetList.SelectedIndexChanged += new System.EventHandler(this.comboSheetList_SelectedIndexChanged);
             // 
             // tabMeeting
             // 
@@ -164,6 +161,29 @@
             this.tabMeeting.TabIndex = 2;
             this.tabMeeting.Text = "Meeting";
             this.tabMeeting.UseVisualStyleBackColor = true;
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Location = new System.Drawing.Point(0, 589);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1277, 22);
+            this.statusStrip1.TabIndex = 1;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // trviewReport
+            // 
+            this.trviewReport.Location = new System.Drawing.Point(3, 39);
+            this.trviewReport.Name = "trviewReport";
+            this.trviewReport.Size = new System.Drawing.Size(512, 502);
+            this.trviewReport.TabIndex = 0;
+            // 
+            // lstviewReport
+            // 
+            this.lstviewReport.Location = new System.Drawing.Point(521, 39);
+            this.lstviewReport.Name = "lstviewReport";
+            this.lstviewReport.Size = new System.Drawing.Size(718, 502);
+            this.lstviewReport.TabIndex = 1;
+            this.lstviewReport.UseCompatibleStateImageBehavior = false;
             // 
             // frmMain
             // 
@@ -180,6 +200,7 @@
             this.tabRawData.ResumeLayout(false);
             this.tabRawData.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datagridRawData)).EndInit();
+            this.tabReport.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -199,6 +220,8 @@
         private System.Windows.Forms.Button btnAnalyzeFile;
         private System.Windows.Forms.ComboBox comboSheetList;
         private System.Windows.Forms.TabPage tabMeeting;
+        private System.Windows.Forms.TreeView trviewReport;
+        private System.Windows.Forms.ListView lstviewReport;
     }
 }
 
