@@ -1401,6 +1401,91 @@ reviewer) VALUES (@_depcode,
             }
             
         }
+
+        private void btnSaveMeeting_Click(object sender, EventArgs e)
+        {
+            //check can't empty
+            if (string.IsNullOrEmpty(txtMeetingNewTips.Text.Trim()))
+            {
+                MessageBox.Show("Tips qty. can't be empty.", "Number Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtMeetingNewTips.SelectAll();
+                txtMeetingNewTips.Focus();
+                return;
+            }
+            if (string.IsNullOrEmpty(txtMeetingNewTipsSaveTime.Text.Trim()))
+            {
+                MessageBox.Show("Tips Save time can't be empty.", "Number Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtMeetingNewTipsSaveTime.SelectAll();
+                txtMeetingNewTipsSaveTime.Focus();
+                return;
+            }
+
+            //check range
+            decimal totaltime = Convert.ToDecimal(txtMeetingParentTotalTime.Text.Trim());
+            decimal lastsave = Convert.ToDecimal(txtMeetingHaveTipsSaveTime.Text.Trim());
+            decimal newsave = Convert.ToDecimal(txtMeetingNewTipsSaveTime.Text.Trim());
+            if ((lastsave + newsave) > totaltime)
+            {
+                MessageBox.Show("当前改善的时间(" + newsave + ")同已改善的时间(" + lastsave + ")总和已大于当前项目的总时间和(" + totaltime + "),请重新check", "Out Of Range", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtMeetingNewTipsSaveTime.SelectAll();
+                txtMeetingNewTipsSaveTime.Focus();
+                return;
+            }
+            //check datetime
+            if (!string.IsNullOrEmpty(txtMeetingLastUpdateTime.Text.Trim()))
+            {
+                if (checkDatetimeIsNow(txtMeetingLastUpdateTime.Text.Trim(), DateTime.Now.ToString("yyyy-MM-dd")))
+                {
+                    DialogResult dr = MessageBox.Show("当前更新时间等于或者小于上一次更新的时间,确认是否需要更新,更新点YES,不更新点NO", "Qestion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (dr == System.Windows.Forms.DialogResult.No)
+                    {
+                        return;
+                    }
+                }
+            }
+
+            this.Enabled = false;
+            int _tips = Convert.ToInt16(txtMeetingAlreadyHaveTips.Text.Trim()) + Convert.ToInt16(txtMeetingNewTips.Text.Trim());
+            decimal _tipsavetime = Convert.ToDecimal(txtMeetingHaveTipsSaveTime.Text.Trim()) + Convert.ToDecimal(txtMeetingNewTipsSaveTime.Text.Trim());
+
+            string sql = @"REPLACE INTO t_meetingtips (workdetail,meetingtype,tips,tipsavetime,reviewdate) VALUES ('" +
+                grbMeetingChildNode.Text + "','" +
+                grbMeetingParentNode.Text + "','" +
+                _tips + "','" +
+                _tipsavetime + "','" +
+                DateTime.Now.ToString("yyyy-MM-dd") + "')";
+
+            if (p.updateData2DB(sql))
+            {
+                MessageBox.Show("update date into database success...", "Update Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                loadInfo2toolStrip(p.WorkType.Meeting, lstviewMeeting, trviewMeeting);
+            }
+            this.Enabled = true;
+        }
+
+        private void txtMeetingNewTips_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            onlyNumberInput(e);
+        }
+
+        private void txtMeetingNewTipsSaveTime_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            onlyDecimalInput(e);
+        }
+
+        private void txtMeetingNewTipsSaveTime_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                txtMeetingNewTipsOptimizePCT.Text = p.CalcPCT(Convert.ToDecimal(txtMeetingNewTipsSaveTime.Text.Trim()), Convert.ToDecimal(txtMeetingParentTotalTime.Text.Trim()));
+                txtMeetingNewTipsOptimizePCTTotal.Text = p.CalcPCT(Convert.ToDecimal(txtMeetingNewTipsSaveTime.Text.Trim()), Convert.ToDecimal(txtMeetingTotalTime.Text.Trim()));
+            }
+            catch (Exception)
+            {
+
+                //throw;
+            }
+        }
          
 
 

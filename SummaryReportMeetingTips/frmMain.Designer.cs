@@ -727,6 +727,7 @@
             this.btnSaveMeeting.TabIndex = 25;
             this.btnSaveMeeting.Text = "Save";
             this.btnSaveMeeting.UseVisualStyleBackColor = true;
+            this.btnSaveMeeting.Click += new System.EventHandler(this.btnSaveMeeting_Click);
             // 
             // label16
             // 
@@ -771,6 +772,8 @@
             this.txtMeetingNewTipsSaveTime.Size = new System.Drawing.Size(41, 22);
             this.txtMeetingNewTipsSaveTime.TabIndex = 20;
             this.txtMeetingNewTipsSaveTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtMeetingNewTipsSaveTime.TextChanged += new System.EventHandler(this.txtMeetingNewTipsSaveTime_TextChanged);
+            this.txtMeetingNewTipsSaveTime.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtMeetingNewTipsSaveTime_KeyPress);
             // 
             // txtMeetingParentTotalTime
             // 
@@ -807,6 +810,7 @@
             this.txtMeetingNewTips.Size = new System.Drawing.Size(36, 22);
             this.txtMeetingNewTips.TabIndex = 16;
             this.txtMeetingNewTips.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtMeetingNewTips.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtMeetingNewTips_KeyPress);
             // 
             // label20
             // 
