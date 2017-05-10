@@ -503,9 +503,9 @@ reviewer) VALUES (@_depcode,
                             cmd.Parameters[1].Value = ds.Tables[combo.SelectedIndex].Rows[i]["課別代碼"].ToString();
                             cmd.Parameters[2].Value = ds.Tables[combo.SelectedIndex].Rows[i]["工號"].ToString();
                             cmd.Parameters[3].Value = ds.Tables[combo.SelectedIndex].Rows[i]["英文姓名"].ToString();
-                            cmd.Parameters[4].Value = ds.Tables[combo.SelectedIndex].Rows[i]["会议类型"].ToString();
-                            cmd.Parameters[5].Value = ds.Tables[combo.SelectedIndex].Rows[i]["工作內容"].ToString();
-                            cmd.Parameters[6].Value = ds.Tables[combo.SelectedIndex].Rows[i]["工作細目"].ToString();
+                            cmd.Parameters[4].Value = p.replaceString(ds.Tables[combo.SelectedIndex].Rows[i]["会议类型"].ToString());
+                            cmd.Parameters[5].Value = p.replaceString(ds.Tables[combo.SelectedIndex].Rows[i]["工作內容"].ToString());
+                            cmd.Parameters[6].Value = p.replaceString ( ds.Tables[combo.SelectedIndex].Rows[i]["工作細目"].ToString());
                             cmd.Parameters[7].Value = ds.Tables[combo.SelectedIndex].Rows[i]["工作分类"].ToString();
                             cmd.Parameters[8].Value = ds.Tables[combo.SelectedIndex].Rows[i]["是否在岗位说明书"].ToString();
                             cmd.Parameters[9].Value = ds.Tables[combo.SelectedIndex].Rows[i]["本职/非本职"].ToString();
@@ -851,11 +851,23 @@ reviewer) VALUES (@_depcode,
             {
                 workdetail = treview.SelectedNode.Parent.Text;
                 workdetail = treview.SelectedNode.Text;
+                if (worktype == p.WorkType.Report)
+                    grbReportChildNode.Enabled = true;
+                if (worktype == p.WorkType.Meeting)
+                {
+
+                }
             }
             catch (Exception)
             {
                 _bSelectParentNode = true;
                 workdetail = treview.SelectedNode.Text;
+                if (worktype == p.WorkType.Report)
+                    grbReportChildNode.Enabled = false;
+                if (worktype == p.WorkType.Meeting)
+                {
+
+                }
             }
 
             //-------------------------------------
@@ -893,9 +905,25 @@ reviewer) VALUES (@_depcode,
                     loadData2ListView(listview, p.WorkType.Meeting, workdetail, _bSelectParentNode);
                 }
 
-
                 tsslStatus.ForeColor = Color.Blue;
                 tsslStatus.Text = workdetail + " | itemscount:" + icount + " | weeklyworktime(h):" + totaltime;
+                if (_bSelectParentNode) //
+                {
+
+                }
+                else //childnode
+                {
+                    if (worktype == p.WorkType.Report )
+                    {
+                        grbReportChildNode.Text = workdetail;
+                    }
+
+                    if (worktype == p.WorkType.Meeting )
+                    {
+
+                    }
+                }
+
             }
 
 

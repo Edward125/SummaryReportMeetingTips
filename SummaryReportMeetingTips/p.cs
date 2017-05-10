@@ -243,6 +243,21 @@ reviewdate varchar(20))";
         }
 
 
+        public static string replaceString(string str)
+        {
+            if (str.Contains(@"/"))
+                str = str.Replace(@"/", "_");
+            if (str.Contains("\r\n"))
+                str = str.Replace("\r\n", " ");
+            if (str.Contains("\r"))
+                str = str.Replace("\r", " ");
+            if (str.Contains("\n"))
+                str = str.Replace("\n", " ");
+            if (str.Contains("&"))
+                str = str.Replace ("&", " and ");
+            return str;
+        }
+
 
         public static bool createDefaultTable()
         {

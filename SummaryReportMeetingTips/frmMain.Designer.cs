@@ -41,7 +41,7 @@
             this.txtRawDataFile = new System.Windows.Forms.TextBox();
             this.lblRawData = new System.Windows.Forms.Label();
             this.tabReport = new System.Windows.Forms.TabPage();
-            this.grbChildNode = new System.Windows.Forms.GroupBox();
+            this.grbReportChildNode = new System.Windows.Forms.GroupBox();
             this.label11 = new System.Windows.Forms.Label();
             this.txtNewTipsSaveTime = new System.Windows.Forms.TextBox();
             this.txtReportParentTotalTime = new System.Windows.Forms.TextBox();
@@ -81,7 +81,7 @@
             this.tabRawData.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datagridRawData)).BeginInit();
             this.tabReport.SuspendLayout();
-            this.grbChildNode.SuspendLayout();
+            this.grbReportChildNode.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabMeeting.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -211,7 +211,7 @@
             // 
             // tabReport
             // 
-            this.tabReport.Controls.Add(this.grbChildNode);
+            this.tabReport.Controls.Add(this.grbReportChildNode);
             this.tabReport.Controls.Add(this.groupBox1);
             this.tabReport.Controls.Add(this.lstviewReport);
             this.tabReport.Controls.Add(this.trviewReport);
@@ -223,36 +223,36 @@
             this.tabReport.Text = "Report";
             this.tabReport.UseVisualStyleBackColor = true;
             // 
-            // grbChildNode
+            // grbReportChildNode
             // 
-            this.grbChildNode.Controls.Add(this.btnSaveReport);
-            this.grbChildNode.Controls.Add(this.label13);
-            this.grbChildNode.Controls.Add(this.label12);
-            this.grbChildNode.Controls.Add(this.txtLastUpdateTime);
-            this.grbChildNode.Controls.Add(this.label11);
-            this.grbChildNode.Controls.Add(this.txtNewTipsSaveTime);
-            this.grbChildNode.Controls.Add(this.txtReportParentTotalTime);
-            this.grbChildNode.Controls.Add(this.label4);
-            this.grbChildNode.Controls.Add(this.txtNewTipsOptimizePCT);
-            this.grbChildNode.Controls.Add(this.txtNewTips);
-            this.grbChildNode.Controls.Add(this.label10);
-            this.grbChildNode.Controls.Add(this.txtHaveTipsOptimizePCTTotal);
-            this.grbChildNode.Controls.Add(this.label9);
-            this.grbChildNode.Controls.Add(this.txtHaveTipsOptimizePCT);
-            this.grbChildNode.Controls.Add(this.label8);
-            this.grbChildNode.Controls.Add(this.label7);
-            this.grbChildNode.Controls.Add(this.txtNewTipsOptimizePCTTotal);
-            this.grbChildNode.Controls.Add(this.label6);
-            this.grbChildNode.Controls.Add(this.txtHaveTipsSaveTime);
-            this.grbChildNode.Controls.Add(this.txtAlreadyHaveTips);
-            this.grbChildNode.Controls.Add(this.label5);
-            this.grbChildNode.Controls.Add(this.txtReportTotalTime);
-            this.grbChildNode.Controls.Add(this.lblTotalWorkTime);
-            this.grbChildNode.Location = new System.Drawing.Point(475, 5);
-            this.grbChildNode.Name = "grbChildNode";
-            this.grbChildNode.Size = new System.Drawing.Size(801, 71);
-            this.grbChildNode.TabIndex = 3;
-            this.grbChildNode.TabStop = false;
+            this.grbReportChildNode.Controls.Add(this.btnSaveReport);
+            this.grbReportChildNode.Controls.Add(this.label13);
+            this.grbReportChildNode.Controls.Add(this.label12);
+            this.grbReportChildNode.Controls.Add(this.txtLastUpdateTime);
+            this.grbReportChildNode.Controls.Add(this.label11);
+            this.grbReportChildNode.Controls.Add(this.txtNewTipsSaveTime);
+            this.grbReportChildNode.Controls.Add(this.txtReportParentTotalTime);
+            this.grbReportChildNode.Controls.Add(this.label4);
+            this.grbReportChildNode.Controls.Add(this.txtNewTipsOptimizePCT);
+            this.grbReportChildNode.Controls.Add(this.txtNewTips);
+            this.grbReportChildNode.Controls.Add(this.label10);
+            this.grbReportChildNode.Controls.Add(this.txtHaveTipsOptimizePCTTotal);
+            this.grbReportChildNode.Controls.Add(this.label9);
+            this.grbReportChildNode.Controls.Add(this.txtHaveTipsOptimizePCT);
+            this.grbReportChildNode.Controls.Add(this.label8);
+            this.grbReportChildNode.Controls.Add(this.label7);
+            this.grbReportChildNode.Controls.Add(this.txtNewTipsOptimizePCTTotal);
+            this.grbReportChildNode.Controls.Add(this.label6);
+            this.grbReportChildNode.Controls.Add(this.txtHaveTipsSaveTime);
+            this.grbReportChildNode.Controls.Add(this.txtAlreadyHaveTips);
+            this.grbReportChildNode.Controls.Add(this.label5);
+            this.grbReportChildNode.Controls.Add(this.txtReportTotalTime);
+            this.grbReportChildNode.Controls.Add(this.lblTotalWorkTime);
+            this.grbReportChildNode.Location = new System.Drawing.Point(475, 5);
+            this.grbReportChildNode.Name = "grbReportChildNode";
+            this.grbReportChildNode.Size = new System.Drawing.Size(801, 71);
+            this.grbReportChildNode.TabIndex = 3;
+            this.grbReportChildNode.TabStop = false;
             // 
             // label11
             // 
@@ -590,8 +590,8 @@
             this.tabRawData.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datagridRawData)).EndInit();
             this.tabReport.ResumeLayout(false);
-            this.grbChildNode.ResumeLayout(false);
-            this.grbChildNode.PerformLayout();
+            this.grbReportChildNode.ResumeLayout(false);
+            this.grbReportChildNode.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.tabMeeting.ResumeLayout(false);
@@ -623,7 +623,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnQuery;
         private System.Windows.Forms.ComboBox comboRawDataType;
-        private System.Windows.Forms.GroupBox grbChildNode;
+        private System.Windows.Forms.GroupBox grbReportChildNode;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox txtHaveTipsOptimizePCTTotal;
         private System.Windows.Forms.Label label9;
