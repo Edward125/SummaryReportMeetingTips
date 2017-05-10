@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
-            this.tabMain = new System.Windows.Forms.TabControl();
+            this.txtMeetingSummary = new System.Windows.Forms.TabControl();
             this.tabRawData = new System.Windows.Forms.TabPage();
             this.btnImportData = new System.Windows.Forms.Button();
             this.btnQuery = new System.Windows.Forms.Button();
@@ -65,11 +65,11 @@
             this.label5 = new System.Windows.Forms.Label();
             this.txtReportTotalTime = new System.Windows.Forms.TextBox();
             this.lblTotalWorkTime = new System.Windows.Forms.Label();
-            this.grbParentnode = new System.Windows.Forms.GroupBox();
-            this.txtParentType = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.grbReportParentNode = new System.Windows.Forms.GroupBox();
+            this.txtReportParentType = new System.Windows.Forms.TextBox();
             this.txtReportSummary = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.lstviewReport = new System.Windows.Forms.ListView();
             this.trviewReport = new System.Windows.Forms.TreeView();
             this.tabMeeting = new System.Windows.Forms.TabPage();
@@ -77,27 +77,60 @@
             this.trviewMeeting = new System.Windows.Forms.TreeView();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tsslStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tabMain.SuspendLayout();
+            this.btnOutputReports = new System.Windows.Forms.Button();
+            this.grbMeetingParentNode = new System.Windows.Forms.GroupBox();
+            this.txtMeetingParentType = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.grbMeetingChildNode = new System.Windows.Forms.GroupBox();
+            this.btnOutputMeetinig = new System.Windows.Forms.Button();
+            this.btnSaveMeeting = new System.Windows.Forms.Button();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.txtMeetingLastUpdateTime = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.txtMeetingNewTipsSaveTime = new System.Windows.Forms.TextBox();
+            this.txtReportParentTime = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.txtMeetingNewTipsOptimizePCT = new System.Windows.Forms.TextBox();
+            this.txtMeetingNewTips = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.txtMeetingHaveTipsOptimizePCTTotal = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.txtMeetingHaveTipsOptimizePCT = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.txtMeetingNewTipsOptimizePCTTotal = new System.Windows.Forms.TextBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.txtMeetingHaveTipsSaveTime = new System.Windows.Forms.TextBox();
+            this.txtMeetingAlreadyHaveTips = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.txtMeetingTotalTime = new System.Windows.Forms.TextBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.txtMeetingSummary.SuspendLayout();
             this.tabRawData.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datagridRawData)).BeginInit();
             this.tabReport.SuspendLayout();
             this.grbReportChildNode.SuspendLayout();
-            this.grbParentnode.SuspendLayout();
+            this.grbReportParentNode.SuspendLayout();
             this.tabMeeting.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            this.grbMeetingParentNode.SuspendLayout();
+            this.grbMeetingChildNode.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tabMain
+            // txtMeetingSummary
             // 
-            this.tabMain.Controls.Add(this.tabRawData);
-            this.tabMain.Controls.Add(this.tabReport);
-            this.tabMain.Controls.Add(this.tabMeeting);
-            this.tabMain.Location = new System.Drawing.Point(12, 22);
-            this.tabMain.Name = "tabMain";
-            this.tabMain.SelectedIndex = 0;
-            this.tabMain.Size = new System.Drawing.Size(1292, 564);
-            this.tabMain.TabIndex = 0;
-            this.tabMain.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabMain_Selected);
+            this.txtMeetingSummary.Controls.Add(this.tabRawData);
+            this.txtMeetingSummary.Controls.Add(this.tabReport);
+            this.txtMeetingSummary.Controls.Add(this.tabMeeting);
+            this.txtMeetingSummary.Location = new System.Drawing.Point(12, 22);
+            this.txtMeetingSummary.Name = "txtMeetingSummary";
+            this.txtMeetingSummary.SelectedIndex = 0;
+            this.txtMeetingSummary.Size = new System.Drawing.Size(1292, 564);
+            this.txtMeetingSummary.TabIndex = 0;
+            this.txtMeetingSummary.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabMain_Selected);
             // 
             // tabRawData
             // 
@@ -212,7 +245,7 @@
             // tabReport
             // 
             this.tabReport.Controls.Add(this.grbReportChildNode);
-            this.tabReport.Controls.Add(this.grbParentnode);
+            this.tabReport.Controls.Add(this.grbReportParentNode);
             this.tabReport.Controls.Add(this.lstviewReport);
             this.tabReport.Controls.Add(this.trviewReport);
             this.tabReport.Location = new System.Drawing.Point(4, 23);
@@ -225,6 +258,7 @@
             // 
             // grbReportChildNode
             // 
+            this.grbReportChildNode.Controls.Add(this.btnOutputReports);
             this.grbReportChildNode.Controls.Add(this.btnSaveReport);
             this.grbReportChildNode.Controls.Add(this.label13);
             this.grbReportChildNode.Controls.Add(this.label12);
@@ -258,7 +292,7 @@
             // 
             this.btnSaveReport.Location = new System.Drawing.Point(635, 37);
             this.btnSaveReport.Name = "btnSaveReport";
-            this.btnSaveReport.Size = new System.Drawing.Size(156, 29);
+            this.btnSaveReport.Size = new System.Drawing.Size(76, 29);
             this.btnSaveReport.TabIndex = 25;
             this.btnSaveReport.Text = "Save";
             this.btnSaveReport.UseVisualStyleBackColor = true;
@@ -469,36 +503,27 @@
             this.lblTotalWorkTime.TabIndex = 4;
             this.lblTotalWorkTime.Text = "该项总工时(h)";
             // 
-            // grbParentnode
+            // grbReportParentNode
             // 
-            this.grbParentnode.Controls.Add(this.txtParentType);
-            this.grbParentnode.Controls.Add(this.txtReportSummary);
-            this.grbParentnode.Controls.Add(this.label2);
-            this.grbParentnode.Controls.Add(this.label3);
-            this.grbParentnode.Location = new System.Drawing.Point(6, 6);
-            this.grbParentnode.Name = "grbParentnode";
-            this.grbParentnode.Size = new System.Drawing.Size(463, 71);
-            this.grbParentnode.TabIndex = 2;
-            this.grbParentnode.TabStop = false;
-            this.grbParentnode.Text = "Summary";
+            this.grbReportParentNode.Controls.Add(this.txtReportParentType);
+            this.grbReportParentNode.Controls.Add(this.txtReportSummary);
+            this.grbReportParentNode.Controls.Add(this.label2);
+            this.grbReportParentNode.Controls.Add(this.label3);
+            this.grbReportParentNode.Location = new System.Drawing.Point(6, 6);
+            this.grbReportParentNode.Name = "grbReportParentNode";
+            this.grbReportParentNode.Size = new System.Drawing.Size(463, 71);
+            this.grbReportParentNode.TabIndex = 2;
+            this.grbReportParentNode.TabStop = false;
+            this.grbReportParentNode.Text = "Summary";
             // 
-            // txtParentType
+            // txtReportParentType
             // 
-            this.txtParentType.Location = new System.Drawing.Point(67, 41);
-            this.txtParentType.Name = "txtParentType";
-            this.txtParentType.ReadOnly = true;
-            this.txtParentType.Size = new System.Drawing.Size(390, 22);
-            this.txtParentType.TabIndex = 3;
-            this.txtParentType.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(1, 45);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(66, 14);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "ParentType";
+            this.txtReportParentType.Location = new System.Drawing.Point(67, 41);
+            this.txtReportParentType.Name = "txtReportParentType";
+            this.txtReportParentType.ReadOnly = true;
+            this.txtReportParentType.Size = new System.Drawing.Size(390, 22);
+            this.txtReportParentType.TabIndex = 3;
+            this.txtReportParentType.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txtReportSummary
             // 
@@ -518,6 +543,15 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Summary";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(1, 45);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(66, 14);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "ParentType";
+            // 
             // lstviewReport
             // 
             this.lstviewReport.BackColor = System.Drawing.Color.White;
@@ -525,7 +559,7 @@
             this.lstviewReport.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstviewReport.Location = new System.Drawing.Point(409, 82);
             this.lstviewReport.Name = "lstviewReport";
-            this.lstviewReport.Size = new System.Drawing.Size(867, 459);
+            this.lstviewReport.Size = new System.Drawing.Size(869, 452);
             this.lstviewReport.TabIndex = 1;
             this.lstviewReport.UseCompatibleStateImageBehavior = false;
             this.lstviewReport.View = System.Windows.Forms.View.Details;
@@ -534,12 +568,14 @@
             // 
             this.trviewReport.Location = new System.Drawing.Point(3, 83);
             this.trviewReport.Name = "trviewReport";
-            this.trviewReport.Size = new System.Drawing.Size(400, 458);
+            this.trviewReport.Size = new System.Drawing.Size(400, 451);
             this.trviewReport.TabIndex = 0;
             this.trviewReport.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.trviewReport_AfterSelect);
             // 
             // tabMeeting
             // 
+            this.tabMeeting.Controls.Add(this.grbMeetingChildNode);
+            this.tabMeeting.Controls.Add(this.grbMeetingParentNode);
             this.tabMeeting.Controls.Add(this.lstviewMeeting);
             this.tabMeeting.Controls.Add(this.trviewMeeting);
             this.tabMeeting.Location = new System.Drawing.Point(4, 23);
@@ -554,18 +590,18 @@
             this.lstviewMeeting.BackColor = System.Drawing.Color.White;
             this.lstviewMeeting.CheckBoxes = true;
             this.lstviewMeeting.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lstviewMeeting.Location = new System.Drawing.Point(409, 39);
+            this.lstviewMeeting.Location = new System.Drawing.Point(409, 84);
             this.lstviewMeeting.Name = "lstviewMeeting";
-            this.lstviewMeeting.Size = new System.Drawing.Size(872, 502);
+            this.lstviewMeeting.Size = new System.Drawing.Size(875, 450);
             this.lstviewMeeting.TabIndex = 1;
             this.lstviewMeeting.UseCompatibleStateImageBehavior = false;
             this.lstviewMeeting.View = System.Windows.Forms.View.Details;
             // 
             // trviewMeeting
             // 
-            this.trviewMeeting.Location = new System.Drawing.Point(3, 39);
+            this.trviewMeeting.Location = new System.Drawing.Point(3, 83);
             this.trviewMeeting.Name = "trviewMeeting";
-            this.trviewMeeting.Size = new System.Drawing.Size(400, 502);
+            this.trviewMeeting.Size = new System.Drawing.Size(400, 451);
             this.trviewMeeting.TabIndex = 0;
             this.trviewMeeting.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.trviewMeeting_AfterSelect);
             // 
@@ -584,31 +620,345 @@
             this.tsslStatus.Name = "tsslStatus";
             this.tsslStatus.Size = new System.Drawing.Size(0, 17);
             // 
+            // btnOutputReports
+            // 
+            this.btnOutputReports.Location = new System.Drawing.Point(715, 38);
+            this.btnOutputReports.Name = "btnOutputReports";
+            this.btnOutputReports.Size = new System.Drawing.Size(76, 29);
+            this.btnOutputReports.TabIndex = 26;
+            this.btnOutputReports.Text = "Output";
+            this.btnOutputReports.UseVisualStyleBackColor = true;
+            // 
+            // grbMeetingParentNode
+            // 
+            this.grbMeetingParentNode.Controls.Add(this.txtMeetingParentType);
+            this.grbMeetingParentNode.Controls.Add(this.textBox2);
+            this.grbMeetingParentNode.Controls.Add(this.label14);
+            this.grbMeetingParentNode.Controls.Add(this.label15);
+            this.grbMeetingParentNode.Location = new System.Drawing.Point(6, 6);
+            this.grbMeetingParentNode.Name = "grbMeetingParentNode";
+            this.grbMeetingParentNode.Size = new System.Drawing.Size(463, 71);
+            this.grbMeetingParentNode.TabIndex = 3;
+            this.grbMeetingParentNode.TabStop = false;
+            this.grbMeetingParentNode.Text = "Summary";
+            // 
+            // txtMeetingParentType
+            // 
+            this.txtMeetingParentType.Location = new System.Drawing.Point(67, 41);
+            this.txtMeetingParentType.Name = "txtMeetingParentType";
+            this.txtMeetingParentType.ReadOnly = true;
+            this.txtMeetingParentType.Size = new System.Drawing.Size(390, 22);
+            this.txtMeetingParentType.TabIndex = 3;
+            this.txtMeetingParentType.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(67, 14);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(390, 22);
+            this.textBox2.TabIndex = 1;
+            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(5, 18);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(56, 14);
+            this.label14.TabIndex = 0;
+            this.label14.Text = "Summary";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(1, 45);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(66, 14);
+            this.label15.TabIndex = 2;
+            this.label15.Text = "ParentType";
+            // 
+            // grbMeetingChildNode
+            // 
+            this.grbMeetingChildNode.Controls.Add(this.btnOutputMeetinig);
+            this.grbMeetingChildNode.Controls.Add(this.btnSaveMeeting);
+            this.grbMeetingChildNode.Controls.Add(this.label16);
+            this.grbMeetingChildNode.Controls.Add(this.label17);
+            this.grbMeetingChildNode.Controls.Add(this.txtMeetingLastUpdateTime);
+            this.grbMeetingChildNode.Controls.Add(this.label18);
+            this.grbMeetingChildNode.Controls.Add(this.txtMeetingNewTipsSaveTime);
+            this.grbMeetingChildNode.Controls.Add(this.txtReportParentTime);
+            this.grbMeetingChildNode.Controls.Add(this.label19);
+            this.grbMeetingChildNode.Controls.Add(this.txtMeetingNewTipsOptimizePCT);
+            this.grbMeetingChildNode.Controls.Add(this.txtMeetingNewTips);
+            this.grbMeetingChildNode.Controls.Add(this.label20);
+            this.grbMeetingChildNode.Controls.Add(this.txtMeetingHaveTipsOptimizePCTTotal);
+            this.grbMeetingChildNode.Controls.Add(this.label21);
+            this.grbMeetingChildNode.Controls.Add(this.txtMeetingHaveTipsOptimizePCT);
+            this.grbMeetingChildNode.Controls.Add(this.label22);
+            this.grbMeetingChildNode.Controls.Add(this.label23);
+            this.grbMeetingChildNode.Controls.Add(this.txtMeetingNewTipsOptimizePCTTotal);
+            this.grbMeetingChildNode.Controls.Add(this.label24);
+            this.grbMeetingChildNode.Controls.Add(this.txtMeetingHaveTipsSaveTime);
+            this.grbMeetingChildNode.Controls.Add(this.txtMeetingAlreadyHaveTips);
+            this.grbMeetingChildNode.Controls.Add(this.label25);
+            this.grbMeetingChildNode.Controls.Add(this.txtMeetingTotalTime);
+            this.grbMeetingChildNode.Controls.Add(this.label26);
+            this.grbMeetingChildNode.Location = new System.Drawing.Point(472, 5);
+            this.grbMeetingChildNode.Name = "grbMeetingChildNode";
+            this.grbMeetingChildNode.Size = new System.Drawing.Size(801, 71);
+            this.grbMeetingChildNode.TabIndex = 4;
+            this.grbMeetingChildNode.TabStop = false;
+            // 
+            // btnOutputMeetinig
+            // 
+            this.btnOutputMeetinig.Location = new System.Drawing.Point(715, 38);
+            this.btnOutputMeetinig.Name = "btnOutputMeetinig";
+            this.btnOutputMeetinig.Size = new System.Drawing.Size(76, 29);
+            this.btnOutputMeetinig.TabIndex = 26;
+            this.btnOutputMeetinig.Text = "Output";
+            this.btnOutputMeetinig.UseVisualStyleBackColor = true;
+            // 
+            // btnSaveMeeting
+            // 
+            this.btnSaveMeeting.Location = new System.Drawing.Point(635, 37);
+            this.btnSaveMeeting.Name = "btnSaveMeeting";
+            this.btnSaveMeeting.Size = new System.Drawing.Size(76, 29);
+            this.btnSaveMeeting.TabIndex = 25;
+            this.btnSaveMeeting.Text = "Save";
+            this.btnSaveMeeting.UseVisualStyleBackColor = true;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(404, 44);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(43, 14);
+            this.label16.TabIndex = 24;
+            this.label16.Text = "改善比";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(504, 43);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(79, 14);
+            this.label17.TabIndex = 23;
+            this.label17.Text = "改善总工时比";
+            // 
+            // txtMeetingLastUpdateTime
+            // 
+            this.txtMeetingLastUpdateTime.Location = new System.Drawing.Point(713, 11);
+            this.txtMeetingLastUpdateTime.Name = "txtMeetingLastUpdateTime";
+            this.txtMeetingLastUpdateTime.ReadOnly = true;
+            this.txtMeetingLastUpdateTime.Size = new System.Drawing.Size(78, 22);
+            this.txtMeetingLastUpdateTime.TabIndex = 22;
+            this.txtMeetingLastUpdateTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(261, 46);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(97, 14);
+            this.label18.TabIndex = 21;
+            this.label18.Text = "TipsSaveTime(h)";
+            // 
+            // txtMeetingNewTipsSaveTime
+            // 
+            this.txtMeetingNewTipsSaveTime.Location = new System.Drawing.Point(358, 41);
+            this.txtMeetingNewTipsSaveTime.Name = "txtMeetingNewTipsSaveTime";
+            this.txtMeetingNewTipsSaveTime.Size = new System.Drawing.Size(41, 22);
+            this.txtMeetingNewTipsSaveTime.TabIndex = 20;
+            this.txtMeetingNewTipsSaveTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // txtReportParentTime
+            // 
+            this.txtReportParentTime.Location = new System.Drawing.Point(95, 42);
+            this.txtReportParentTime.Name = "txtReportParentTime";
+            this.txtReportParentTime.ReadOnly = true;
+            this.txtReportParentTime.Size = new System.Drawing.Size(64, 22);
+            this.txtReportParentTime.TabIndex = 19;
+            this.txtReportParentTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(0, 18);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(94, 14);
+            this.label19.TabIndex = 18;
+            this.label19.Text = "Report总工时(h)";
+            // 
+            // txtMeetingNewTipsOptimizePCT
+            // 
+            this.txtMeetingNewTipsOptimizePCT.Location = new System.Drawing.Point(447, 40);
+            this.txtMeetingNewTipsOptimizePCT.Name = "txtMeetingNewTipsOptimizePCT";
+            this.txtMeetingNewTipsOptimizePCT.ReadOnly = true;
+            this.txtMeetingNewTipsOptimizePCT.Size = new System.Drawing.Size(55, 22);
+            this.txtMeetingNewTipsOptimizePCT.TabIndex = 17;
+            this.txtMeetingNewTipsOptimizePCT.Text = "0";
+            this.txtMeetingNewTipsOptimizePCT.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // txtMeetingNewTips
+            // 
+            this.txtMeetingNewTips.Location = new System.Drawing.Point(218, 45);
+            this.txtMeetingNewTips.Name = "txtMeetingNewTips";
+            this.txtMeetingNewTips.Size = new System.Drawing.Size(36, 22);
+            this.txtMeetingNewTips.TabIndex = 16;
+            this.txtMeetingNewTips.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(164, 46);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(54, 14);
+            this.label20.TabIndex = 15;
+            this.label20.Text = "新增Tips";
+            // 
+            // txtMeetingHaveTipsOptimizePCTTotal
+            // 
+            this.txtMeetingHaveTipsOptimizePCTTotal.Location = new System.Drawing.Point(583, 12);
+            this.txtMeetingHaveTipsOptimizePCTTotal.Name = "txtMeetingHaveTipsOptimizePCTTotal";
+            this.txtMeetingHaveTipsOptimizePCTTotal.ReadOnly = true;
+            this.txtMeetingHaveTipsOptimizePCTTotal.Size = new System.Drawing.Size(41, 22);
+            this.txtMeetingHaveTipsOptimizePCTTotal.TabIndex = 14;
+            this.txtMeetingHaveTipsOptimizePCTTotal.Text = "0";
+            this.txtMeetingHaveTipsOptimizePCTTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(504, 15);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(79, 14);
+            this.label21.TabIndex = 13;
+            this.label21.Text = "改善总工时比";
+            // 
+            // txtMeetingHaveTipsOptimizePCT
+            // 
+            this.txtMeetingHaveTipsOptimizePCT.Location = new System.Drawing.Point(447, 14);
+            this.txtMeetingHaveTipsOptimizePCT.Name = "txtMeetingHaveTipsOptimizePCT";
+            this.txtMeetingHaveTipsOptimizePCT.ReadOnly = true;
+            this.txtMeetingHaveTipsOptimizePCT.Size = new System.Drawing.Size(54, 22);
+            this.txtMeetingHaveTipsOptimizePCT.TabIndex = 12;
+            this.txtMeetingHaveTipsOptimizePCT.Text = "0";
+            this.txtMeetingHaveTipsOptimizePCT.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(405, 17);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(43, 14);
+            this.label22.TabIndex = 11;
+            this.label22.Text = "改善比";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(632, 14);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(79, 14);
+            this.label23.TabIndex = 10;
+            this.label23.Text = "上次更新时间";
+            // 
+            // txtMeetingNewTipsOptimizePCTTotal
+            // 
+            this.txtMeetingNewTipsOptimizePCTTotal.Location = new System.Drawing.Point(583, 40);
+            this.txtMeetingNewTipsOptimizePCTTotal.Name = "txtMeetingNewTipsOptimizePCTTotal";
+            this.txtMeetingNewTipsOptimizePCTTotal.ReadOnly = true;
+            this.txtMeetingNewTipsOptimizePCTTotal.Size = new System.Drawing.Size(41, 22);
+            this.txtMeetingNewTipsOptimizePCTTotal.TabIndex = 9;
+            this.txtMeetingNewTipsOptimizePCTTotal.Text = "0";
+            this.txtMeetingNewTipsOptimizePCTTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(260, 18);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(97, 14);
+            this.label24.TabIndex = 8;
+            this.label24.Text = "TipsSaveTime(h)";
+            // 
+            // txtMeetingHaveTipsSaveTime
+            // 
+            this.txtMeetingHaveTipsSaveTime.Location = new System.Drawing.Point(357, 14);
+            this.txtMeetingHaveTipsSaveTime.Name = "txtMeetingHaveTipsSaveTime";
+            this.txtMeetingHaveTipsSaveTime.ReadOnly = true;
+            this.txtMeetingHaveTipsSaveTime.Size = new System.Drawing.Size(41, 22);
+            this.txtMeetingHaveTipsSaveTime.TabIndex = 7;
+            this.txtMeetingHaveTipsSaveTime.Text = "0";
+            this.txtMeetingHaveTipsSaveTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // txtMeetingAlreadyHaveTips
+            // 
+            this.txtMeetingAlreadyHaveTips.Location = new System.Drawing.Point(218, 14);
+            this.txtMeetingAlreadyHaveTips.Name = "txtMeetingAlreadyHaveTips";
+            this.txtMeetingAlreadyHaveTips.ReadOnly = true;
+            this.txtMeetingAlreadyHaveTips.Size = new System.Drawing.Size(36, 22);
+            this.txtMeetingAlreadyHaveTips.TabIndex = 6;
+            this.txtMeetingAlreadyHaveTips.Text = "0";
+            this.txtMeetingAlreadyHaveTips.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(163, 17);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(54, 14);
+            this.label25.TabIndex = 5;
+            this.label25.Text = "已有Tips";
+            // 
+            // txtMeetingTotalTime
+            // 
+            this.txtMeetingTotalTime.Location = new System.Drawing.Point(95, 16);
+            this.txtMeetingTotalTime.Name = "txtMeetingTotalTime";
+            this.txtMeetingTotalTime.ReadOnly = true;
+            this.txtMeetingTotalTime.Size = new System.Drawing.Size(64, 22);
+            this.txtMeetingTotalTime.TabIndex = 4;
+            this.txtMeetingTotalTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(3, 47);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(82, 14);
+            this.label26.TabIndex = 4;
+            this.label26.Text = "该项总工时(h)";
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1317, 611);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.tabMain);
+            this.Controls.Add(this.txtMeetingSummary);
             this.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmMain";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.Load += new System.EventHandler(this.frmMain_Load);
-            this.tabMain.ResumeLayout(false);
+            this.txtMeetingSummary.ResumeLayout(false);
             this.tabRawData.ResumeLayout(false);
             this.tabRawData.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datagridRawData)).EndInit();
             this.tabReport.ResumeLayout(false);
             this.grbReportChildNode.ResumeLayout(false);
             this.grbReportChildNode.PerformLayout();
-            this.grbParentnode.ResumeLayout(false);
-            this.grbParentnode.PerformLayout();
+            this.grbReportParentNode.ResumeLayout(false);
+            this.grbReportParentNode.PerformLayout();
             this.tabMeeting.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.grbMeetingParentNode.ResumeLayout(false);
+            this.grbMeetingParentNode.PerformLayout();
+            this.grbMeetingChildNode.ResumeLayout(false);
+            this.grbMeetingChildNode.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -616,7 +966,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TabControl tabMain;
+        private System.Windows.Forms.TabControl txtMeetingSummary;
         private System.Windows.Forms.TabPage tabRawData;
         private System.Windows.Forms.TabPage tabReport;
         private System.Windows.Forms.Label lblRawData;
@@ -636,7 +986,7 @@
         private System.Windows.Forms.Button btnQuery;
         private System.Windows.Forms.ComboBox comboRawDataType;
         private System.Windows.Forms.GroupBox grbReportChildNode;
-        private System.Windows.Forms.GroupBox grbParentnode;
+        private System.Windows.Forms.GroupBox grbReportParentNode;
         private System.Windows.Forms.TextBox txtReportHaveTipsOptimizePCTTotal;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txtReportHaveTipsOptimizePCT;
@@ -649,7 +999,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtReportTotalTime;
         private System.Windows.Forms.Label lblTotalWorkTime;
-        private System.Windows.Forms.TextBox txtParentType;
+        private System.Windows.Forms.TextBox txtReportParentType;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtReportSummary;
         private System.Windows.Forms.Label label2;
@@ -664,6 +1014,37 @@
         private System.Windows.Forms.TextBox txtReportLastUpdateTime;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Button btnSaveReport;
+        private System.Windows.Forms.Button btnOutputReports;
+        private System.Windows.Forms.GroupBox grbMeetingChildNode;
+        private System.Windows.Forms.Button btnOutputMeetinig;
+        private System.Windows.Forms.Button btnSaveMeeting;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TextBox txtMeetingLastUpdateTime;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TextBox txtMeetingNewTipsSaveTime;
+        private System.Windows.Forms.TextBox txtReportParentTime;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TextBox txtMeetingNewTipsOptimizePCT;
+        private System.Windows.Forms.TextBox txtMeetingNewTips;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox txtMeetingHaveTipsOptimizePCTTotal;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.TextBox txtMeetingHaveTipsOptimizePCT;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.TextBox txtMeetingNewTipsOptimizePCTTotal;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.TextBox txtMeetingHaveTipsSaveTime;
+        private System.Windows.Forms.TextBox txtMeetingAlreadyHaveTips;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.TextBox txtMeetingTotalTime;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.GroupBox grbMeetingParentNode;
+        private System.Windows.Forms.TextBox txtMeetingParentType;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label15;
     }
 }
 

@@ -94,7 +94,7 @@ namespace SummaryReportMeetingTips
                 Environment.Exit(0);
             if (!p.InitDataDB())
                 Environment.Exit(0);
-            tabMain.SelectedIndex = 1;
+            txtMeetingSummary.SelectedIndex = 1;
             setListview(lstviewMeeting, p.WorkType.Meeting);
             setListview(lstviewReport, p.WorkType.Report);
             //
@@ -880,7 +880,7 @@ reviewer) VALUES (@_depcode,
                 if (worktype == p.WorkType.Report)
                 {
                     grbReportChildNode.Enabled = false;
-                    grbParentnode.Text = workdetail;
+                    grbReportParentNode.Text = workdetail;
                 }
                 if (worktype == p.WorkType.Meeting)
                 {
@@ -943,7 +943,7 @@ reviewer) VALUES (@_depcode,
                         txtReportSummary.Text = "Items:" + p.queryCount("SELECT COUNT(*) FROM t_reportrawdata") + ",TotalTime(h):" + totalworktime + ",Tips:" + p.querySum("SELECT COUNT(tips) FROM t_reporttips") + ",SaveTime(h):" +
                            _savetime + ",PCT(%):" + p.CalcPCT(_savetime, totalworktime);
                         _savetime = p.querySum("SELECT SUM(tipsavetime) FROM t_reporttips WHERE reporttype = '" + workdetail +"'");
-                        txtParentType.Text = "Items:" + p.queryCount("SELECT COUNT(*) FROM t_reportrawdata WHERE reporttype =  '" + workdetail +"'") + ",TotalTime(h):" + totaltime + ",Tips:" + p.querySum("SELECT COUNT(tips) FROM t_reporttips WHERE reporttype = '" + workdetail +"'") + ",SaveTime(h):" +
+                        txtReportParentType.Text = "Items:" + p.queryCount("SELECT COUNT(*) FROM t_reportrawdata WHERE reporttype =  '" + workdetail +"'") + ",TotalTime(h):" + totaltime + ",Tips:" + p.querySum("SELECT COUNT(tips) FROM t_reporttips WHERE reporttype = '" + workdetail +"'") + ",SaveTime(h):" +
                            _savetime + ",PCT(%):" + p.CalcPCT(_savetime, totaltime);
 
 
@@ -1268,7 +1268,7 @@ reviewer) VALUES (@_depcode,
 
             string sql = @"REPLACE INTO t_reporttips (workdetail,reporttype,tips,tipsavetime,reviewdate) VALUES ('" +
                 grbReportChildNode.Text + "','" +
-                grbParentnode.Text + "','" +
+                grbReportParentNode.Text + "','" +
                 _tips + "','" +
                 _tipsavetime  + "','" +
                 DateTime.Now.ToString("yyyy-MM-dd") + "')";
