@@ -421,15 +421,15 @@ reviewdate varchar(20))";
            SQLiteCommand cmd = new SQLiteCommand(sql, conn);
            var i = cmd.ExecuteScalar();
            conn.Close();
-           //try
-           //{
+           try
+           {
                return decimal.Round(Convert.ToDecimal(i), 4);
-           //}
-           //catch (Exception)
-           //{
+           }
+           catch (Exception)
+           {
 
-           //    return 0;
-           //}
+               return 0;
+           }
           
        }
     }

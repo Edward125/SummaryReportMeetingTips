@@ -874,7 +874,8 @@ reviewer) VALUES (@_depcode,
             if (!string.IsNullOrEmpty(workdetail))
             {
                 int icount = -1;
-                decimal totaltime = 0;
+                decimal totaltime = 0;//父项或者子项
+                decimal totalworktime = 0;// 整张table
                 if (worktype == p.WorkType.Report)
                 {
                     if (_bSelectParentNode)
@@ -886,8 +887,14 @@ reviewer) VALUES (@_depcode,
                         sql = "SELECT SUM (weeklyworktime) FROM t_reportrawdata WHERE reporttype = '" + workdetail + "'";
                     else 
                         sql = "SELECT SUM (weeklyworktime) FROM t_reportrawdata WHERE workdetail = '" + workdetail + "'";
-                    totaltime = p.querySum(sql);
+                    totaltime = p.querySum(sql);//
                     loadData2ListView(listview, p.WorkType.Report, workdetail, _bSelectParentNode);
+                    if (string.IsNullOrEmpty(txtReportTotalTime.Text.Trim()))
+                    {
+                        sql = "SELECT SUM (weeklyworktime) FROM t_reportrawdata";
+                        totalworktime =  p.querySum(sql);
+                        txtReportTotalTime.Text = totalworktime.ToString();
+                    }
                 }
 
                 if (worktype == p.WorkType.Meeting)
@@ -907,15 +914,39 @@ reviewer) VALUES (@_depcode,
 
                 tsslStatus.ForeColor = Color.Blue;
                 tsslStatus.Text = workdetail + " | itemscount:" + icount + " | weeklyworktime(h):" + totaltime;
+
+                //---------------------------
+                
+
+
                 if (_bSelectParentNode) //
                 {
+                    if (worktype == p.WorkType.Report)
+                    {
+                        grbReportChildNode.Text = workdetail;
+                        txtReportParentTotalTime.Text = totaltime.ToString();
+                        //tips count 
+                        sql = "SELECT SUM(tips) FROM t_reporttips where reporttype = '" + workdetail + "'";
+                        txtAlreadyHaveTips.Text = p.querySum(sql).ToString();
+                        //tips save time
+                        sql = "SELECT SUM(tipsavetime) FROM t_reporttips where reporttype = '" + workdetail + "'";
+                        txtHaveTipsSaveTime.Text = p.querySum(sql).ToString();
+                        txtHaveTipsOptimizePCT.Text = p.CalcPCT(Convert.ToDecimal(txtHaveTipsSaveTime.Text.Trim()), totaltime);
+                        txtHaveTipsOptimizePCTTotal.Text = p.CalcPCT(Convert.ToDecimal(txtHaveTipsSaveTime.Text.Trim()), totalworktime);
 
+                    }
+
+                    if (worktype == p.WorkType.Meeting)
+                    {
+
+                    }
                 }
                 else //childnode
                 {
                     if (worktype == p.WorkType.Report )
                     {
                         grbReportChildNode.Text = workdetail;
+                        txtReportParentTotalTime.Text = totaltime.ToString();
                     }
 
                     if (worktype == p.WorkType.Meeting )
@@ -1158,7 +1189,59 @@ reviewer) VALUES (@_depcode,
             if (dr == DialogResult.No)
                 e.Cancel = true;
         }
- 
+
+        private void btnSaveReport_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtNewTips.Text.Trim()))
+            {
+                MessageBox.Show("Tips qty. can't be empty.", "Number Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtNewTips.SelectAll();
+                txtNewTips.Focus();
+                return;
+            }
+            if (string.IsNullOrEmpty( txtNewTipsSaveTime .Text .Trim ()))
+            {
+                MessageBox.Show("Tips Save time can't be empty.", "Number Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtNewTipsSaveTime.SelectAll();
+                txtNewTipsSaveTime.Focus();
+                return;
+            }
+
+
+        }
+
+        private void txtNewTips_TextChanged(object sender, EventArgs e)
+        {
+         
+        }
+
+        private void txtNewTips_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            onlyNumberInput(e);
+        }
+
+
+        private void onlyNumberInput(KeyPressEventArgs e)
+        {
+            if (!(char.IsNumber(e.KeyChar)) && e.KeyChar != (char)8)
+                e.Handled = true;
+            else
+                e.Handled = false;
+        }
+
+        private void onlyDecimalInput(KeyPressEventArgs e)
+        {
+            if (!(char.IsNumber(e.KeyChar)) && e.KeyChar != (char)8 && e.KeyChar !=(char)46)
+                e.Handled = true;
+            else
+                e.Handled = false;
+        }
+
+        private void txtNewTipsSaveTime_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            onlyDecimalInput(e);
+        }
+
 
     }
 }

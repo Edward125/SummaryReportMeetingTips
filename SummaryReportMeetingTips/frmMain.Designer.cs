@@ -42,6 +42,10 @@
             this.lblRawData = new System.Windows.Forms.Label();
             this.tabReport = new System.Windows.Forms.TabPage();
             this.grbReportChildNode = new System.Windows.Forms.GroupBox();
+            this.btnSaveReport = new System.Windows.Forms.Button();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.txtLastUpdateTime = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.txtNewTipsSaveTime = new System.Windows.Forms.TextBox();
             this.txtReportParentTotalTime = new System.Windows.Forms.TextBox();
@@ -73,10 +77,6 @@
             this.trviewMeeting = new System.Windows.Forms.TreeView();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tsslStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.txtLastUpdateTime = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.btnSaveReport = new System.Windows.Forms.Button();
             this.tabMain.SuspendLayout();
             this.tabRawData.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datagridRawData)).BeginInit();
@@ -254,6 +254,43 @@
             this.grbReportChildNode.TabIndex = 3;
             this.grbReportChildNode.TabStop = false;
             // 
+            // btnSaveReport
+            // 
+            this.btnSaveReport.Location = new System.Drawing.Point(635, 37);
+            this.btnSaveReport.Name = "btnSaveReport";
+            this.btnSaveReport.Size = new System.Drawing.Size(156, 29);
+            this.btnSaveReport.TabIndex = 25;
+            this.btnSaveReport.Text = "Save";
+            this.btnSaveReport.UseVisualStyleBackColor = true;
+            this.btnSaveReport.Click += new System.EventHandler(this.btnSaveReport_Click);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(418, 44);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(43, 14);
+            this.label13.TabIndex = 24;
+            this.label13.Text = "改善比";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(504, 43);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(79, 14);
+            this.label12.TabIndex = 23;
+            this.label12.Text = "改善总工时比";
+            // 
+            // txtLastUpdateTime
+            // 
+            this.txtLastUpdateTime.Location = new System.Drawing.Point(713, 11);
+            this.txtLastUpdateTime.Name = "txtLastUpdateTime";
+            this.txtLastUpdateTime.ReadOnly = true;
+            this.txtLastUpdateTime.Size = new System.Drawing.Size(78, 22);
+            this.txtLastUpdateTime.TabIndex = 22;
+            this.txtLastUpdateTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // label11
             // 
             this.label11.AutoSize = true;
@@ -269,6 +306,7 @@
             this.txtNewTipsSaveTime.Name = "txtNewTipsSaveTime";
             this.txtNewTipsSaveTime.Size = new System.Drawing.Size(41, 22);
             this.txtNewTipsSaveTime.TabIndex = 20;
+            this.txtNewTipsSaveTime.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNewTipsSaveTime_KeyPress);
             // 
             // txtReportParentTotalTime
             // 
@@ -295,6 +333,7 @@
             this.txtNewTipsOptimizePCT.ReadOnly = true;
             this.txtNewTipsOptimizePCT.Size = new System.Drawing.Size(40, 22);
             this.txtNewTipsOptimizePCT.TabIndex = 17;
+            this.txtNewTipsOptimizePCT.Text = "0";
             this.txtNewTipsOptimizePCT.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txtNewTips
@@ -303,6 +342,8 @@
             this.txtNewTips.Name = "txtNewTips";
             this.txtNewTips.Size = new System.Drawing.Size(50, 22);
             this.txtNewTips.TabIndex = 16;
+            this.txtNewTips.TextChanged += new System.EventHandler(this.txtNewTips_TextChanged);
+            this.txtNewTips.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNewTips_KeyPress);
             // 
             // label10
             // 
@@ -320,6 +361,7 @@
             this.txtHaveTipsOptimizePCTTotal.ReadOnly = true;
             this.txtHaveTipsOptimizePCTTotal.Size = new System.Drawing.Size(41, 22);
             this.txtHaveTipsOptimizePCTTotal.TabIndex = 14;
+            this.txtHaveTipsOptimizePCTTotal.Text = "0";
             this.txtHaveTipsOptimizePCTTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label9
@@ -338,6 +380,7 @@
             this.txtHaveTipsOptimizePCT.ReadOnly = true;
             this.txtHaveTipsOptimizePCT.Size = new System.Drawing.Size(41, 22);
             this.txtHaveTipsOptimizePCT.TabIndex = 12;
+            this.txtHaveTipsOptimizePCT.Text = "0";
             this.txtHaveTipsOptimizePCT.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label8
@@ -365,6 +408,7 @@
             this.txtNewTipsOptimizePCTTotal.ReadOnly = true;
             this.txtNewTipsOptimizePCTTotal.Size = new System.Drawing.Size(41, 22);
             this.txtNewTipsOptimizePCTTotal.TabIndex = 9;
+            this.txtNewTipsOptimizePCTTotal.Text = "0";
             this.txtNewTipsOptimizePCTTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label6
@@ -383,6 +427,7 @@
             this.txtHaveTipsSaveTime.ReadOnly = true;
             this.txtHaveTipsSaveTime.Size = new System.Drawing.Size(41, 22);
             this.txtHaveTipsSaveTime.TabIndex = 7;
+            this.txtHaveTipsSaveTime.Text = "0";
             this.txtHaveTipsSaveTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txtAlreadyHaveTips
@@ -392,6 +437,7 @@
             this.txtAlreadyHaveTips.ReadOnly = true;
             this.txtAlreadyHaveTips.Size = new System.Drawing.Size(50, 22);
             this.txtAlreadyHaveTips.TabIndex = 6;
+            this.txtAlreadyHaveTips.Text = "0";
             this.txtAlreadyHaveTips.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label5
@@ -535,42 +581,6 @@
             // 
             this.tsslStatus.Name = "tsslStatus";
             this.tsslStatus.Size = new System.Drawing.Size(0, 17);
-            // 
-            // txtLastUpdateTime
-            // 
-            this.txtLastUpdateTime.Location = new System.Drawing.Point(713, 11);
-            this.txtLastUpdateTime.Name = "txtLastUpdateTime";
-            this.txtLastUpdateTime.ReadOnly = true;
-            this.txtLastUpdateTime.Size = new System.Drawing.Size(78, 22);
-            this.txtLastUpdateTime.TabIndex = 22;
-            this.txtLastUpdateTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(504, 43);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(79, 14);
-            this.label12.TabIndex = 23;
-            this.label12.Text = "改善总工时比";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(418, 44);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(43, 14);
-            this.label13.TabIndex = 24;
-            this.label13.Text = "改善比";
-            // 
-            // btnSaveReport
-            // 
-            this.btnSaveReport.Location = new System.Drawing.Point(635, 37);
-            this.btnSaveReport.Name = "btnSaveReport";
-            this.btnSaveReport.Size = new System.Drawing.Size(156, 29);
-            this.btnSaveReport.TabIndex = 25;
-            this.btnSaveReport.Text = "Save";
-            this.btnSaveReport.UseVisualStyleBackColor = true;
             // 
             // frmMain
             // 
