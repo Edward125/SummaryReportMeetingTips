@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
-            this.txtMeetingSummary = new System.Windows.Forms.TabControl();
+            this.tabMain = new System.Windows.Forms.TabControl();
             this.tabRawData = new System.Windows.Forms.TabPage();
             this.btnImportData = new System.Windows.Forms.Button();
             this.btnQuery = new System.Windows.Forms.Button();
@@ -80,7 +80,7 @@
             this.btnOutputReports = new System.Windows.Forms.Button();
             this.grbMeetingParentNode = new System.Windows.Forms.GroupBox();
             this.txtMeetingParentType = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtMeetingSummary = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.grbMeetingChildNode = new System.Windows.Forms.GroupBox();
@@ -91,7 +91,7 @@
             this.txtMeetingLastUpdateTime = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.txtMeetingNewTipsSaveTime = new System.Windows.Forms.TextBox();
-            this.txtReportParentTime = new System.Windows.Forms.TextBox();
+            this.txtMeetingParentTotalTime = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.txtMeetingNewTipsOptimizePCT = new System.Windows.Forms.TextBox();
             this.txtMeetingNewTips = new System.Windows.Forms.TextBox();
@@ -108,7 +108,7 @@
             this.label25 = new System.Windows.Forms.Label();
             this.txtMeetingTotalTime = new System.Windows.Forms.TextBox();
             this.label26 = new System.Windows.Forms.Label();
-            this.txtMeetingSummary.SuspendLayout();
+            this.tabMain.SuspendLayout();
             this.tabRawData.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datagridRawData)).BeginInit();
             this.tabReport.SuspendLayout();
@@ -120,17 +120,17 @@
             this.grbMeetingChildNode.SuspendLayout();
             this.SuspendLayout();
             // 
-            // txtMeetingSummary
+            // tabMain
             // 
-            this.txtMeetingSummary.Controls.Add(this.tabRawData);
-            this.txtMeetingSummary.Controls.Add(this.tabReport);
-            this.txtMeetingSummary.Controls.Add(this.tabMeeting);
-            this.txtMeetingSummary.Location = new System.Drawing.Point(12, 22);
-            this.txtMeetingSummary.Name = "txtMeetingSummary";
-            this.txtMeetingSummary.SelectedIndex = 0;
-            this.txtMeetingSummary.Size = new System.Drawing.Size(1292, 564);
-            this.txtMeetingSummary.TabIndex = 0;
-            this.txtMeetingSummary.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabMain_Selected);
+            this.tabMain.Controls.Add(this.tabRawData);
+            this.tabMain.Controls.Add(this.tabReport);
+            this.tabMain.Controls.Add(this.tabMeeting);
+            this.tabMain.Location = new System.Drawing.Point(12, 22);
+            this.tabMain.Name = "tabMain";
+            this.tabMain.SelectedIndex = 0;
+            this.tabMain.Size = new System.Drawing.Size(1292, 564);
+            this.tabMain.TabIndex = 0;
+            this.tabMain.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabMain_Selected);
             // 
             // tabRawData
             // 
@@ -632,7 +632,7 @@
             // grbMeetingParentNode
             // 
             this.grbMeetingParentNode.Controls.Add(this.txtMeetingParentType);
-            this.grbMeetingParentNode.Controls.Add(this.textBox2);
+            this.grbMeetingParentNode.Controls.Add(this.txtMeetingSummary);
             this.grbMeetingParentNode.Controls.Add(this.label14);
             this.grbMeetingParentNode.Controls.Add(this.label15);
             this.grbMeetingParentNode.Location = new System.Drawing.Point(6, 6);
@@ -651,14 +651,14 @@
             this.txtMeetingParentType.TabIndex = 3;
             this.txtMeetingParentType.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // textBox2
+            // txtMeetingSummary
             // 
-            this.textBox2.Location = new System.Drawing.Point(67, 14);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(390, 22);
-            this.textBox2.TabIndex = 1;
-            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtMeetingSummary.Location = new System.Drawing.Point(67, 14);
+            this.txtMeetingSummary.Name = "txtMeetingSummary";
+            this.txtMeetingSummary.ReadOnly = true;
+            this.txtMeetingSummary.Size = new System.Drawing.Size(390, 22);
+            this.txtMeetingSummary.TabIndex = 1;
+            this.txtMeetingSummary.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label14
             // 
@@ -687,7 +687,7 @@
             this.grbMeetingChildNode.Controls.Add(this.txtMeetingLastUpdateTime);
             this.grbMeetingChildNode.Controls.Add(this.label18);
             this.grbMeetingChildNode.Controls.Add(this.txtMeetingNewTipsSaveTime);
-            this.grbMeetingChildNode.Controls.Add(this.txtReportParentTime);
+            this.grbMeetingChildNode.Controls.Add(this.txtMeetingParentTotalTime);
             this.grbMeetingChildNode.Controls.Add(this.label19);
             this.grbMeetingChildNode.Controls.Add(this.txtMeetingNewTipsOptimizePCT);
             this.grbMeetingChildNode.Controls.Add(this.txtMeetingNewTips);
@@ -772,14 +772,14 @@
             this.txtMeetingNewTipsSaveTime.TabIndex = 20;
             this.txtMeetingNewTipsSaveTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // txtReportParentTime
+            // txtMeetingParentTotalTime
             // 
-            this.txtReportParentTime.Location = new System.Drawing.Point(95, 42);
-            this.txtReportParentTime.Name = "txtReportParentTime";
-            this.txtReportParentTime.ReadOnly = true;
-            this.txtReportParentTime.Size = new System.Drawing.Size(64, 22);
-            this.txtReportParentTime.TabIndex = 19;
-            this.txtReportParentTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtMeetingParentTotalTime.Location = new System.Drawing.Point(95, 42);
+            this.txtMeetingParentTotalTime.Name = "txtMeetingParentTotalTime";
+            this.txtMeetingParentTotalTime.ReadOnly = true;
+            this.txtMeetingParentTotalTime.Size = new System.Drawing.Size(64, 22);
+            this.txtMeetingParentTotalTime.TabIndex = 19;
+            this.txtMeetingParentTotalTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label19
             // 
@@ -936,14 +936,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1317, 611);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.txtMeetingSummary);
+            this.Controls.Add(this.tabMain);
             this.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmMain";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.Load += new System.EventHandler(this.frmMain_Load);
-            this.txtMeetingSummary.ResumeLayout(false);
+            this.tabMain.ResumeLayout(false);
             this.tabRawData.ResumeLayout(false);
             this.tabRawData.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datagridRawData)).EndInit();
@@ -966,7 +966,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TabControl txtMeetingSummary;
+        private System.Windows.Forms.TabControl tabMain;
         private System.Windows.Forms.TabPage tabRawData;
         private System.Windows.Forms.TabPage tabReport;
         private System.Windows.Forms.Label lblRawData;
@@ -1023,7 +1023,7 @@
         private System.Windows.Forms.TextBox txtMeetingLastUpdateTime;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.TextBox txtMeetingNewTipsSaveTime;
-        private System.Windows.Forms.TextBox txtReportParentTime;
+        private System.Windows.Forms.TextBox txtMeetingParentTotalTime;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.TextBox txtMeetingNewTipsOptimizePCT;
         private System.Windows.Forms.TextBox txtMeetingNewTips;
@@ -1042,7 +1042,7 @@
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.GroupBox grbMeetingParentNode;
         private System.Windows.Forms.TextBox txtMeetingParentType;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtMeetingSummary;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
     }

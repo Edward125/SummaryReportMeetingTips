@@ -94,7 +94,7 @@ namespace SummaryReportMeetingTips
                 Environment.Exit(0);
             if (!p.InitDataDB())
                 Environment.Exit(0);
-            txtMeetingSummary.SelectedIndex = 1;
+            tabMain.SelectedIndex = 1;
             setListview(lstviewMeeting, p.WorkType.Meeting);
             setListview(lstviewReport, p.WorkType.Report);
             //
@@ -857,6 +857,20 @@ reviewer) VALUES (@_depcode,
             txtReportHaveTipsOptimizePCTTotal.Text = "";
 
             //meeting
+            txtMeetingNewTipsSaveTime.Text = "";
+            txtMeetingNewTips.Text = "";
+            txtMeetingNewTipsOptimizePCT.Text = "";
+            txtMeetingNewTipsOptimizePCTTotal.Text = "";
+            txtMeetingLastUpdateTime.Text = "";
+            txtMeetingTotalTime.Text = "";
+            txtMeetingAlreadyHaveTips.Text = "";
+            txtMeetingHaveTipsSaveTime.Text = "";
+            txtMeetingHaveTipsOptimizePCT.Text = "";
+            txtMeetingHaveTipsOptimizePCTTotal.Text = "";
+
+
+
+
 
             bool _bSelectParentNode = false;
             listview.Items.Clear();
@@ -869,9 +883,8 @@ reviewer) VALUES (@_depcode,
                 if (worktype == p.WorkType.Report)
                     grbReportChildNode.Enabled = true;
                 if (worktype == p.WorkType.Meeting)
-                {
-
-                }
+                    grbMeetingChildNode.Enabled = true;
+  
             }
             catch (Exception)
             {
@@ -884,7 +897,8 @@ reviewer) VALUES (@_depcode,
                 }
                 if (worktype == p.WorkType.Meeting)
                 {
-
+                    grbMeetingChildNode.Enabled = false;
+                    grbMeetingParentNode.Text = workdetail;
                 }
             }
 
@@ -928,6 +942,13 @@ reviewer) VALUES (@_depcode,
                         sql = "SELECT SUM (weeklyworktime) FROM t_meetingrawdata WHERE workdetail = '" + workdetail + "'";
                     totaltime = p.querySum(sql);
                     loadData2ListView(listview, p.WorkType.Meeting, workdetail, _bSelectParentNode);
+                    if (string.IsNullOrEmpty(txtMeetingTotalTime.Text.Trim()))
+                    {
+                        sql = "SELECT SUM (weeklyworktime) FROM t_meetingrawdata";
+                        totalworktime = p.querySum(sql);
+                        txtMeetingTotalTime.Text = totalworktime.ToString();
+                    }
+
                 }
 
                 tsslStatus.ForeColor = Color.Blue;
@@ -962,6 +983,26 @@ reviewer) VALUES (@_depcode,
 
                     if (worktype == p.WorkType.Meeting)
                     {
+                        //
+                        //
+                        decimal _savetime = p.querySum("SELECT SUM(tipsavetime) FROM t_meetingtips");
+                        txtMeetingSummary.Text = "Items:" + p.queryCount("SELECT COUNT(*) FROM t_meetingrawdata") + ",TotalTime(h):" + totalworktime + ",Tips:" + p.querySum("SELECT COUNT(tips) FROM t_meetingtips") + ",SaveTime(h):" +
+                           _savetime + ",PCT(%):" + p.CalcPCT(_savetime, totalworktime);
+                        _savetime = p.querySum("SELECT SUM(tipsavetime) FROM t_meetingtips WHERE meetingtype = '" + workdetail + "'");
+                        txtMeetingParentType.Text = "Items:" + p.queryCount("SELECT COUNT(*) FROM t_meetingrawdata WHERE meetingtype =  '" + workdetail + "'") + ",TotalTime(h):" + totaltime + ",Tips:" + p.querySum("SELECT COUNT(tips) FROM t_meetingtips WHERE meetingtype = '" + workdetail + "'") + ",SaveTime(h):" +
+                           _savetime + ",PCT(%):" + p.CalcPCT(_savetime, totaltime);
+
+
+                        grbMeetingChildNode.Text = workdetail;
+                        txtMeetingParentTotalTime.Text = totaltime.ToString();
+                        //tips count 
+                        sql = "SELECT SUM(tips) FROM t_meetingtips where meetingtype = '" + workdetail + "'";
+                        txtMeetingAlreadyHaveTips.Text = p.querySum(sql).ToString();
+                        //tips save time
+                        sql = "SELECT SUM(tipsavetime) FROM t_meetingtips where meetingtype = '" + workdetail + "'";
+                        txtMeetingHaveTipsSaveTime.Text = p.querySum(sql).ToString();
+                        txtMeetingHaveTipsOptimizePCT.Text = p.CalcPCT(Convert.ToDecimal(txtMeetingHaveTipsSaveTime.Text.Trim()), totaltime);
+                        txtMeetingHaveTipsOptimizePCTTotal.Text = p.CalcPCT(Convert.ToDecimal(txtMeetingHaveTipsSaveTime.Text.Trim()), totalworktime);
 
                     }
                 }
@@ -986,6 +1027,19 @@ reviewer) VALUES (@_depcode,
 
                     if (worktype == p.WorkType.Meeting)
                     {
+                        grbMeetingChildNode.Text = workdetail;
+                        txtMeetingParentTotalTime.Text = totaltime.ToString();
+                        //tips count 
+                        sql = "SELECT SUM(tips) FROM t_meetingtips where workdetail = '" + workdetail + "'";
+                        txtMeetingAlreadyHaveTips.Text = p.querySum(sql).ToString();
+                        //tips save time
+                        sql = "SELECT SUM(tipsavetime) FROM t_meetingtips where workdetail = '" + workdetail + "'";
+                        txtMeetingHaveTipsSaveTime.Text = p.querySum(sql).ToString();
+                        txtMeetingHaveTipsOptimizePCT.Text = p.CalcPCT(Convert.ToDecimal(txtMeetingHaveTipsSaveTime.Text.Trim()), totaltime);
+                        txtMeetingHaveTipsOptimizePCTTotal.Text = p.CalcPCT(Convert.ToDecimal(txtMeetingHaveTipsSaveTime.Text.Trim()), totalworktime);
+                        string lastdate = "";
+                        p.queryData("SELECT * FROM t_meetingtips WHERE workdetail = '" + workdetail + "'", "reviewdate", out lastdate);
+                        txtMeetingLastUpdateTime.Text = lastdate;
 
                     }
                 }
