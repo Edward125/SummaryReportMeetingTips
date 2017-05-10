@@ -108,6 +108,7 @@
             this.label25 = new System.Windows.Forms.Label();
             this.txtMeetingTotalTime = new System.Windows.Forms.TextBox();
             this.label26 = new System.Windows.Forms.Label();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.tabMain.SuspendLayout();
             this.tabRawData.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datagridRawData)).BeginInit();
@@ -938,6 +939,10 @@
             this.label26.TabIndex = 4;
             this.label26.Text = "该项总工时(h)";
             // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
@@ -1053,6 +1058,7 @@
         private System.Windows.Forms.TextBox txtMeetingSummary;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }
 
