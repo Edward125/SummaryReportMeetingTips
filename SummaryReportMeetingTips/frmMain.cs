@@ -1484,8 +1484,174 @@ reviewer) VALUES (@_depcode,
                 //throw;
             }
         }
-         
 
+
+
+
+
+        private void OutputData2Text(p.WorkType worktype)
+        {
+            p.checkLogFile(worktype);
+
+            //
+            string filepath, _item, _type, _subtype, _workdetail, _itemscount, _workingtime, _tips, _savetime, _savepct, _updatedate;
+            filepath = _item = _type = _subtype = _workdetail = _itemscount = _workingtime = _tips = _savetime = _savepct = _updatedate = " ";
+            //
+            _type= worktype.ToString();
+            if (worktype == p.WorkType.Report)
+            {
+                filepath = p.logReportFile;
+                if (trviewReport.Nodes.Count > 0)
+                {
+                    for (int i = 0; i < trviewReport.Nodes.Count ; i++)
+                    {
+                        _item = (i + 1).ToString();//
+                        _subtype = trviewReport.Nodes[i].Text;//
+                        _itemscount = trviewReport.Nodes[i].Nodes.Count.ToString();//
+
+                        string sql = "SELECT SUM(weeklyworktime) FROM t_reportrawdata WHERE reporttype = '" + _subtype + "'";
+                        _workingtime = p.querySum(sql).ToString();
+                        sql = "SELECT SUM(tips) FROM t_reporttips WHERE reporttype = '" + _subtype + "'";
+                        _tips = p.querySum(sql).ToString();
+                        sql = "SELECT SUM(tipsavetime) FROM t_reporttips WHERE reporttype = '" + _subtype + "'";
+                        _savetime = p.querySum(sql).ToString();
+                        _savepct = p.CalcPCT(Convert.ToDecimal(_savetime), Convert.ToDecimal(_workingtime));
+
+                        saveLog(filepath, _item, _type, _subtype, _workdetail, _itemscount, _workingtime, _tips, _savetime, _savepct, _updatedate);
+                        for (int j = 0; j < trviewReport.Nodes[i].Nodes.Count ; j++)
+                        {
+                            _item = _subtype = "";
+                            _workdetail = trviewReport.Nodes[i].Nodes[j].Text;
+                            sql = "SELECT COUNT(workdetail) FROM t_reportrawdata WHERE workdetail = '" + _workdetail + "'";
+                            _itemscount = p.queryCount(sql).ToString();
+                            sql = "SELECT SUM(weeklyworktime) FROM t_reportrawdata WHERE workdetail = '" + _workdetail + "'";
+                            _workingtime = p.querySum(sql).ToString();
+                            sql = "SELECT SUM(tips) FROM t_reporttips WHERE workdetail = '" + _workdetail + "'";
+                            _tips = p.querySum(sql).ToString();
+                            sql = "SELECT SUM(tipsavetime) FROM t_reporttips WHERE  workdetail = '" + _workdetail + "'";
+                            _savetime = p.querySum(sql).ToString();
+                            _savepct = p.CalcPCT(Convert.ToDecimal(_savetime), Convert.ToDecimal(_workingtime));
+                            sql = "SELECT * FROM t_reporttips WHERE workdetail = '" + _workdetail + "'";
+                            p.queryData(sql,"reviewdate", out _updatedate );
+                            saveLog(filepath, _item, _type, _subtype, _workdetail, _itemscount, _workingtime, _tips, _savetime, _savepct, _updatedate);
+                        }
+                        
+                    }
+                }
+            }
+
+            if (worktype == p.WorkType.Meeting)
+            {
+                filepath = p.logMeetingFile;
+                if (trviewMeeting.Nodes.Count > 0)
+                {
+                    for (int i = 0; i < trviewMeeting.Nodes.Count; i++)
+                    {
+                        _item = (i + 1).ToString();//
+                        _subtype = trviewMeeting.Nodes[i].Text;//
+                        _itemscount = trviewMeeting.Nodes[i].Nodes.Count.ToString();//
+
+                        string sql = "SELECT SUM(weeklyworktime) FROM t_meetingrawdata WHERE meetingtype = '" + _subtype + "'";
+                        _workingtime = p.querySum(sql).ToString();
+                        sql = "SELECT SUM(tips) FROM t_meetingtips WHERE meetingtype = '" + _subtype + "'";
+                        _tips = p.querySum(sql).ToString();
+                        sql = "SELECT SUM(tipsavetime) FROM t_meetingtips WHERE meetingtype = '" + _subtype + "'";
+                        _savetime = p.querySum(sql).ToString();
+                        _savepct = p.CalcPCT(Convert.ToDecimal(_savetime), Convert.ToDecimal(_workingtime));
+
+                        saveLog(filepath, _item, _type, _subtype, _workdetail, _itemscount, _workingtime, _tips, _savetime, _savepct, _updatedate);
+                        for (int j = 0; j < trviewMeeting.Nodes[i].Nodes.Count; j++)
+                        {
+                            _item = _subtype = "";
+                            _workdetail = trviewMeeting.Nodes[i].Nodes[j].Text;
+                            sql = "SELECT COUNT(workdetail) FROM t_meetingrawdata WHERE workdetail = '" + _workdetail + "'";
+                            _itemscount = p.queryCount(sql).ToString();
+                            sql = "SELECT SUM(weeklyworktime) FROM t_meetingrawdata WHERE workdetail = '" + _workdetail + "'";
+                            _workingtime = p.querySum(sql).ToString();
+                            sql = "SELECT SUM(tips) FROM t_meetingtips WHERE workdetail = '" + _workdetail + "'";
+                            _tips = p.querySum(sql).ToString();
+                            sql = "SELECT SUM(tipsavetime) FROM t_meetingtips WHERE  workdetail = '" + _workdetail + "'";
+                            _savetime = p.querySum(sql).ToString();
+                            _savepct = p.CalcPCT(Convert.ToDecimal(_savetime), Convert.ToDecimal(_workingtime));
+                            sql = "SELECT * FROM t_meetingtips WHERE workdetail = '" + _workdetail + "'";
+                            p.queryData(sql, "reviewdate", out _updatedate);
+                            saveLog(filepath, _item, _type, _subtype, _workdetail, _itemscount, _workingtime, _tips, _savetime, _savepct, _updatedate);
+                        }
+
+                    }
+                }
+            }
+
+
+            MessageBox.Show("Save OK,file is " + filepath);
+
+        }
+
+
+        private void saveLog(string filepath,
+            string _item,string _type,
+            string _subtype,string _workdetail,
+            string _itemscount,string _workingtime,
+            string _tips,string _savetime,
+            string _savepct,string _updatedate)
+
+        {
+            string line = _item.PadRight(6) +"*"+ _type.PadRight(10) +"*"+
+                _subtype.PadRight(40) + "*" + _workdetail.PadRight(60) +"*"+
+                _itemscount.PadRight(12) +"*"+ _workingtime.PadRight(16) +"*"+
+                _tips.PadRight(6) + "*"+_savetime.PadRight(10) +"*"+
+                _savepct.PadRight(15) +"*"+ _updatedate.PadRight(15);
+            StreamWriter sw = new StreamWriter (filepath,true);
+            sw.WriteLine(line);
+            sw.Close();
+            
+        }
+
+
+
+
+
+
+
+        private void btnOutputMeetinig_Click(object sender, EventArgs e)
+        {
+            OutputData2Text(p.WorkType.Meeting );
+        }
+
+        private void btnOutputReports_Click(object sender, EventArgs e)
+        {
+            this.Enabled = false;
+            OutputData2Text(p.WorkType.Report);
+            this.Enabled = true;
+        }
+
+
+
+
+        //private void OutputData2Excel()
+        //{
+        //    string filePath = System.Windows.Forms.Application.StartupPath + @"\" + "WCD_ATE_AFTE_NTF_" + DateTime.Now.Date.AddDays(-1).ToString("yyyyMMdd") + @".xls";
+        //    Microsoft.Office.Interop.Excel.Application appExcel = new Microsoft.Office.Interop.Excel.Application();
+        //    appExcel.Visible = false;
+        //    Workbook wBook = appExcel.Workbooks.Add(true);
+        //    Worksheet wSheet = wBook.Worksheets[1] as Worksheet;
+        //    wSheet.Name = "ATE NTF";
+
+
+
+        //    //设置禁止弹出保存和覆盖的询问提示框   
+        //    appExcel.DisplayAlerts = false;
+        //    appExcel.AlertBeforeOverwriting = false;
+        //    //保存工作簿   
+        //    wBook.Save();
+        //    //保存excel文件   
+        //    appExcel.Save(filePath);
+        //    appExcel.SaveWorkspace(filePath);
+        //    appExcel.Quit();
+        //    appExcel = null;
+
+
+        //}
 
 
 

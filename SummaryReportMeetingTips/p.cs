@@ -18,6 +18,9 @@ namespace SummaryReportMeetingTips
         public static string appDataDB = appFolder + @"\DB.sqlite";
         public static string dbConnectionString = "Data Source=" + @appDataDB;
 
+        public static string logReportFile = appFolder + @"\ReportTIPs" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".log";
+        public static string logMeetingFile = appFolder + @"\MeetingTIPs" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".log";
+
 
         public enum WorkType
         {
@@ -26,6 +29,43 @@ namespace SummaryReportMeetingTips
         }
 
         #endregion
+
+
+        public static  void checkLogFile(p.WorkType worktype)
+        {
+
+
+            string file = "";
+            if (worktype == p.WorkType.Meeting)
+                file = logMeetingFile;
+            if (worktype == p.WorkType.Report)
+                file = logReportFile;
+
+            if (!File.Exists(file))
+            {
+
+                FileStream fs = File.Create(file);
+                fs.Close();
+
+                StreamWriter sw = new StreamWriter(file, true, Encoding.UTF8);
+
+                string line = "Item".PadRight(6) +"*"+ "Type".PadRight(10) + "*"+
+                    "SubType".PadRight(40) + "*"+"WorkDetail".PadRight(60) + "*"+
+                    "ItemsCount".PadRight(12) + "*"+"WorkingTime(h)".PadRight(16) + "*"+
+                    "TIPs".PadRight(6) + "*"+"SaveTime".PadRight(10) + "*"+
+                    "SavePCT(%)".PadRight(15) + "*"+"UpdateDate".PadRight(15);
+                sw.WriteLine(line);
+                sw.Close();
+
+
+            }
+  
+        }
+
+
+
+
+
 
         /// <summary>
         /// check folder,if not exist,create it

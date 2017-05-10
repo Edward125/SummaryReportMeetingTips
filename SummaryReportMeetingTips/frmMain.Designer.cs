@@ -629,6 +629,7 @@
             this.btnOutputReports.TabIndex = 26;
             this.btnOutputReports.Text = "Output";
             this.btnOutputReports.UseVisualStyleBackColor = true;
+            this.btnOutputReports.Click += new System.EventHandler(this.btnOutputReports_Click);
             // 
             // grbMeetingParentNode
             // 
@@ -720,6 +721,7 @@
             this.btnOutputMeetinig.TabIndex = 26;
             this.btnOutputMeetinig.Text = "Output";
             this.btnOutputMeetinig.UseVisualStyleBackColor = true;
+            this.btnOutputMeetinig.Click += new System.EventHandler(this.btnOutputMeetinig_Click);
             // 
             // btnSaveMeeting
             // 
