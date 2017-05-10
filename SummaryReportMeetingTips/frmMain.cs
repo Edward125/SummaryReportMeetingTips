@@ -749,12 +749,20 @@ reviewer) VALUES (@_depcode,
             {
                 loadTreeViewData(trviewReport, p.WorkType.Report );
                 trviewReport.Sort();
-                
+
+                if (trviewReport.Nodes.Count >= 0)
+                    trviewReport.SelectedNode = trviewReport.Nodes[0];
+
+
+
             }
             if (e.TabPage == tabMeeting )
             {
                 loadTreeViewData(trviewMeeting, p.WorkType.Meeting);
                 trviewMeeting.Sort();
+
+                if (trviewMeeting.Nodes.Count >= 0)
+                    trviewMeeting.SelectedNode = trviewMeeting.Nodes[0];
             }
             if (e.TabPage == tabRawData)
             {
@@ -835,11 +843,6 @@ reviewer) VALUES (@_depcode,
             loadInfo2toolStrip(p.WorkType.Report, lstviewReport, trviewReport);
             this.Enabled = true ;
         }
-
-
-
-
-
 
         private void loadInfo2toolStrip(p.WorkType worktype,ListView listview,TreeView treview)
         {
@@ -1354,11 +1357,6 @@ reviewer) VALUES (@_depcode,
 
             return true;
         }
-
-
-
-
-
 
         private void txtNewTips_KeyPress(object sender, KeyPressEventArgs e)
         {

@@ -282,6 +282,7 @@
             this.grbReportChildNode.Controls.Add(this.label5);
             this.grbReportChildNode.Controls.Add(this.txtReportTotalTime);
             this.grbReportChildNode.Controls.Add(this.lblTotalWorkTime);
+            this.grbReportChildNode.Enabled = false;
             this.grbReportChildNode.Location = new System.Drawing.Point(475, 5);
             this.grbReportChildNode.Name = "grbReportChildNode";
             this.grbReportChildNode.Size = new System.Drawing.Size(801, 71);
@@ -704,6 +705,7 @@
             this.grbMeetingChildNode.Controls.Add(this.label25);
             this.grbMeetingChildNode.Controls.Add(this.txtMeetingTotalTime);
             this.grbMeetingChildNode.Controls.Add(this.label26);
+            this.grbMeetingChildNode.Enabled = false;
             this.grbMeetingChildNode.Location = new System.Drawing.Point(472, 5);
             this.grbMeetingChildNode.Name = "grbMeetingChildNode";
             this.grbMeetingChildNode.Size = new System.Drawing.Size(801, 71);
