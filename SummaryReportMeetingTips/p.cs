@@ -213,9 +213,34 @@ reviewer varchar(30))";
             return true;
         }
 
+        public static bool createReportTipsDataTable()
+        {
+            string sql = @"CREATE TABLE IF NOT EXISTS t_reporttips(
+workdetail varchar(255) NOT NULL PRIMARY KEY,
+reporttype varchar(20),
+tips int,
+tipsavetime decimal(10,4),
+reviewdate varchar(20))";
 
-        
+            if (!createTable(sql))
+                return false;
+            return true;     
+        }
 
+        public static bool createMeetingTipsDataTable()
+        {
+
+            string sql = @"CREATE TABLE IF NOT EXISTS t_meetingtips(
+workdetail varchar(255) NOT NULL PRIMARY KEY,
+meetingtype varchar(20),
+tips int,
+tipsavetime decimal(10,4),
+reviewdate varchar(20))";
+
+            if (!createTable(sql))
+                return false;
+            return true;   
+        }
 
 
 
@@ -225,6 +250,12 @@ reviewer varchar(30))";
                 return false;
 
             if (!createReportRawDataTable())
+                return false;
+
+            if (!createMeetingTipsDataTable())
+                return false;
+
+            if (!createReportTipsDataTable())
                 return false;
 
             return true;

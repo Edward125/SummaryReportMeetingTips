@@ -121,7 +121,7 @@
             // btnImportData
             // 
             this.btnImportData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnImportData.Location = new System.Drawing.Point(913, 11);
+            this.btnImportData.Location = new System.Drawing.Point(947, 11);
             this.btnImportData.Name = "btnImportData";
             this.btnImportData.Size = new System.Drawing.Size(86, 23);
             this.btnImportData.TabIndex = 2;
@@ -132,7 +132,7 @@
             // btnQuery
             // 
             this.btnQuery.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnQuery.Location = new System.Drawing.Point(1123, 11);
+            this.btnQuery.Location = new System.Drawing.Point(1157, 11);
             this.btnQuery.Name = "btnQuery";
             this.btnQuery.Size = new System.Drawing.Size(116, 23);
             this.btnQuery.TabIndex = 9;
@@ -147,7 +147,7 @@
             this.comboRawDataType.Items.AddRange(new object[] {
             "Report",
             "Meeting"});
-            this.comboRawDataType.Location = new System.Drawing.Point(1023, 12);
+            this.comboRawDataType.Location = new System.Drawing.Point(1057, 12);
             this.comboRawDataType.Name = "comboRawDataType";
             this.comboRawDataType.Size = new System.Drawing.Size(94, 22);
             this.comboRawDataType.TabIndex = 8;
@@ -156,7 +156,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(1003, 13);
+            this.label1.Location = new System.Drawing.Point(1037, 13);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(16, 19);
             this.label1.TabIndex = 7;
@@ -166,7 +166,7 @@
             // 
             this.comboSheetList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboSheetList.FormattingEnabled = true;
-            this.comboSheetList.Location = new System.Drawing.Point(784, 11);
+            this.comboSheetList.Location = new System.Drawing.Point(818, 11);
             this.comboSheetList.Name = "comboSheetList";
             this.comboSheetList.Size = new System.Drawing.Size(123, 22);
             this.comboSheetList.TabIndex = 6;
@@ -175,7 +175,7 @@
             // btnAnalyzeFile
             // 
             this.btnAnalyzeFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAnalyzeFile.Location = new System.Drawing.Point(692, 10);
+            this.btnAnalyzeFile.Location = new System.Drawing.Point(726, 10);
             this.btnAnalyzeFile.Name = "btnAnalyzeFile";
             this.btnAnalyzeFile.Size = new System.Drawing.Size(86, 23);
             this.btnAnalyzeFile.TabIndex = 5;
@@ -189,14 +189,14 @@
             this.datagridRawData.Location = new System.Drawing.Point(6, 38);
             this.datagridRawData.Name = "datagridRawData";
             this.datagridRawData.RowTemplate.Height = 23;
-            this.datagridRawData.Size = new System.Drawing.Size(1233, 503);
+            this.datagridRawData.Size = new System.Drawing.Size(1272, 503);
             this.datagridRawData.TabIndex = 4;
             // 
             // txtRawDataFile
             // 
             this.txtRawDataFile.Location = new System.Drawing.Point(105, 10);
             this.txtRawDataFile.Name = "txtRawDataFile";
-            this.txtRawDataFile.Size = new System.Drawing.Size(581, 22);
+            this.txtRawDataFile.Size = new System.Drawing.Size(615, 22);
             this.txtRawDataFile.TabIndex = 1;
             this.txtRawDataFile.DoubleClick += new System.EventHandler(this.txtRawDataFile_DoubleClick);
             // 
@@ -508,7 +508,7 @@
             this.lstviewMeeting.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstviewMeeting.Location = new System.Drawing.Point(409, 39);
             this.lstviewMeeting.Name = "lstviewMeeting";
-            this.lstviewMeeting.Size = new System.Drawing.Size(830, 502);
+            this.lstviewMeeting.Size = new System.Drawing.Size(872, 502);
             this.lstviewMeeting.TabIndex = 1;
             this.lstviewMeeting.UseCompatibleStateImageBehavior = false;
             this.lstviewMeeting.View = System.Windows.Forms.View.Details;
