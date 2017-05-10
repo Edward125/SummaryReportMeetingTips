@@ -274,8 +274,10 @@
             // 
             this.txtReportParentTotalTime.Location = new System.Drawing.Point(95, 42);
             this.txtReportParentTotalTime.Name = "txtReportParentTotalTime";
+            this.txtReportParentTotalTime.ReadOnly = true;
             this.txtReportParentTotalTime.Size = new System.Drawing.Size(64, 22);
             this.txtReportParentTotalTime.TabIndex = 19;
+            this.txtReportParentTotalTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label4
             // 
@@ -290,8 +292,10 @@
             // 
             this.txtNewTipsOptimizePCT.Location = new System.Drawing.Point(462, 40);
             this.txtNewTipsOptimizePCT.Name = "txtNewTipsOptimizePCT";
+            this.txtNewTipsOptimizePCT.ReadOnly = true;
             this.txtNewTipsOptimizePCT.Size = new System.Drawing.Size(40, 22);
             this.txtNewTipsOptimizePCT.TabIndex = 17;
+            this.txtNewTipsOptimizePCT.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txtNewTips
             // 
@@ -313,8 +317,10 @@
             // 
             this.txtHaveTipsOptimizePCTTotal.Location = new System.Drawing.Point(583, 12);
             this.txtHaveTipsOptimizePCTTotal.Name = "txtHaveTipsOptimizePCTTotal";
+            this.txtHaveTipsOptimizePCTTotal.ReadOnly = true;
             this.txtHaveTipsOptimizePCTTotal.Size = new System.Drawing.Size(41, 22);
             this.txtHaveTipsOptimizePCTTotal.TabIndex = 14;
+            this.txtHaveTipsOptimizePCTTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label9
             // 
@@ -329,8 +335,10 @@
             // 
             this.txtHaveTipsOptimizePCT.Location = new System.Drawing.Point(460, 14);
             this.txtHaveTipsOptimizePCT.Name = "txtHaveTipsOptimizePCT";
+            this.txtHaveTipsOptimizePCT.ReadOnly = true;
             this.txtHaveTipsOptimizePCT.Size = new System.Drawing.Size(41, 22);
             this.txtHaveTipsOptimizePCT.TabIndex = 12;
+            this.txtHaveTipsOptimizePCT.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label8
             // 
@@ -354,8 +362,10 @@
             // 
             this.txtNewTipsOptimizePCTTotal.Location = new System.Drawing.Point(583, 40);
             this.txtNewTipsOptimizePCTTotal.Name = "txtNewTipsOptimizePCTTotal";
+            this.txtNewTipsOptimizePCTTotal.ReadOnly = true;
             this.txtNewTipsOptimizePCTTotal.Size = new System.Drawing.Size(41, 22);
             this.txtNewTipsOptimizePCTTotal.TabIndex = 9;
+            this.txtNewTipsOptimizePCTTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label6
             // 
@@ -370,15 +380,19 @@
             // 
             this.txtHaveTipsSaveTime.Location = new System.Drawing.Point(372, 14);
             this.txtHaveTipsSaveTime.Name = "txtHaveTipsSaveTime";
+            this.txtHaveTipsSaveTime.ReadOnly = true;
             this.txtHaveTipsSaveTime.Size = new System.Drawing.Size(41, 22);
             this.txtHaveTipsSaveTime.TabIndex = 7;
+            this.txtHaveTipsSaveTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txtAlreadyHaveTips
             // 
             this.txtAlreadyHaveTips.Location = new System.Drawing.Point(218, 14);
             this.txtAlreadyHaveTips.Name = "txtAlreadyHaveTips";
+            this.txtAlreadyHaveTips.ReadOnly = true;
             this.txtAlreadyHaveTips.Size = new System.Drawing.Size(50, 22);
             this.txtAlreadyHaveTips.TabIndex = 6;
+            this.txtAlreadyHaveTips.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label5
             // 
@@ -393,8 +407,10 @@
             // 
             this.txtReportTotalTime.Location = new System.Drawing.Point(95, 16);
             this.txtReportTotalTime.Name = "txtReportTotalTime";
+            this.txtReportTotalTime.ReadOnly = true;
             this.txtReportTotalTime.Size = new System.Drawing.Size(64, 22);
             this.txtReportTotalTime.TabIndex = 4;
+            this.txtReportTotalTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // lblTotalWorkTime
             // 
@@ -524,8 +540,10 @@
             // 
             this.txtLastUpdateTime.Location = new System.Drawing.Point(713, 11);
             this.txtLastUpdateTime.Name = "txtLastUpdateTime";
+            this.txtLastUpdateTime.ReadOnly = true;
             this.txtLastUpdateTime.Size = new System.Drawing.Size(78, 22);
             this.txtLastUpdateTime.TabIndex = 22;
+            this.txtLastUpdateTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label12
             // 
