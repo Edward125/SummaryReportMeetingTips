@@ -100,7 +100,19 @@ namespace SummaryReportMeetingTips
             //
             comboRawDataType.SelectedIndex = 0;
 
-            loadRawdata2DataGrid();
+
+
+            if ((p.queryCount("SELECT COUNT(*) FROM t_reportrawdata") > 0) && (p.queryCount("SELECT COUNT(*) FROM t_meetingrawdata") > 0))
+            {
+                loadRawdata2DataGrid();
+            }
+            else
+            {
+                tsslStatus.ForeColor = Color.Red;
+                tsslStatus.Text = "Raw data in database is incomplete,pls check...";
+            }
+
+            
 
 
         }
@@ -746,7 +758,16 @@ reviewer) VALUES (@_depcode,
             }
             if (e.TabPage == tabRawData)
             {
-                loadRawdata2DataGrid();
+                if ((p.queryCount("SELECT COUNT(*) FROM t_reportrawdata") > 0) && (p.queryCount("SELECT COUNT(*) FROM t_meetingrawdata") > 0))
+                {
+                    loadRawdata2DataGrid();
+                }
+                else
+                {
+                    tsslStatus.ForeColor = Color.Red;
+                    tsslStatus.Text = "Raw data in database is incomplete,pls check...";
+                }
+
             }
   
         }
@@ -810,7 +831,9 @@ reviewer) VALUES (@_depcode,
 
         private void trviewReport_AfterSelect(object sender, TreeViewEventArgs e)
         {
+            this.Enabled = false;
             loadInfo2toolStrip(p.WorkType.Report, lstviewReport, trviewReport);
+            this.Enabled = true ;
         }
 
 
@@ -910,16 +933,20 @@ reviewer) VALUES (@_depcode,
             listview.BeginUpdate();//数据更新，UI暂时挂起，直到EndUpdate绘制控件，可以有效避免闪烁并大大提高加载速度 
             //
             string sql = "";
-            if (worktype == p.WorkType.Meeting && selectparentnode)
-                sql = "SELECT * FROM t_meetingrawdata WHERE meetingtype = '" + workdetail + "' order by seccode ASC";
-            else
-                sql = "SELECT * FROM t_meetingrawdata WHERE workdetail = '" + workdetail + "' order by seccode ASC";
-
-            if (worktype == p.WorkType .Report && selectparentnode)
-                sql = "SELECT * FROM t_reportrawdata WHERE reporttype = '" + workdetail + "' order by seccode ASC";
-            else
-                sql = "SELECT * FROM t_reportrawdata WHERE workdetail = '" + workdetail + "' order by seccode ASC";
-
+            if (worktype == p.WorkType.Meeting)
+            {
+                if (selectparentnode)
+                    sql = "SELECT * FROM t_meetingrawdata WHERE meetingtype = '" + workdetail + "' order by seccode ASC";
+                else
+                    sql = "SELECT * FROM t_meetingrawdata WHERE workdetail = '" + workdetail + "' order by seccode ASC";
+            }
+            if (worktype == p.WorkType .Report)
+            {
+                if (selectparentnode)
+                    sql = "SELECT * FROM t_reportrawdata WHERE reporttype = '" + workdetail + "' order by seccode ASC";
+                else
+                    sql = "SELECT * FROM t_reportrawdata WHERE workdetail = '" + workdetail + "' order by seccode ASC";
+            }
             //MessageBox.Show(sql);
 
             SQLiteConnection conn = new SQLiteConnection(p.dbConnectionString);
@@ -969,16 +996,21 @@ reviewer) VALUES (@_depcode,
             lt.SubItems.Add("");
             lt.SubItems.Add("");
             lt.SubItems.Add("");
-            if (worktype == p.WorkType.Meeting && selectparentnode )
-                 sql = "SELECT SUM (weeklyworktime) FROM t_meetingrawdata WHERE meetingtype = '" + workdetail + "'";
-            else
-                sql = "SELECT SUM (weeklyworktime) FROM t_meetingrawdata WHERE workdetail = '" + workdetail + "'";
+            if (worktype == p.WorkType.Meeting )
+            {
+                if (selectparentnode )
+                    sql = "SELECT SUM (weeklyworktime) FROM t_meetingrawdata WHERE meetingtype = '" + workdetail + "'";
+                else
+                    sql = "SELECT SUM (weeklyworktime) FROM t_meetingrawdata WHERE workdetail = '" + workdetail + "'";
+            }
 
-            if (worktype == p.WorkType.Report && selectparentnode )
-                 sql = "SELECT SUM (weeklyworktime) FROM t_reportrawdata WHERE reporttype = '" + workdetail + "'";
-            else
-                sql = "SELECT SUM (weeklyworktime) FROM t_reportrawdata WHERE workdetail = '" + workdetail + "'";
-
+            if (worktype == p.WorkType.Report )
+            {
+                if (selectparentnode)
+                    sql = "SELECT SUM (weeklyworktime) FROM t_reportrawdata WHERE reporttype = '" + workdetail + "'";
+                else
+                    sql = "SELECT SUM (weeklyworktime) FROM t_reportrawdata WHERE workdetail = '" + workdetail + "'";
+            }
             //MessageBox.Show(sql);
 
             lt.SubItems.Add(p.querySum(sql).ToString());
@@ -1098,5 +1130,7 @@ reviewer) VALUES (@_depcode,
             if (dr == DialogResult.No)
                 e.Cancel = true;
         }
+ 
+
     }
 }

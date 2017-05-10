@@ -371,7 +371,16 @@ reviewer varchar(30))";
            SQLiteCommand cmd = new SQLiteCommand(sql, conn);
            var i = cmd.ExecuteScalar();
            conn.Close();
-           return decimal.Round(Convert.ToDecimal(i), 4);
+           //try
+           //{
+               return decimal.Round(Convert.ToDecimal(i), 4);
+           //}
+           //catch (Exception)
+           //{
+
+           //    return 0;
+           //}
+          
        }
     }
 }
