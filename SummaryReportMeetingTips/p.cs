@@ -432,5 +432,44 @@ reviewdate varchar(20))";
            }
           
        }
+
+
+       public static bool queryData(string sql, string keyname, out string sresult)
+       {
+           sresult = "";
+           SQLiteConnection conn = new SQLiteConnection(dbConnectionString);
+           try
+           {
+               conn.Open();
+               SQLiteCommand cmd = new SQLiteCommand(sql, conn);
+               SQLiteDataReader re = cmd.ExecuteReader();
+               if (re.HasRows)
+               {
+                   while (re.Read())
+                   {
+                       sresult = re[keyname].ToString();
+                   }
+               }
+               
+           }
+           catch (Exception)
+           {
+
+               return false;
+           }
+           finally
+           {
+               conn.Close();
+           }
+          
+
+
+
+         
+
+           
+           return true;
+       }
+
     }
 }

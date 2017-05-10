@@ -843,6 +843,21 @@ reviewer) VALUES (@_depcode,
 
         private void loadInfo2toolStrip(p.WorkType worktype,ListView listview,TreeView treview)
         {
+
+            //report
+            txtReportNewTipsSaveTime.Text = "";
+            txtReportNewTips.Text = "";
+            txtReportNewTipsOptimizePCT.Text = "";
+            txtReportNewTipsOptimizePCTTotal.Text = "";
+            txtReportLastUpdateTime.Text = "";
+            txtReportTotalTime.Text = "";
+            txtReportAlreadyHaveTips.Text = "";
+            txtReportHaveTipsSaveTime.Text = "";
+            txtReportHaveTipsOptimizePCT.Text = "";
+            txtReportHaveTipsOptimizePCTTotal.Text = "";
+
+            //meeting
+
             bool _bSelectParentNode = false;
             listview.Items.Clear();
             string workdetail = "";
@@ -863,7 +878,10 @@ reviewer) VALUES (@_depcode,
                 _bSelectParentNode = true;
                 workdetail = treview.SelectedNode.Text;
                 if (worktype == p.WorkType.Report)
+                {
                     grbReportChildNode.Enabled = false;
+                    grbParentnode.Text = workdetail;
+                }
                 if (worktype == p.WorkType.Meeting)
                 {
 
@@ -914,25 +932,31 @@ reviewer) VALUES (@_depcode,
 
                 tsslStatus.ForeColor = Color.Blue;
                 tsslStatus.Text = workdetail + " | itemscount:" + icount + " | weeklyworktime(h):" + totaltime;
-
                 //---------------------------
-                
-
-
                 if (_bSelectParentNode) //
                 {
                     if (worktype == p.WorkType.Report)
                     {
+                        //
+                        //
+                        decimal _savetime = p.querySum("SELECT SUM(tipsavetime) FROM t_reporttips");
+                        txtReportSummary.Text = "Items:" + p.queryCount("SELECT COUNT(*) FROM t_reportrawdata") + ",TotalTime(h):" + totalworktime + ",Tips:" + p.querySum("SELECT COUNT(tips) FROM t_reporttips") + ",SaveTime(h):" +
+                           _savetime + ",PCT(%):" + p.CalcPCT(_savetime, totalworktime);
+                        _savetime = p.querySum("SELECT SUM(tipsavetime) FROM t_reporttips WHERE reporttype = '" + workdetail +"'");
+                        txtParentType.Text = "Items:" + p.queryCount("SELECT COUNT(*) FROM t_reportrawdata WHERE reporttype =  '" + workdetail +"'") + ",TotalTime(h):" + totaltime + ",Tips:" + p.querySum("SELECT COUNT(tips) FROM t_reporttips WHERE reporttype = '" + workdetail +"'") + ",SaveTime(h):" +
+                           _savetime + ",PCT(%):" + p.CalcPCT(_savetime, totaltime);
+
+
                         grbReportChildNode.Text = workdetail;
                         txtReportParentTotalTime.Text = totaltime.ToString();
                         //tips count 
                         sql = "SELECT SUM(tips) FROM t_reporttips where reporttype = '" + workdetail + "'";
-                        txtAlreadyHaveTips.Text = p.querySum(sql).ToString();
+                        txtReportAlreadyHaveTips.Text = p.querySum(sql).ToString();
                         //tips save time
                         sql = "SELECT SUM(tipsavetime) FROM t_reporttips where reporttype = '" + workdetail + "'";
-                        txtHaveTipsSaveTime.Text = p.querySum(sql).ToString();
-                        txtHaveTipsOptimizePCT.Text = p.CalcPCT(Convert.ToDecimal(txtHaveTipsSaveTime.Text.Trim()), totaltime);
-                        txtHaveTipsOptimizePCTTotal.Text = p.CalcPCT(Convert.ToDecimal(txtHaveTipsSaveTime.Text.Trim()), totalworktime);
+                        txtReportHaveTipsSaveTime.Text = p.querySum(sql).ToString();
+                        txtReportHaveTipsOptimizePCT.Text = p.CalcPCT(Convert.ToDecimal(txtReportHaveTipsSaveTime.Text.Trim()), totaltime);
+                        txtReportHaveTipsOptimizePCTTotal.Text = p.CalcPCT(Convert.ToDecimal(txtReportHaveTipsSaveTime.Text.Trim()), totalworktime);
 
                     }
 
@@ -943,27 +967,33 @@ reviewer) VALUES (@_depcode,
                 }
                 else //childnode
                 {
-                    if (worktype == p.WorkType.Report )
+                    if (worktype == p.WorkType.Report)
                     {
                         grbReportChildNode.Text = workdetail;
                         txtReportParentTotalTime.Text = totaltime.ToString();
+                        //tips count 
+                        sql = "SELECT SUM(tips) FROM t_reporttips where workdetail = '" + workdetail + "'";
+                        txtReportAlreadyHaveTips.Text = p.querySum(sql).ToString();
+                        //tips save time
+                        sql = "SELECT SUM(tipsavetime) FROM t_reporttips where workdetail = '" + workdetail + "'";
+                        txtReportHaveTipsSaveTime.Text = p.querySum(sql).ToString();
+                        txtReportHaveTipsOptimizePCT.Text = p.CalcPCT(Convert.ToDecimal(txtReportHaveTipsSaveTime.Text.Trim()), totaltime);
+                        txtReportHaveTipsOptimizePCTTotal.Text = p.CalcPCT(Convert.ToDecimal(txtReportHaveTipsSaveTime.Text.Trim()), totalworktime);
+                        string lastdate = "";
+                        p.queryData("SELECT * FROM t_reporttips WHERE workdetail = '" + workdetail + "'", "reviewdate", out lastdate);
+                        txtReportLastUpdateTime.Text = lastdate;
                     }
 
-                    if (worktype == p.WorkType.Meeting )
+                    if (worktype == p.WorkType.Meeting)
                     {
 
                     }
                 }
-
+         
+              
             }
-
-
-
-
-
-      
+                 
         }
-
 
         private void setListview(ListView listview, p.WorkType worktype)
         {
@@ -1192,28 +1222,89 @@ reviewer) VALUES (@_depcode,
 
         private void btnSaveReport_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtNewTips.Text.Trim()))
+            //check can't empty
+            if (string.IsNullOrEmpty(txtReportNewTips.Text.Trim()))
             {
                 MessageBox.Show("Tips qty. can't be empty.", "Number Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtNewTips.SelectAll();
-                txtNewTips.Focus();
+                txtReportNewTips.SelectAll();
+                txtReportNewTips.Focus();
                 return;
             }
-            if (string.IsNullOrEmpty( txtNewTipsSaveTime .Text .Trim ()))
+            if (string.IsNullOrEmpty( txtReportNewTipsSaveTime .Text .Trim ()))
             {
                 MessageBox.Show("Tips Save time can't be empty.", "Number Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtNewTipsSaveTime.SelectAll();
-                txtNewTipsSaveTime.Focus();
+                txtReportNewTipsSaveTime.SelectAll();
+                txtReportNewTipsSaveTime.Focus();
                 return;
             }
 
+            //check range
+            decimal totaltime = Convert.ToDecimal(txtReportParentTotalTime.Text.Trim());
+            decimal lastsave = Convert.ToDecimal(txtReportHaveTipsSaveTime.Text.Trim());
+            decimal newsave = Convert.ToDecimal(txtReportNewTipsSaveTime.Text.Trim());
+            if ((lastsave + newsave) > totaltime)
+            {
+                MessageBox.Show("当前改善的时间(" + newsave + ")同已改善的时间(" + lastsave + ")总和已大于当前项目的总时间和(" + totaltime + "),请重新check", "Out Of Range", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtReportNewTipsSaveTime.SelectAll();
+                txtReportNewTipsSaveTime.Focus();
+                return;
+            }
+            //check datetime
+            if (!string.IsNullOrEmpty (txtReportLastUpdateTime .Text.Trim ()))
+            {
+                if (checkDatetimeIsNow(txtReportLastUpdateTime.Text.Trim(), DateTime.Now.ToString("yyyy-MM-dd")))
+                {
+                    DialogResult dr = MessageBox.Show("当前更新时间等于或者小于上一次更新的时间,确认是否需要更新,更新点YES,不更新点NO", "Qestion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (dr == System.Windows.Forms.DialogResult.No)
+                    {
+                        return;
+                    }
+                }   
+            }
+            
+            this.Enabled = false;
+            int _tips = Convert.ToInt16(txtReportAlreadyHaveTips.Text.Trim()) + Convert.ToInt16(txtReportNewTips.Text.Trim());
+            decimal _tipsavetime = Convert.ToDecimal(txtReportHaveTipsSaveTime.Text.Trim()) + Convert.ToDecimal(txtReportNewTipsSaveTime .Text.Trim() );
+
+            string sql = @"REPLACE INTO t_reporttips (workdetail,reporttype,tips,tipsavetime,reviewdate) VALUES ('" +
+                grbReportChildNode.Text + "','" +
+                grbParentnode.Text + "','" +
+                _tips + "','" +
+                _tipsavetime  + "','" +
+                DateTime.Now.ToString("yyyy-MM-dd") + "')";
+
+            if (p.updateData2DB(sql))
+            {
+                MessageBox.Show("update date into database success...", "Update Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                loadInfo2toolStrip(p.WorkType.Report, lstviewReport, trviewReport);
+             }
+            this.Enabled = true;
+
+            
 
         }
 
-        private void txtNewTips_TextChanged(object sender, EventArgs e)
+        /// <summary>
+        /// 比较两个时间,如果现在的日期大于上次的日期, trun false,反之retun true
+        /// </summary>
+        /// <param name="lastdt"></param>
+        /// <param name="currentdt"></param>
+        /// <returns></returns>
+        private bool checkDatetimeIsNow(string  lastdt,string  currentdt)
         {
-         
+            DateTime lastdate  = DateTime.ParseExact(lastdt , "yyyy-MM-dd", System.Globalization.CultureInfo.CurrentCulture);
+            DateTime currentdate = DateTime.ParseExact(currentdt, "yyyy-MM-dd", System.Globalization.CultureInfo.CurrentCulture);
+
+            if (currentdate > lastdate )
+                return false;
+
+            return true;
         }
+
+
+
+
+
 
         private void txtNewTips_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -1241,6 +1332,24 @@ reviewer) VALUES (@_depcode,
         {
             onlyDecimalInput(e);
         }
+
+        private void txtReportNewTipsSaveTime_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                txtReportNewTipsOptimizePCT.Text = p.CalcPCT(Convert.ToDecimal(txtReportNewTipsSaveTime.Text.Trim()), Convert.ToDecimal(txtReportParentTotalTime.Text.Trim()));
+                txtReportNewTipsOptimizePCTTotal.Text = p.CalcPCT(Convert.ToDecimal(txtReportNewTipsSaveTime.Text.Trim()), Convert.ToDecimal(txtReportTotalTime.Text.Trim()));
+            }
+            catch (Exception)
+            {
+
+                //throw;
+            }
+            
+        }
+         
+
+
 
 
     }

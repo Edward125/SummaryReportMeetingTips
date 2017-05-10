@@ -45,27 +45,27 @@
             this.btnSaveReport = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.txtLastUpdateTime = new System.Windows.Forms.TextBox();
+            this.txtReportLastUpdateTime = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.txtNewTipsSaveTime = new System.Windows.Forms.TextBox();
+            this.txtReportNewTipsSaveTime = new System.Windows.Forms.TextBox();
             this.txtReportParentTotalTime = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.txtNewTipsOptimizePCT = new System.Windows.Forms.TextBox();
-            this.txtNewTips = new System.Windows.Forms.TextBox();
+            this.txtReportNewTipsOptimizePCT = new System.Windows.Forms.TextBox();
+            this.txtReportNewTips = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.txtHaveTipsOptimizePCTTotal = new System.Windows.Forms.TextBox();
+            this.txtReportHaveTipsOptimizePCTTotal = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.txtHaveTipsOptimizePCT = new System.Windows.Forms.TextBox();
+            this.txtReportHaveTipsOptimizePCT = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.txtNewTipsOptimizePCTTotal = new System.Windows.Forms.TextBox();
+            this.txtReportNewTipsOptimizePCTTotal = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.txtHaveTipsSaveTime = new System.Windows.Forms.TextBox();
-            this.txtAlreadyHaveTips = new System.Windows.Forms.TextBox();
+            this.txtReportHaveTipsSaveTime = new System.Windows.Forms.TextBox();
+            this.txtReportAlreadyHaveTips = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtReportTotalTime = new System.Windows.Forms.TextBox();
             this.lblTotalWorkTime = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.grbParentnode = new System.Windows.Forms.GroupBox();
             this.txtParentType = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtReportSummary = new System.Windows.Forms.TextBox();
@@ -82,7 +82,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.datagridRawData)).BeginInit();
             this.tabReport.SuspendLayout();
             this.grbReportChildNode.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.grbParentnode.SuspendLayout();
             this.tabMeeting.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -212,7 +212,7 @@
             // tabReport
             // 
             this.tabReport.Controls.Add(this.grbReportChildNode);
-            this.tabReport.Controls.Add(this.groupBox1);
+            this.tabReport.Controls.Add(this.grbParentnode);
             this.tabReport.Controls.Add(this.lstviewReport);
             this.tabReport.Controls.Add(this.trviewReport);
             this.tabReport.Location = new System.Drawing.Point(4, 23);
@@ -228,23 +228,23 @@
             this.grbReportChildNode.Controls.Add(this.btnSaveReport);
             this.grbReportChildNode.Controls.Add(this.label13);
             this.grbReportChildNode.Controls.Add(this.label12);
-            this.grbReportChildNode.Controls.Add(this.txtLastUpdateTime);
+            this.grbReportChildNode.Controls.Add(this.txtReportLastUpdateTime);
             this.grbReportChildNode.Controls.Add(this.label11);
-            this.grbReportChildNode.Controls.Add(this.txtNewTipsSaveTime);
+            this.grbReportChildNode.Controls.Add(this.txtReportNewTipsSaveTime);
             this.grbReportChildNode.Controls.Add(this.txtReportParentTotalTime);
             this.grbReportChildNode.Controls.Add(this.label4);
-            this.grbReportChildNode.Controls.Add(this.txtNewTipsOptimizePCT);
-            this.grbReportChildNode.Controls.Add(this.txtNewTips);
+            this.grbReportChildNode.Controls.Add(this.txtReportNewTipsOptimizePCT);
+            this.grbReportChildNode.Controls.Add(this.txtReportNewTips);
             this.grbReportChildNode.Controls.Add(this.label10);
-            this.grbReportChildNode.Controls.Add(this.txtHaveTipsOptimizePCTTotal);
+            this.grbReportChildNode.Controls.Add(this.txtReportHaveTipsOptimizePCTTotal);
             this.grbReportChildNode.Controls.Add(this.label9);
-            this.grbReportChildNode.Controls.Add(this.txtHaveTipsOptimizePCT);
+            this.grbReportChildNode.Controls.Add(this.txtReportHaveTipsOptimizePCT);
             this.grbReportChildNode.Controls.Add(this.label8);
             this.grbReportChildNode.Controls.Add(this.label7);
-            this.grbReportChildNode.Controls.Add(this.txtNewTipsOptimizePCTTotal);
+            this.grbReportChildNode.Controls.Add(this.txtReportNewTipsOptimizePCTTotal);
             this.grbReportChildNode.Controls.Add(this.label6);
-            this.grbReportChildNode.Controls.Add(this.txtHaveTipsSaveTime);
-            this.grbReportChildNode.Controls.Add(this.txtAlreadyHaveTips);
+            this.grbReportChildNode.Controls.Add(this.txtReportHaveTipsSaveTime);
+            this.grbReportChildNode.Controls.Add(this.txtReportAlreadyHaveTips);
             this.grbReportChildNode.Controls.Add(this.label5);
             this.grbReportChildNode.Controls.Add(this.txtReportTotalTime);
             this.grbReportChildNode.Controls.Add(this.lblTotalWorkTime);
@@ -267,7 +267,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(418, 44);
+            this.label13.Location = new System.Drawing.Point(404, 44);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(43, 14);
             this.label13.TabIndex = 24;
@@ -282,31 +282,33 @@
             this.label12.TabIndex = 23;
             this.label12.Text = "改善总工时比";
             // 
-            // txtLastUpdateTime
+            // txtReportLastUpdateTime
             // 
-            this.txtLastUpdateTime.Location = new System.Drawing.Point(713, 11);
-            this.txtLastUpdateTime.Name = "txtLastUpdateTime";
-            this.txtLastUpdateTime.ReadOnly = true;
-            this.txtLastUpdateTime.Size = new System.Drawing.Size(78, 22);
-            this.txtLastUpdateTime.TabIndex = 22;
-            this.txtLastUpdateTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtReportLastUpdateTime.Location = new System.Drawing.Point(713, 11);
+            this.txtReportLastUpdateTime.Name = "txtReportLastUpdateTime";
+            this.txtReportLastUpdateTime.ReadOnly = true;
+            this.txtReportLastUpdateTime.Size = new System.Drawing.Size(78, 22);
+            this.txtReportLastUpdateTime.TabIndex = 22;
+            this.txtReportLastUpdateTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(273, 46);
+            this.label11.Location = new System.Drawing.Point(261, 46);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(97, 14);
             this.label11.TabIndex = 21;
             this.label11.Text = "TipsSaveTime(h)";
             // 
-            // txtNewTipsSaveTime
+            // txtReportNewTipsSaveTime
             // 
-            this.txtNewTipsSaveTime.Location = new System.Drawing.Point(373, 41);
-            this.txtNewTipsSaveTime.Name = "txtNewTipsSaveTime";
-            this.txtNewTipsSaveTime.Size = new System.Drawing.Size(41, 22);
-            this.txtNewTipsSaveTime.TabIndex = 20;
-            this.txtNewTipsSaveTime.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNewTipsSaveTime_KeyPress);
+            this.txtReportNewTipsSaveTime.Location = new System.Drawing.Point(358, 41);
+            this.txtReportNewTipsSaveTime.Name = "txtReportNewTipsSaveTime";
+            this.txtReportNewTipsSaveTime.Size = new System.Drawing.Size(41, 22);
+            this.txtReportNewTipsSaveTime.TabIndex = 20;
+            this.txtReportNewTipsSaveTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtReportNewTipsSaveTime.TextChanged += new System.EventHandler(this.txtReportNewTipsSaveTime_TextChanged);
+            this.txtReportNewTipsSaveTime.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNewTipsSaveTime_KeyPress);
             // 
             // txtReportParentTotalTime
             // 
@@ -326,24 +328,24 @@
             this.label4.TabIndex = 18;
             this.label4.Text = "Report总工时(h)";
             // 
-            // txtNewTipsOptimizePCT
+            // txtReportNewTipsOptimizePCT
             // 
-            this.txtNewTipsOptimizePCT.Location = new System.Drawing.Point(462, 40);
-            this.txtNewTipsOptimizePCT.Name = "txtNewTipsOptimizePCT";
-            this.txtNewTipsOptimizePCT.ReadOnly = true;
-            this.txtNewTipsOptimizePCT.Size = new System.Drawing.Size(40, 22);
-            this.txtNewTipsOptimizePCT.TabIndex = 17;
-            this.txtNewTipsOptimizePCT.Text = "0";
-            this.txtNewTipsOptimizePCT.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtReportNewTipsOptimizePCT.Location = new System.Drawing.Point(447, 40);
+            this.txtReportNewTipsOptimizePCT.Name = "txtReportNewTipsOptimizePCT";
+            this.txtReportNewTipsOptimizePCT.ReadOnly = true;
+            this.txtReportNewTipsOptimizePCT.Size = new System.Drawing.Size(55, 22);
+            this.txtReportNewTipsOptimizePCT.TabIndex = 17;
+            this.txtReportNewTipsOptimizePCT.Text = "0";
+            this.txtReportNewTipsOptimizePCT.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // txtNewTips
+            // txtReportNewTips
             // 
-            this.txtNewTips.Location = new System.Drawing.Point(218, 45);
-            this.txtNewTips.Name = "txtNewTips";
-            this.txtNewTips.Size = new System.Drawing.Size(50, 22);
-            this.txtNewTips.TabIndex = 16;
-            this.txtNewTips.TextChanged += new System.EventHandler(this.txtNewTips_TextChanged);
-            this.txtNewTips.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNewTips_KeyPress);
+            this.txtReportNewTips.Location = new System.Drawing.Point(218, 45);
+            this.txtReportNewTips.Name = "txtReportNewTips";
+            this.txtReportNewTips.Size = new System.Drawing.Size(36, 22);
+            this.txtReportNewTips.TabIndex = 16;
+            this.txtReportNewTips.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtReportNewTips.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNewTips_KeyPress);
             // 
             // label10
             // 
@@ -354,15 +356,15 @@
             this.label10.TabIndex = 15;
             this.label10.Text = "新增Tips";
             // 
-            // txtHaveTipsOptimizePCTTotal
+            // txtReportHaveTipsOptimizePCTTotal
             // 
-            this.txtHaveTipsOptimizePCTTotal.Location = new System.Drawing.Point(583, 12);
-            this.txtHaveTipsOptimizePCTTotal.Name = "txtHaveTipsOptimizePCTTotal";
-            this.txtHaveTipsOptimizePCTTotal.ReadOnly = true;
-            this.txtHaveTipsOptimizePCTTotal.Size = new System.Drawing.Size(41, 22);
-            this.txtHaveTipsOptimizePCTTotal.TabIndex = 14;
-            this.txtHaveTipsOptimizePCTTotal.Text = "0";
-            this.txtHaveTipsOptimizePCTTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtReportHaveTipsOptimizePCTTotal.Location = new System.Drawing.Point(583, 12);
+            this.txtReportHaveTipsOptimizePCTTotal.Name = "txtReportHaveTipsOptimizePCTTotal";
+            this.txtReportHaveTipsOptimizePCTTotal.ReadOnly = true;
+            this.txtReportHaveTipsOptimizePCTTotal.Size = new System.Drawing.Size(41, 22);
+            this.txtReportHaveTipsOptimizePCTTotal.TabIndex = 14;
+            this.txtReportHaveTipsOptimizePCTTotal.Text = "0";
+            this.txtReportHaveTipsOptimizePCTTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label9
             // 
@@ -373,20 +375,20 @@
             this.label9.TabIndex = 13;
             this.label9.Text = "改善总工时比";
             // 
-            // txtHaveTipsOptimizePCT
+            // txtReportHaveTipsOptimizePCT
             // 
-            this.txtHaveTipsOptimizePCT.Location = new System.Drawing.Point(460, 14);
-            this.txtHaveTipsOptimizePCT.Name = "txtHaveTipsOptimizePCT";
-            this.txtHaveTipsOptimizePCT.ReadOnly = true;
-            this.txtHaveTipsOptimizePCT.Size = new System.Drawing.Size(41, 22);
-            this.txtHaveTipsOptimizePCT.TabIndex = 12;
-            this.txtHaveTipsOptimizePCT.Text = "0";
-            this.txtHaveTipsOptimizePCT.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtReportHaveTipsOptimizePCT.Location = new System.Drawing.Point(447, 14);
+            this.txtReportHaveTipsOptimizePCT.Name = "txtReportHaveTipsOptimizePCT";
+            this.txtReportHaveTipsOptimizePCT.ReadOnly = true;
+            this.txtReportHaveTipsOptimizePCT.Size = new System.Drawing.Size(54, 22);
+            this.txtReportHaveTipsOptimizePCT.TabIndex = 12;
+            this.txtReportHaveTipsOptimizePCT.Text = "0";
+            this.txtReportHaveTipsOptimizePCT.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(418, 17);
+            this.label8.Location = new System.Drawing.Point(405, 17);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(43, 14);
             this.label8.TabIndex = 11;
@@ -401,44 +403,44 @@
             this.label7.TabIndex = 10;
             this.label7.Text = "上次更新时间";
             // 
-            // txtNewTipsOptimizePCTTotal
+            // txtReportNewTipsOptimizePCTTotal
             // 
-            this.txtNewTipsOptimizePCTTotal.Location = new System.Drawing.Point(583, 40);
-            this.txtNewTipsOptimizePCTTotal.Name = "txtNewTipsOptimizePCTTotal";
-            this.txtNewTipsOptimizePCTTotal.ReadOnly = true;
-            this.txtNewTipsOptimizePCTTotal.Size = new System.Drawing.Size(41, 22);
-            this.txtNewTipsOptimizePCTTotal.TabIndex = 9;
-            this.txtNewTipsOptimizePCTTotal.Text = "0";
-            this.txtNewTipsOptimizePCTTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtReportNewTipsOptimizePCTTotal.Location = new System.Drawing.Point(583, 40);
+            this.txtReportNewTipsOptimizePCTTotal.Name = "txtReportNewTipsOptimizePCTTotal";
+            this.txtReportNewTipsOptimizePCTTotal.ReadOnly = true;
+            this.txtReportNewTipsOptimizePCTTotal.Size = new System.Drawing.Size(41, 22);
+            this.txtReportNewTipsOptimizePCTTotal.TabIndex = 9;
+            this.txtReportNewTipsOptimizePCTTotal.Text = "0";
+            this.txtReportNewTipsOptimizePCTTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(272, 18);
+            this.label6.Location = new System.Drawing.Point(260, 18);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(97, 14);
             this.label6.TabIndex = 8;
             this.label6.Text = "TipsSaveTime(h)";
             // 
-            // txtHaveTipsSaveTime
+            // txtReportHaveTipsSaveTime
             // 
-            this.txtHaveTipsSaveTime.Location = new System.Drawing.Point(372, 14);
-            this.txtHaveTipsSaveTime.Name = "txtHaveTipsSaveTime";
-            this.txtHaveTipsSaveTime.ReadOnly = true;
-            this.txtHaveTipsSaveTime.Size = new System.Drawing.Size(41, 22);
-            this.txtHaveTipsSaveTime.TabIndex = 7;
-            this.txtHaveTipsSaveTime.Text = "0";
-            this.txtHaveTipsSaveTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtReportHaveTipsSaveTime.Location = new System.Drawing.Point(357, 14);
+            this.txtReportHaveTipsSaveTime.Name = "txtReportHaveTipsSaveTime";
+            this.txtReportHaveTipsSaveTime.ReadOnly = true;
+            this.txtReportHaveTipsSaveTime.Size = new System.Drawing.Size(41, 22);
+            this.txtReportHaveTipsSaveTime.TabIndex = 7;
+            this.txtReportHaveTipsSaveTime.Text = "0";
+            this.txtReportHaveTipsSaveTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // txtAlreadyHaveTips
+            // txtReportAlreadyHaveTips
             // 
-            this.txtAlreadyHaveTips.Location = new System.Drawing.Point(218, 14);
-            this.txtAlreadyHaveTips.Name = "txtAlreadyHaveTips";
-            this.txtAlreadyHaveTips.ReadOnly = true;
-            this.txtAlreadyHaveTips.Size = new System.Drawing.Size(50, 22);
-            this.txtAlreadyHaveTips.TabIndex = 6;
-            this.txtAlreadyHaveTips.Text = "0";
-            this.txtAlreadyHaveTips.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtReportAlreadyHaveTips.Location = new System.Drawing.Point(218, 14);
+            this.txtReportAlreadyHaveTips.Name = "txtReportAlreadyHaveTips";
+            this.txtReportAlreadyHaveTips.ReadOnly = true;
+            this.txtReportAlreadyHaveTips.Size = new System.Drawing.Size(36, 22);
+            this.txtReportAlreadyHaveTips.TabIndex = 6;
+            this.txtReportAlreadyHaveTips.Text = "0";
+            this.txtReportAlreadyHaveTips.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label5
             // 
@@ -467,43 +469,43 @@
             this.lblTotalWorkTime.TabIndex = 4;
             this.lblTotalWorkTime.Text = "该项总工时(h)";
             // 
-            // groupBox1
+            // grbParentnode
             // 
-            this.groupBox1.Controls.Add(this.txtParentType);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.txtReportSummary);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(6, 6);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(463, 71);
-            this.groupBox1.TabIndex = 2;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Summary";
+            this.grbParentnode.Controls.Add(this.txtParentType);
+            this.grbParentnode.Controls.Add(this.txtReportSummary);
+            this.grbParentnode.Controls.Add(this.label2);
+            this.grbParentnode.Controls.Add(this.label3);
+            this.grbParentnode.Location = new System.Drawing.Point(6, 6);
+            this.grbParentnode.Name = "grbParentnode";
+            this.grbParentnode.Size = new System.Drawing.Size(463, 71);
+            this.grbParentnode.TabIndex = 2;
+            this.grbParentnode.TabStop = false;
+            this.grbParentnode.Text = "Summary";
             // 
             // txtParentType
             // 
-            this.txtParentType.Location = new System.Drawing.Point(78, 41);
+            this.txtParentType.Location = new System.Drawing.Point(67, 41);
             this.txtParentType.Name = "txtParentType";
             this.txtParentType.ReadOnly = true;
-            this.txtParentType.Size = new System.Drawing.Size(379, 22);
+            this.txtParentType.Size = new System.Drawing.Size(390, 22);
             this.txtParentType.TabIndex = 3;
             this.txtParentType.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 45);
+            this.label3.Location = new System.Drawing.Point(1, 45);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(69, 14);
+            this.label3.Size = new System.Drawing.Size(66, 14);
             this.label3.TabIndex = 2;
-            this.label3.Text = "Parent Type";
+            this.label3.Text = "ParentType";
             // 
             // txtReportSummary
             // 
-            this.txtReportSummary.Location = new System.Drawing.Point(106, 14);
+            this.txtReportSummary.Location = new System.Drawing.Point(67, 14);
             this.txtReportSummary.Name = "txtReportSummary";
             this.txtReportSummary.ReadOnly = true;
-            this.txtReportSummary.Size = new System.Drawing.Size(351, 22);
+            this.txtReportSummary.Size = new System.Drawing.Size(390, 22);
             this.txtReportSummary.TabIndex = 1;
             this.txtReportSummary.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -512,9 +514,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(5, 18);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(95, 14);
+            this.label2.Size = new System.Drawing.Size(56, 14);
             this.label2.TabIndex = 0;
-            this.label2.Text = "Report Summary";
+            this.label2.Text = "Summary";
             // 
             // lstviewReport
             // 
@@ -602,8 +604,8 @@
             this.tabReport.ResumeLayout(false);
             this.grbReportChildNode.ResumeLayout(false);
             this.grbReportChildNode.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.grbParentnode.ResumeLayout(false);
+            this.grbParentnode.PerformLayout();
             this.tabMeeting.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
@@ -634,16 +636,16 @@
         private System.Windows.Forms.Button btnQuery;
         private System.Windows.Forms.ComboBox comboRawDataType;
         private System.Windows.Forms.GroupBox grbReportChildNode;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox txtHaveTipsOptimizePCTTotal;
+        private System.Windows.Forms.GroupBox grbParentnode;
+        private System.Windows.Forms.TextBox txtReportHaveTipsOptimizePCTTotal;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox txtHaveTipsOptimizePCT;
+        private System.Windows.Forms.TextBox txtReportHaveTipsOptimizePCT;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox txtNewTipsOptimizePCTTotal;
+        private System.Windows.Forms.TextBox txtReportNewTipsOptimizePCTTotal;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox txtHaveTipsSaveTime;
-        private System.Windows.Forms.TextBox txtAlreadyHaveTips;
+        private System.Windows.Forms.TextBox txtReportHaveTipsSaveTime;
+        private System.Windows.Forms.TextBox txtReportAlreadyHaveTips;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtReportTotalTime;
         private System.Windows.Forms.Label lblTotalWorkTime;
@@ -651,15 +653,15 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtReportSummary;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtNewTipsOptimizePCT;
-        private System.Windows.Forms.TextBox txtNewTips;
+        private System.Windows.Forms.TextBox txtReportNewTipsOptimizePCT;
+        private System.Windows.Forms.TextBox txtReportNewTips;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtReportParentTotalTime;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox txtNewTipsSaveTime;
+        private System.Windows.Forms.TextBox txtReportNewTipsSaveTime;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox txtLastUpdateTime;
+        private System.Windows.Forms.TextBox txtReportLastUpdateTime;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Button btnSaveReport;
     }
