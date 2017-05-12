@@ -120,6 +120,17 @@
             this.label31 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.txtReportNewDescription = new System.Windows.Forms.TextBox();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.txtMeetingOldReviwer = new System.Windows.Forms.TextBox();
+            this.txtMeetingOldDescription = new System.Windows.Forms.TextBox();
+            this.label35 = new System.Windows.Forms.Label();
+            this.label36 = new System.Windows.Forms.Label();
+            this.txtMeetingNewReviewer = new System.Windows.Forms.TextBox();
+            this.label37 = new System.Windows.Forms.Label();
+            this.comboMeetingOptimizeMethod = new System.Windows.Forms.ComboBox();
+            this.label38 = new System.Windows.Forms.Label();
+            this.txtMeetingNewDescription = new System.Windows.Forms.TextBox();
             this.tabMain.SuspendLayout();
             this.tabRawData.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datagridRawData)).BeginInit();
@@ -621,6 +632,16 @@
             // 
             // grbMeetingChildNode
             // 
+            this.grbMeetingChildNode.Controls.Add(this.label38);
+            this.grbMeetingChildNode.Controls.Add(this.txtMeetingNewDescription);
+            this.grbMeetingChildNode.Controls.Add(this.label36);
+            this.grbMeetingChildNode.Controls.Add(this.txtMeetingNewReviewer);
+            this.grbMeetingChildNode.Controls.Add(this.label37);
+            this.grbMeetingChildNode.Controls.Add(this.comboMeetingOptimizeMethod);
+            this.grbMeetingChildNode.Controls.Add(this.label33);
+            this.grbMeetingChildNode.Controls.Add(this.label34);
+            this.grbMeetingChildNode.Controls.Add(this.txtMeetingOldReviwer);
+            this.grbMeetingChildNode.Controls.Add(this.txtMeetingOldDescription);
             this.grbMeetingChildNode.Controls.Add(this.btnOutputMeetinig);
             this.grbMeetingChildNode.Controls.Add(this.btnSaveMeeting);
             this.grbMeetingChildNode.Controls.Add(this.label16);
@@ -645,18 +666,19 @@
             this.grbMeetingChildNode.Controls.Add(this.label25);
             this.grbMeetingChildNode.Controls.Add(this.txtMeetingTotalTime);
             this.grbMeetingChildNode.Controls.Add(this.label26);
+            this.grbMeetingChildNode.Controls.Add(this.label35);
             this.grbMeetingChildNode.Enabled = false;
             this.grbMeetingChildNode.Location = new System.Drawing.Point(472, 5);
             this.grbMeetingChildNode.Name = "grbMeetingChildNode";
-            this.grbMeetingChildNode.Size = new System.Drawing.Size(801, 71);
+            this.grbMeetingChildNode.Size = new System.Drawing.Size(801, 144);
             this.grbMeetingChildNode.TabIndex = 4;
             this.grbMeetingChildNode.TabStop = false;
             // 
             // btnOutputMeetinig
             // 
-            this.btnOutputMeetinig.Location = new System.Drawing.Point(715, 38);
+            this.btnOutputMeetinig.Location = new System.Drawing.Point(734, 103);
             this.btnOutputMeetinig.Name = "btnOutputMeetinig";
-            this.btnOutputMeetinig.Size = new System.Drawing.Size(76, 29);
+            this.btnOutputMeetinig.Size = new System.Drawing.Size(61, 29);
             this.btnOutputMeetinig.TabIndex = 26;
             this.btnOutputMeetinig.Text = "Output";
             this.btnOutputMeetinig.UseVisualStyleBackColor = true;
@@ -664,9 +686,9 @@
             // 
             // btnSaveMeeting
             // 
-            this.btnSaveMeeting.Location = new System.Drawing.Point(635, 37);
+            this.btnSaveMeeting.Location = new System.Drawing.Point(661, 103);
             this.btnSaveMeeting.Name = "btnSaveMeeting";
-            this.btnSaveMeeting.Size = new System.Drawing.Size(76, 29);
+            this.btnSaveMeeting.Size = new System.Drawing.Size(67, 29);
             this.btnSaveMeeting.TabIndex = 25;
             this.btnSaveMeeting.Text = "Save";
             this.btnSaveMeeting.UseVisualStyleBackColor = true;
@@ -675,7 +697,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(404, 44);
+            this.label16.Location = new System.Drawing.Point(247, 80);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(43, 14);
             this.label16.TabIndex = 24;
@@ -684,7 +706,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(504, 43);
+            this.label17.Location = new System.Drawing.Point(349, 81);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(79, 14);
             this.label17.TabIndex = 23;
@@ -702,7 +724,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(261, 46);
+            this.label18.Location = new System.Drawing.Point(104, 81);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(97, 14);
             this.label18.TabIndex = 21;
@@ -710,7 +732,7 @@
             // 
             // txtMeetingNewTipsSaveTime
             // 
-            this.txtMeetingNewTipsSaveTime.Location = new System.Drawing.Point(358, 41);
+            this.txtMeetingNewTipsSaveTime.Location = new System.Drawing.Point(201, 77);
             this.txtMeetingNewTipsSaveTime.Name = "txtMeetingNewTipsSaveTime";
             this.txtMeetingNewTipsSaveTime.Size = new System.Drawing.Size(41, 22);
             this.txtMeetingNewTipsSaveTime.TabIndex = 20;
@@ -738,7 +760,7 @@
             // 
             // txtMeetingNewTipsOptimizePCT
             // 
-            this.txtMeetingNewTipsOptimizePCT.Location = new System.Drawing.Point(447, 40);
+            this.txtMeetingNewTipsOptimizePCT.Location = new System.Drawing.Point(290, 77);
             this.txtMeetingNewTipsOptimizePCT.Name = "txtMeetingNewTipsOptimizePCT";
             this.txtMeetingNewTipsOptimizePCT.ReadOnly = true;
             this.txtMeetingNewTipsOptimizePCT.Size = new System.Drawing.Size(55, 22);
@@ -748,7 +770,7 @@
             // 
             // txtMeetingNewTips
             // 
-            this.txtMeetingNewTips.Location = new System.Drawing.Point(218, 45);
+            this.txtMeetingNewTips.Location = new System.Drawing.Point(61, 77);
             this.txtMeetingNewTips.Name = "txtMeetingNewTips";
             this.txtMeetingNewTips.Size = new System.Drawing.Size(36, 22);
             this.txtMeetingNewTips.TabIndex = 16;
@@ -758,7 +780,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(164, 46);
+            this.label20.Location = new System.Drawing.Point(7, 81);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(54, 14);
             this.label20.TabIndex = 15;
@@ -813,7 +835,7 @@
             // 
             // txtMeetingNewTipsOptimizePCTTotal
             // 
-            this.txtMeetingNewTipsOptimizePCTTotal.Location = new System.Drawing.Point(583, 40);
+            this.txtMeetingNewTipsOptimizePCTTotal.Location = new System.Drawing.Point(428, 77);
             this.txtMeetingNewTipsOptimizePCTTotal.Name = "txtMeetingNewTipsOptimizePCTTotal";
             this.txtMeetingNewTipsOptimizePCTTotal.ReadOnly = true;
             this.txtMeetingNewTipsOptimizePCTTotal.Size = new System.Drawing.Size(41, 22);
@@ -931,9 +953,9 @@
             this.lstviewMeeting.BackColor = System.Drawing.Color.White;
             this.lstviewMeeting.CheckBoxes = true;
             this.lstviewMeeting.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lstviewMeeting.Location = new System.Drawing.Point(409, 84);
+            this.lstviewMeeting.Location = new System.Drawing.Point(475, 155);
             this.lstviewMeeting.Name = "lstviewMeeting";
-            this.lstviewMeeting.Size = new System.Drawing.Size(875, 450);
+            this.lstviewMeeting.Size = new System.Drawing.Size(809, 379);
             this.lstviewMeeting.TabIndex = 1;
             this.lstviewMeeting.UseCompatibleStateImageBehavior = false;
             this.lstviewMeeting.View = System.Windows.Forms.View.Details;
@@ -942,7 +964,7 @@
             // 
             this.trviewMeeting.Location = new System.Drawing.Point(3, 83);
             this.trviewMeeting.Name = "trviewMeeting";
-            this.trviewMeeting.Size = new System.Drawing.Size(400, 451);
+            this.trviewMeeting.Size = new System.Drawing.Size(466, 451);
             this.trviewMeeting.TabIndex = 0;
             this.trviewMeeting.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.trviewMeeting_AfterSelect);
             // 
@@ -1068,6 +1090,110 @@
             this.txtReportNewDescription.Name = "txtReportNewDescription";
             this.txtReportNewDescription.Size = new System.Drawing.Size(585, 22);
             this.txtReportNewDescription.TabIndex = 36;
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(164, 47);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(55, 14);
+            this.label33.TabIndex = 36;
+            this.label33.Text = "改善描述";
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(658, 47);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(50, 14);
+            this.label34.TabIndex = 35;
+            this.label34.Text = "Reviwer";
+            // 
+            // txtMeetingOldReviwer
+            // 
+            this.txtMeetingOldReviwer.Location = new System.Drawing.Point(712, 42);
+            this.txtMeetingOldReviwer.Name = "txtMeetingOldReviwer";
+            this.txtMeetingOldReviwer.ReadOnly = true;
+            this.txtMeetingOldReviwer.Size = new System.Drawing.Size(78, 22);
+            this.txtMeetingOldReviwer.TabIndex = 34;
+            // 
+            // txtMeetingOldDescription
+            // 
+            this.txtMeetingOldDescription.Location = new System.Drawing.Point(225, 42);
+            this.txtMeetingOldDescription.Name = "txtMeetingOldDescription";
+            this.txtMeetingOldDescription.ReadOnly = true;
+            this.txtMeetingOldDescription.Size = new System.Drawing.Size(426, 22);
+            this.txtMeetingOldDescription.TabIndex = 33;
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(2, 62);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(799, 14);
+            this.label35.TabIndex = 37;
+            this.label35.Text = "---------------------------------------------------------------------------------" +
+    "--------------------------------------------------------------------------------" +
+    "-------------------------------------";
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(475, 80);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(55, 14);
+            this.label36.TabIndex = 41;
+            this.label36.Text = "改善方式";
+            // 
+            // txtMeetingNewReviewer
+            // 
+            this.txtMeetingNewReviewer.Location = new System.Drawing.Point(715, 77);
+            this.txtMeetingNewReviewer.Name = "txtMeetingNewReviewer";
+            this.txtMeetingNewReviewer.Size = new System.Drawing.Size(78, 22);
+            this.txtMeetingNewReviewer.TabIndex = 40;
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(662, 81);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(50, 14);
+            this.label37.TabIndex = 39;
+            this.label37.Text = "Reviwer";
+            // 
+            // comboMeetingOptimizeMethod
+            // 
+            this.comboMeetingOptimizeMethod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboMeetingOptimizeMethod.FormattingEnabled = true;
+            this.comboMeetingOptimizeMethod.Items.AddRange(new object[] {
+            "简化(消除浪费)",
+            "标准化格式",
+            "降低频率",
+            "集中化制作",
+            "自动化制作",
+            "取消报告",
+            "重复内容合并",
+            "维持不变"});
+            this.comboMeetingOptimizeMethod.Location = new System.Drawing.Point(531, 76);
+            this.comboMeetingOptimizeMethod.Name = "comboMeetingOptimizeMethod";
+            this.comboMeetingOptimizeMethod.Size = new System.Drawing.Size(125, 22);
+            this.comboMeetingOptimizeMethod.TabIndex = 38;
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Location = new System.Drawing.Point(6, 113);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(55, 14);
+            this.label38.TabIndex = 43;
+            this.label38.Text = "改善描述";
+            // 
+            // txtMeetingNewDescription
+            // 
+            this.txtMeetingNewDescription.Location = new System.Drawing.Point(69, 108);
+            this.txtMeetingNewDescription.Name = "txtMeetingNewDescription";
+            this.txtMeetingNewDescription.Size = new System.Drawing.Size(585, 22);
+            this.txtMeetingNewDescription.TabIndex = 42;
             // 
             // frmMain
             // 
@@ -1196,6 +1322,17 @@
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.TextBox txtReportNewDescription;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.TextBox txtMeetingOldReviwer;
+        private System.Windows.Forms.TextBox txtMeetingOldDescription;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.TextBox txtMeetingNewReviewer;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.ComboBox comboMeetingOptimizeMethod;
+        private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.TextBox txtMeetingNewDescription;
     }
 }
 
