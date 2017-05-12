@@ -754,14 +754,45 @@ reviewer) VALUES (@_depcode,
                          lastParentNode = _nodename;
                           
                     }
-                    
                     //
                     int nodeindex = getNodeIndex( trview,tr.Text ) ;
                     if (nodeindex  != -1)
                     {
                         tr = trview.Nodes[nodeindex];
-                        if (!childnodeIsInTreView (tr ,_childnodename))
-                            tr.Nodes.Add(_childnodename);
+                        //
+                        TreeNode childnode = new TreeNode();
+                        //if (_childnodename != lastChildNode)
+                        //{
+                        //    decimal _totaltime = 0;
+                        //    decimal _savetime = 0;
+                        //    int _itemscount = 0;
+                        //    int _tipscount = 0;
+
+                        //    loadNodeItemsTimeTipsSavetimeInfo(worktype, false, _childnodename, out _totaltime, out _savetime, out _itemscount, out _tipscount);
+                        //    _childnodename = _childnodename + ",TotalTime(h):" + _totaltime + ",Tips:" + _tipscount + ",SaveTime(h):" +
+                        //       _savetime + ",PCT(%):" + p.CalcPCT(_savetime, _totaltime);
+
+                        //    if (_tipscount > 0)
+                        //        childnode.ForeColor = Color.Blue;
+                        //}
+                        childnode.Text = _childnodename;
+                        if (!childnodeIsInTreView(tr, _childnodename))
+                        {
+                           // Application.DoEvents();
+
+                            if (worktype == p.WorkType.Report)
+                                sql = "SELECT COUNT(*) FROM t_reporttips WHERE workdetail = '" + _childnodename + "'";
+                            if (worktype == p.WorkType.Meeting)
+                                sql = "SELECT COUNT(*) FROM t_meetingtips WHERE workdetail = '" + _childnodename + "'";
+                            if (p.queryCount(sql) > 0)
+                            {
+
+                                childnode.BackColor = Color.Green;
+                                childnode.ForeColor = Color.White;
+                            }
+                            tr.Nodes.Add(childnode);
+                            lastChildNode = _childnodename;
+                        }
                     }
                 }
             }
@@ -790,8 +821,8 @@ reviewer) VALUES (@_depcode,
                 {
                     sql = "SELECT SUM (weeklyworktime) FROM t_meetingrawdata WHERE workdetail = '" + _nodename + "'";
                     _totaltime = p.querySum(sql);
-                    _savetime = p.querySum("SELECT SUM(tipsavetime) FROM t_meetingtips WHERE wokdetail = '" + _nodename + "'");
-                    _itemscount = p.queryCount("SELECT COUNT(*) FROM t_meetingrawdata WHERE workdetail = '" + _nodename + "'");
+                    _savetime = p.querySum("SELECT SUM(tipsavetime) FROM t_meetingtips WHERE workdetail = '" + _nodename + "'");
+                    //_itemscount = p.queryCount("SELECT COUNT(*) FROM t_meetingrawdata WHERE workdetail = '" + _nodename + "'");
                     _tipscount = Convert.ToInt16(p.querySum("SELECT COUNT(tips) FROM t_meetingtips WHERE workdetail = '" + _nodename + "'"));
                 }
                 
@@ -950,7 +981,7 @@ reviewer) VALUES (@_depcode,
             {
                 for (int i = 0; i < node.Nodes.Count; i++)
                 {
-                    if (node.Nodes[i].Text.Trim().ToUpper() == childnode.Trim().ToUpper())
+                    if (node.Nodes[i].Text.Trim().ToUpper().StartsWith(childnode.Trim().ToUpper())) 
                         return true;
                 }
             }
@@ -1001,8 +1032,17 @@ reviewer) VALUES (@_depcode,
             string sql = "";
             try
             {
-                workdetail = treview.SelectedNode.Parent.Text;
-                workdetail = treview.SelectedNode.Text;
+                try
+                {
+                    workdetail = treview.SelectedNode.Parent.Text.Substring(0, treview.SelectedNode.Parent.Text.IndexOf(';'));
+                    workdetail = treview.SelectedNode.Text.Substring(0, treview.SelectedNode.Text.IndexOf(';'));
+                }
+                catch (ArgumentException )
+                {
+                    workdetail = treview.SelectedNode.Parent.Text;
+                    workdetail = treview.SelectedNode.Text;
+                }
+
                 if (worktype == p.WorkType.Report)
                     grbReportChildNode.Enabled = true;
                 if (worktype == p.WorkType.Meeting)
@@ -1012,7 +1052,19 @@ reviewer) VALUES (@_depcode,
             catch (Exception)
             {
                 _bSelectParentNode = true;
-                workdetail = treview.SelectedNode.Text.Substring(0, treview.SelectedNode.Text.IndexOf(';'));
+
+                try
+                {
+                    workdetail = treview.SelectedNode.Text.Substring(0, treview.SelectedNode.Text.IndexOf(';'));
+                }
+                catch (ArgumentException )
+                {
+
+                    workdetail = treview.SelectedNode.Text;
+                }
+
+
+              
                 if (worktype == p.WorkType.Report)
                 {
                     grbReportChildNode.Enabled = false;
