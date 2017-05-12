@@ -262,6 +262,8 @@ tips int,
 tipsavetime decimal(10,4),
 optimizemethod varchar(20),
 description varchar(255),
+duedate varchar(15),
+status varchar(10),
 reviewer varchar(50),
 reviewdate varchar(20))";
 
@@ -280,6 +282,8 @@ tips int,
 tipsavetime decimal(10,4),
 optimizemethod varchar(20),
 description varchar(255),
+duedate varchar(15),
+status varchar(10),
 reviewer varchar(50),
 reviewdate varchar(20))";
 

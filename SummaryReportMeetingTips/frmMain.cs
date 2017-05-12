@@ -773,12 +773,15 @@ reviewer) VALUES (@_depcode,
                         //       _savetime + ",PCT(%):" + p.CalcPCT(_savetime, _totaltime);
 
                         //    if (_tipscount > 0)
-                        //        childnode.ForeColor = Color.Blue;
+                        //    {
+                        //        childnode.BackColor = Color.Green;
+                        //        childnode.ForeColor = Color.White;
+                        //    }
                         //}
                         childnode.Text = _childnodename;
                         if (!childnodeIsInTreView(tr, _childnodename))
                         {
-                           // Application.DoEvents();
+                          //Application.DoEvents();
 
                             if (worktype == p.WorkType.Report)
                                 sql = "SELECT COUNT(*) FROM t_reporttips WHERE workdetail = '" + _childnodename + "'";
@@ -1059,11 +1062,8 @@ reviewer) VALUES (@_depcode,
                 }
                 catch (ArgumentException )
                 {
-
                     workdetail = treview.SelectedNode.Text;
                 }
-
-
               
                 if (worktype == p.WorkType.Report)
                 {
@@ -1156,17 +1156,29 @@ reviewer) VALUES (@_depcode,
                         txtReportHaveTipsSaveTime.Text = p.querySum(sql).ToString();
                         txtReportHaveTipsOptimizePCT.Text = p.CalcPCT(Convert.ToDecimal(txtReportHaveTipsSaveTime.Text.Trim()), totaltime);
                         txtReportHaveTipsOptimizePCTTotal.Text = p.CalcPCT(Convert.ToDecimal(txtReportHaveTipsSaveTime.Text.Trim()), totalworktime);
-                        //reviewer,description,method
-                        string _reviewer, _description, _method;
+                        //reviewer,description,method,
+                        string _reviewer, _description, _method, _duedate, _status;
+
                         sql = "SELECT reviewer FROM t_reportips WHERE workdetail = '" + workdetail + "'";
                         p.queryData(sql, "reviewer", out _reviewer);
                         txtReportOldReviwer.Text = _reviewer;
+
                         sql = "SELECT description FROM t_reportips WHERE workdetail = '" + workdetail + "'";
                         p.queryData(sql, "description", out _description);
                         txtReportOldDescription.Text = _description;
+
                         sql = "SELECT optimizemethod FROM t_reporttips WHERE workdetail = '" + workdetail + "'";
                         p.queryData(sql, "optimizemethod", out _method);
-                        comboReportOptimizeMethod.Text = _method;
+                        txtMeetingOptimizeMethod.Text = _method;
+
+                        sql = "SELECT duedate FROM t_reporttips WHERE workdetail = '" + workdetail + "'";
+                        p.queryData(sql, "duedate", out _duedate );
+                        txtReportOldDueDate.Text = _duedate;
+
+                        sql = "SELECT status FROM t_reporttips WHERE workdetail = '" + workdetail + "'";
+                        p.queryData(sql, "status", out _status );
+                        txtReportTipsStatus.Text = _status;
+
 
                     }
 
@@ -1197,16 +1209,27 @@ reviewer) VALUES (@_depcode,
                         txtMeetingHaveTipsOptimizePCTTotal.Text = p.CalcPCT(Convert.ToDecimal(txtMeetingHaveTipsSaveTime.Text.Trim()), totalworktime);
 
                         //reviewer,description,method
-                        string _reviewer, _description, _method;
+                        string _reviewer, _description, _method, _duedate, _status;
+
                         sql = "SELECT reviewer FROM t_meetingtips WHERE workdetail = '" + workdetail + "'";
                         p.queryData(sql, "reviewer", out _reviewer);
                         txtMeetingOldReviwer.Text = _reviewer;
+
                         sql = "SELECT description FROM t_meetingtips WHERE workdetail = '" + workdetail + "'";
                         p.queryData(sql, "description", out _description);
                         txtMeetingOldDescription.Text = _description;
+
                         sql = "SELECT optimizemethod FROM t_meetingtips WHERE workdetail = '" + workdetail + "'";
                         p.queryData(sql, "optimizemethod", out _method);
                         comboMeetingOptimizeMethod.Text = _method;
+
+                        sql = "SELECT duedate FROM t_meetingtips WHERE workdetail = '" + workdetail + "'";
+                        p.queryData(sql, "duedate", out _duedate);
+                        txtMeetingOldDueDate.Text = _duedate;
+
+                        sql = "SELECT status FROM t_meetingtips WHERE workdetail = '" + workdetail + "'";
+                        p.queryData(sql, "status", out _status);
+                        txtMeetingTipsStatus.Text = _status;
                     }
                 }
                 else //childnode
@@ -1497,6 +1520,32 @@ reviewer) VALUES (@_depcode,
                 return;
             }
 
+            if (string.IsNullOrEmpty(txtReportNewDescription.Text.Trim()))
+            {
+                MessageBox.Show("Tips description can't be empty.", "Number Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtReportNewDescription.SelectAll();
+                txtReportNewDescription.Focus();
+                return;
+            }
+
+            if (this.comboReportOptimizeMethod.SelectedIndex == -1)
+            {
+                MessageBox.Show("Pls select meeting optimize method", "DONT SELECT", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.comboReportOptimizeMethod.Focus();
+                return;
+            }
+
+            if (this.comboReportTipsStatus.SelectedIndex == -1)
+            {
+                MessageBox.Show("Pls select current tips status", "DONT SELECT", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.comboReportTipsStatus.Focus();
+                return;
+            }
+
+
+
+
+
             //check range
             decimal totaltime = Convert.ToDecimal(txtReportParentTotalTime.Text.Trim());
             decimal lastsave = Convert.ToDecimal(txtReportHaveTipsSaveTime.Text.Trim());
@@ -1604,6 +1653,8 @@ reviewer) VALUES (@_depcode,
 
         private void btnSaveMeeting_Click(object sender, EventArgs e)
         {
+
+           
             //check can't empty
             if (string.IsNullOrEmpty(txtMeetingNewTips.Text.Trim()))
             {
@@ -1619,6 +1670,29 @@ reviewer) VALUES (@_depcode,
                 txtMeetingNewTipsSaveTime.Focus();
                 return;
             }
+
+            if (string.IsNullOrEmpty(txtMeetingNewDescription.Text.Trim()))
+            {
+                MessageBox.Show("Tips description can't be empty.", "Number Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtMeetingNewDescription.SelectAll();
+                txtMeetingNewDescription.Focus();
+                return;
+            }
+
+            if (this.comboMeetingOptimizeMethod.SelectedIndex == -1)
+            {
+                MessageBox.Show("Pls select meeting optimize method", "DONT SELECT", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.comboMeetingOptimizeMethod.Focus();
+                return;
+            }
+
+            if (this.comboMeetingTipsStatus  .SelectedIndex == -1)
+            {
+                MessageBox.Show("Pls select current tips status", "DONT SELECT", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.comboMeetingTipsStatus.Focus();
+                return;
+            }
+
 
             //check range
             decimal totaltime = Convert.ToDecimal(txtMeetingParentTotalTime.Text.Trim());

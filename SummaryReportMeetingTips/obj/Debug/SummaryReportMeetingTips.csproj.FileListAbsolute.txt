@@ -16,3 +16,4 @@ Z:\Users\Edward\EdwardCode\SummaryReportMeetingTips\SummaryReportMeetingTips\bin
 Z:\Users\Edward\EdwardCode\SummaryReportMeetingTips\SummaryReportMeetingTips\obj\Debug\SummaryReportMeetingTips.frmMain.resources
 Z:\Users\Edward\EdwardCode\SummaryReportMeetingTips\SummaryReportMeetingTips\obj\Debug\SummaryReportMeetingTips.Properties.Resources.resources
 Z:\Users\Edward\EdwardCode\SummaryReportMeetingTips\SummaryReportMeetingTips\obj\Debug\SummaryReportMeetingTips.csproj.GenerateResource.Cache
+D:\Edward\SummaryReportMeetingTips\SummaryReportMeetingTips\obj\Debug\SummaryReportMeetingTips.csprojResolveAssemblyReference.cache
