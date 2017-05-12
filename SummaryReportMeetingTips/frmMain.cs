@@ -1801,8 +1801,8 @@ reviewer) VALUES (@_depcode,
             p.checkLogFile(worktype);
 
             //
-            string filepath, _item, _type, _subtype, _workdetail, _itemscount, _workingtime, _tips, _savetime, _savepct, _updatedate;
-            filepath = _item = _type = _subtype = _workdetail = _itemscount = _workingtime = _tips = _savetime = _savepct = _updatedate = " ";
+            string filepath, _item, _depcode, _subtype, _workdetail, _type, _itemscount, _workingtime, _weeklyfreq, _weeklyworkingtime, _monthlyworkingtime, _optimizemethod, _tips, _savetime, _savepct, _updatedate, _description, _duedate, _status;
+            filepath = _item = _depcode = _subtype = _workdetail = _type = _itemscount = _workingtime = _weeklyfreq = _weeklyworkingtime = _monthlyworkingtime = _optimizemethod = _tips = _savetime = _savepct = _updatedate = _description = _duedate = _status = " ";
             //
             _type= worktype.ToString();
             if (worktype == p.WorkType.Report)
@@ -1810,19 +1810,38 @@ reviewer) VALUES (@_depcode,
                 filepath = p.logReportFile;
                 if (trviewReport.Nodes.Count > 0)
                 {
+                    string sql = "SELECT depcode FROM t_reportrawdata where id = '1'";
+                    p.queryData(sql, "depcode", out _depcode);
+
+
                     for (int i = 0; i < trviewReport.Nodes.Count ; i++)
                     {
                         _item = (i + 1).ToString();//
                         _subtype = trviewReport.Nodes[i].Text;//
                         _itemscount = trviewReport.Nodes[i].Nodes.Count.ToString();//
 
-                        string sql = "SELECT SUM(weeklyworktime) FROM t_reportrawdata WHERE reporttype = '" + _subtype + "'";
-                        _workingtime = p.querySum(sql).ToString();
+                         sql = "SELECT SUM(weeklyworktime) FROM t_reportrawdata WHERE reporttype = '" + _subtype + "'";
+                        _weeklyworkingtime = p.querySum(sql).ToString();
+
+                        sql = "SELECT SUM(monthlyworktime) FROM t_reportrawdata WHERE reporttype = '" + _subtype + "'";
+                        _monthlyworkingtime = p.querySum(sql).ToString();
+
                         sql = "SELECT SUM(tips) FROM t_reporttips WHERE reporttype = '" + _subtype + "'";
                         _tips = p.querySum(sql).ToString();
                         sql = "SELECT SUM(tipsavetime) FROM t_reporttips WHERE reporttype = '" + _subtype + "'";
                         _savetime = p.querySum(sql).ToString();
                         _savepct = p.CalcPCT(Convert.ToDecimal(_savetime), Convert.ToDecimal(_workingtime));
+
+                        sql = "SELECT optimizemethod FROM t_reporttips WHERE reporttype = '" + _subtype + "'";
+                        p.queryData(sql, "optimizemethod", out  _optimizemethod);
+
+                        sql = "SELECT duedate FROM t_reporttips WHERE reporttype = '" + _subtype + "'";
+                        p.queryData(sql, "duedate", out _duedate);
+
+                        sql = "SELECT description FROM t_reporttips WHERE reporttype = '" + _subtype + "'";
+                        p.queryData(sql, "description", out _description);
+
+                        ////////
 
                         saveLog(filepath, _item, _type, _subtype, _workdetail, _itemscount, _workingtime, _tips, _savetime, _savepct, _updatedate);
 
