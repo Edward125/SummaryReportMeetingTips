@@ -42,6 +42,7 @@
             this.lblRawData = new System.Windows.Forms.Label();
             this.tabReport = new System.Windows.Forms.TabPage();
             this.grbReportChildNode = new System.Windows.Forms.GroupBox();
+            this.btnOutputReports = new System.Windows.Forms.Button();
             this.btnSaveReport = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -73,16 +74,6 @@
             this.lstviewReport = new System.Windows.Forms.ListView();
             this.trviewReport = new System.Windows.Forms.TreeView();
             this.tabMeeting = new System.Windows.Forms.TabPage();
-            this.lstviewMeeting = new System.Windows.Forms.ListView();
-            this.trviewMeeting = new System.Windows.Forms.TreeView();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.tsslStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.btnOutputReports = new System.Windows.Forms.Button();
-            this.grbMeetingParentNode = new System.Windows.Forms.GroupBox();
-            this.txtMeetingParentType = new System.Windows.Forms.TextBox();
-            this.txtMeetingSummary = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
             this.grbMeetingChildNode = new System.Windows.Forms.GroupBox();
             this.btnOutputMeetinig = new System.Windows.Forms.Button();
             this.btnSaveMeeting = new System.Windows.Forms.Button();
@@ -108,7 +99,19 @@
             this.label25 = new System.Windows.Forms.Label();
             this.txtMeetingTotalTime = new System.Windows.Forms.TextBox();
             this.label26 = new System.Windows.Forms.Label();
+            this.grbMeetingParentNode = new System.Windows.Forms.GroupBox();
+            this.txtMeetingParentType = new System.Windows.Forms.TextBox();
+            this.txtMeetingSummary = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.lstviewMeeting = new System.Windows.Forms.ListView();
+            this.trviewMeeting = new System.Windows.Forms.TreeView();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.tsslStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.comboReportOptimizeMethod = new System.Windows.Forms.ComboBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.tabMain.SuspendLayout();
             this.tabRawData.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datagridRawData)).BeginInit();
@@ -116,9 +119,9 @@
             this.grbReportChildNode.SuspendLayout();
             this.grbReportParentNode.SuspendLayout();
             this.tabMeeting.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
-            this.grbMeetingParentNode.SuspendLayout();
             this.grbMeetingChildNode.SuspendLayout();
+            this.grbMeetingParentNode.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabMain
@@ -259,6 +262,9 @@
             // 
             // grbReportChildNode
             // 
+            this.grbReportChildNode.Controls.Add(this.textBox2);
+            this.grbReportChildNode.Controls.Add(this.textBox1);
+            this.grbReportChildNode.Controls.Add(this.comboReportOptimizeMethod);
             this.grbReportChildNode.Controls.Add(this.btnOutputReports);
             this.grbReportChildNode.Controls.Add(this.btnSaveReport);
             this.grbReportChildNode.Controls.Add(this.label13);
@@ -286,15 +292,25 @@
             this.grbReportChildNode.Enabled = false;
             this.grbReportChildNode.Location = new System.Drawing.Point(475, 5);
             this.grbReportChildNode.Name = "grbReportChildNode";
-            this.grbReportChildNode.Size = new System.Drawing.Size(801, 71);
+            this.grbReportChildNode.Size = new System.Drawing.Size(801, 144);
             this.grbReportChildNode.TabIndex = 3;
             this.grbReportChildNode.TabStop = false;
             // 
+            // btnOutputReports
+            // 
+            this.btnOutputReports.Location = new System.Drawing.Point(737, 109);
+            this.btnOutputReports.Name = "btnOutputReports";
+            this.btnOutputReports.Size = new System.Drawing.Size(56, 29);
+            this.btnOutputReports.TabIndex = 26;
+            this.btnOutputReports.Text = "Output";
+            this.btnOutputReports.UseVisualStyleBackColor = true;
+            this.btnOutputReports.Click += new System.EventHandler(this.btnOutputReports_Click);
+            // 
             // btnSaveReport
             // 
-            this.btnSaveReport.Location = new System.Drawing.Point(635, 37);
+            this.btnSaveReport.Location = new System.Drawing.Point(672, 109);
             this.btnSaveReport.Name = "btnSaveReport";
-            this.btnSaveReport.Size = new System.Drawing.Size(76, 29);
+            this.btnSaveReport.Size = new System.Drawing.Size(59, 29);
             this.btnSaveReport.TabIndex = 25;
             this.btnSaveReport.Text = "Save";
             this.btnSaveReport.UseVisualStyleBackColor = true;
@@ -303,7 +319,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(404, 44);
+            this.label13.Location = new System.Drawing.Point(240, 118);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(43, 14);
             this.label13.TabIndex = 24;
@@ -312,7 +328,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(504, 43);
+            this.label12.Location = new System.Drawing.Point(340, 119);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(79, 14);
             this.label12.TabIndex = 23;
@@ -330,7 +346,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(261, 46);
+            this.label11.Location = new System.Drawing.Point(97, 119);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(97, 14);
             this.label11.TabIndex = 21;
@@ -338,7 +354,7 @@
             // 
             // txtReportNewTipsSaveTime
             // 
-            this.txtReportNewTipsSaveTime.Location = new System.Drawing.Point(358, 41);
+            this.txtReportNewTipsSaveTime.Location = new System.Drawing.Point(194, 115);
             this.txtReportNewTipsSaveTime.Name = "txtReportNewTipsSaveTime";
             this.txtReportNewTipsSaveTime.Size = new System.Drawing.Size(41, 22);
             this.txtReportNewTipsSaveTime.TabIndex = 20;
@@ -366,7 +382,7 @@
             // 
             // txtReportNewTipsOptimizePCT
             // 
-            this.txtReportNewTipsOptimizePCT.Location = new System.Drawing.Point(447, 40);
+            this.txtReportNewTipsOptimizePCT.Location = new System.Drawing.Point(283, 114);
             this.txtReportNewTipsOptimizePCT.Name = "txtReportNewTipsOptimizePCT";
             this.txtReportNewTipsOptimizePCT.ReadOnly = true;
             this.txtReportNewTipsOptimizePCT.Size = new System.Drawing.Size(55, 22);
@@ -376,7 +392,7 @@
             // 
             // txtReportNewTips
             // 
-            this.txtReportNewTips.Location = new System.Drawing.Point(218, 45);
+            this.txtReportNewTips.Location = new System.Drawing.Point(54, 117);
             this.txtReportNewTips.Name = "txtReportNewTips";
             this.txtReportNewTips.Size = new System.Drawing.Size(36, 22);
             this.txtReportNewTips.TabIndex = 16;
@@ -386,7 +402,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(164, 46);
+            this.label10.Location = new System.Drawing.Point(0, 118);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(54, 14);
             this.label10.TabIndex = 15;
@@ -441,7 +457,7 @@
             // 
             // txtReportNewTipsOptimizePCTTotal
             // 
-            this.txtReportNewTipsOptimizePCTTotal.Location = new System.Drawing.Point(583, 40);
+            this.txtReportNewTipsOptimizePCTTotal.Location = new System.Drawing.Point(419, 115);
             this.txtReportNewTipsOptimizePCTTotal.Name = "txtReportNewTipsOptimizePCTTotal";
             this.txtReportNewTipsOptimizePCTTotal.ReadOnly = true;
             this.txtReportNewTipsOptimizePCTTotal.Size = new System.Drawing.Size(41, 22);
@@ -559,9 +575,9 @@
             this.lstviewReport.BackColor = System.Drawing.Color.White;
             this.lstviewReport.CheckBoxes = true;
             this.lstviewReport.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lstviewReport.Location = new System.Drawing.Point(409, 82);
+            this.lstviewReport.Location = new System.Drawing.Point(475, 155);
             this.lstviewReport.Name = "lstviewReport";
-            this.lstviewReport.Size = new System.Drawing.Size(869, 452);
+            this.lstviewReport.Size = new System.Drawing.Size(803, 379);
             this.lstviewReport.TabIndex = 1;
             this.lstviewReport.UseCompatibleStateImageBehavior = false;
             this.lstviewReport.View = System.Windows.Forms.View.Details;
@@ -570,7 +586,7 @@
             // 
             this.trviewReport.Location = new System.Drawing.Point(3, 83);
             this.trviewReport.Name = "trviewReport";
-            this.trviewReport.Size = new System.Drawing.Size(400, 451);
+            this.trviewReport.Size = new System.Drawing.Size(466, 451);
             this.trviewReport.TabIndex = 0;
             this.trviewReport.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.trviewReport_AfterSelect);
             // 
@@ -586,100 +602,6 @@
             this.tabMeeting.TabIndex = 2;
             this.tabMeeting.Text = "Meeting";
             this.tabMeeting.UseVisualStyleBackColor = true;
-            // 
-            // lstviewMeeting
-            // 
-            this.lstviewMeeting.BackColor = System.Drawing.Color.White;
-            this.lstviewMeeting.CheckBoxes = true;
-            this.lstviewMeeting.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lstviewMeeting.Location = new System.Drawing.Point(409, 84);
-            this.lstviewMeeting.Name = "lstviewMeeting";
-            this.lstviewMeeting.Size = new System.Drawing.Size(875, 450);
-            this.lstviewMeeting.TabIndex = 1;
-            this.lstviewMeeting.UseCompatibleStateImageBehavior = false;
-            this.lstviewMeeting.View = System.Windows.Forms.View.Details;
-            // 
-            // trviewMeeting
-            // 
-            this.trviewMeeting.Location = new System.Drawing.Point(3, 83);
-            this.trviewMeeting.Name = "trviewMeeting";
-            this.trviewMeeting.Size = new System.Drawing.Size(400, 451);
-            this.trviewMeeting.TabIndex = 0;
-            this.trviewMeeting.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.trviewMeeting_AfterSelect);
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsslStatus});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 589);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1317, 22);
-            this.statusStrip1.TabIndex = 1;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // tsslStatus
-            // 
-            this.tsslStatus.Name = "tsslStatus";
-            this.tsslStatus.Size = new System.Drawing.Size(0, 17);
-            // 
-            // btnOutputReports
-            // 
-            this.btnOutputReports.Location = new System.Drawing.Point(715, 38);
-            this.btnOutputReports.Name = "btnOutputReports";
-            this.btnOutputReports.Size = new System.Drawing.Size(76, 29);
-            this.btnOutputReports.TabIndex = 26;
-            this.btnOutputReports.Text = "Output";
-            this.btnOutputReports.UseVisualStyleBackColor = true;
-            this.btnOutputReports.Click += new System.EventHandler(this.btnOutputReports_Click);
-            // 
-            // grbMeetingParentNode
-            // 
-            this.grbMeetingParentNode.Controls.Add(this.txtMeetingParentType);
-            this.grbMeetingParentNode.Controls.Add(this.txtMeetingSummary);
-            this.grbMeetingParentNode.Controls.Add(this.label14);
-            this.grbMeetingParentNode.Controls.Add(this.label15);
-            this.grbMeetingParentNode.Location = new System.Drawing.Point(6, 6);
-            this.grbMeetingParentNode.Name = "grbMeetingParentNode";
-            this.grbMeetingParentNode.Size = new System.Drawing.Size(463, 71);
-            this.grbMeetingParentNode.TabIndex = 3;
-            this.grbMeetingParentNode.TabStop = false;
-            this.grbMeetingParentNode.Text = "Summary";
-            // 
-            // txtMeetingParentType
-            // 
-            this.txtMeetingParentType.Location = new System.Drawing.Point(67, 41);
-            this.txtMeetingParentType.Name = "txtMeetingParentType";
-            this.txtMeetingParentType.ReadOnly = true;
-            this.txtMeetingParentType.Size = new System.Drawing.Size(390, 22);
-            this.txtMeetingParentType.TabIndex = 3;
-            this.txtMeetingParentType.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // txtMeetingSummary
-            // 
-            this.txtMeetingSummary.Location = new System.Drawing.Point(67, 14);
-            this.txtMeetingSummary.Name = "txtMeetingSummary";
-            this.txtMeetingSummary.ReadOnly = true;
-            this.txtMeetingSummary.Size = new System.Drawing.Size(390, 22);
-            this.txtMeetingSummary.TabIndex = 1;
-            this.txtMeetingSummary.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(5, 18);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(56, 14);
-            this.label14.TabIndex = 0;
-            this.label14.Text = "Summary";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(1, 45);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(66, 14);
-            this.label15.TabIndex = 2;
-            this.label15.Text = "ParentType";
             // 
             // grbMeetingChildNode
             // 
@@ -939,9 +861,125 @@
             this.label26.TabIndex = 4;
             this.label26.Text = "该项总工时(h)";
             // 
+            // grbMeetingParentNode
+            // 
+            this.grbMeetingParentNode.Controls.Add(this.txtMeetingParentType);
+            this.grbMeetingParentNode.Controls.Add(this.txtMeetingSummary);
+            this.grbMeetingParentNode.Controls.Add(this.label14);
+            this.grbMeetingParentNode.Controls.Add(this.label15);
+            this.grbMeetingParentNode.Location = new System.Drawing.Point(6, 6);
+            this.grbMeetingParentNode.Name = "grbMeetingParentNode";
+            this.grbMeetingParentNode.Size = new System.Drawing.Size(463, 71);
+            this.grbMeetingParentNode.TabIndex = 3;
+            this.grbMeetingParentNode.TabStop = false;
+            this.grbMeetingParentNode.Text = "Summary";
+            // 
+            // txtMeetingParentType
+            // 
+            this.txtMeetingParentType.Location = new System.Drawing.Point(67, 41);
+            this.txtMeetingParentType.Name = "txtMeetingParentType";
+            this.txtMeetingParentType.ReadOnly = true;
+            this.txtMeetingParentType.Size = new System.Drawing.Size(390, 22);
+            this.txtMeetingParentType.TabIndex = 3;
+            this.txtMeetingParentType.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // txtMeetingSummary
+            // 
+            this.txtMeetingSummary.Location = new System.Drawing.Point(67, 14);
+            this.txtMeetingSummary.Name = "txtMeetingSummary";
+            this.txtMeetingSummary.ReadOnly = true;
+            this.txtMeetingSummary.Size = new System.Drawing.Size(390, 22);
+            this.txtMeetingSummary.TabIndex = 1;
+            this.txtMeetingSummary.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(5, 18);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(56, 14);
+            this.label14.TabIndex = 0;
+            this.label14.Text = "Summary";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(1, 45);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(66, 14);
+            this.label15.TabIndex = 2;
+            this.label15.Text = "ParentType";
+            // 
+            // lstviewMeeting
+            // 
+            this.lstviewMeeting.BackColor = System.Drawing.Color.White;
+            this.lstviewMeeting.CheckBoxes = true;
+            this.lstviewMeeting.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstviewMeeting.Location = new System.Drawing.Point(409, 84);
+            this.lstviewMeeting.Name = "lstviewMeeting";
+            this.lstviewMeeting.Size = new System.Drawing.Size(875, 450);
+            this.lstviewMeeting.TabIndex = 1;
+            this.lstviewMeeting.UseCompatibleStateImageBehavior = false;
+            this.lstviewMeeting.View = System.Windows.Forms.View.Details;
+            // 
+            // trviewMeeting
+            // 
+            this.trviewMeeting.Location = new System.Drawing.Point(3, 83);
+            this.trviewMeeting.Name = "trviewMeeting";
+            this.trviewMeeting.Size = new System.Drawing.Size(400, 451);
+            this.trviewMeeting.TabIndex = 0;
+            this.trviewMeeting.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.trviewMeeting_AfterSelect);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsslStatus});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 589);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1317, 22);
+            this.statusStrip1.TabIndex = 1;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // tsslStatus
+            // 
+            this.tsslStatus.Name = "tsslStatus";
+            this.tsslStatus.Size = new System.Drawing.Size(0, 17);
+            // 
             // backgroundWorker1
             // 
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            // 
+            // comboReportOptimizeMethod
+            // 
+            this.comboReportOptimizeMethod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboReportOptimizeMethod.FormattingEnabled = true;
+            this.comboReportOptimizeMethod.Items.AddRange(new object[] {
+            "简化(消除浪费)",
+            "标准化格式",
+            "降低频率",
+            "集中化制作",
+            "自动化制作",
+            "取消报告",
+            "重复内容合并",
+            "维持不变"});
+            this.comboReportOptimizeMethod.Location = new System.Drawing.Point(475, 116);
+            this.comboReportOptimizeMethod.Name = "comboReportOptimizeMethod";
+            this.comboReportOptimizeMethod.Size = new System.Drawing.Size(125, 22);
+            this.comboReportOptimizeMethod.TabIndex = 27;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(241, 47);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 22);
+            this.textBox1.TabIndex = 28;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(713, 42);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(78, 22);
+            this.textBox2.TabIndex = 29;
             // 
             // frmMain
             // 
@@ -966,12 +1004,12 @@
             this.grbReportParentNode.ResumeLayout(false);
             this.grbReportParentNode.PerformLayout();
             this.tabMeeting.ResumeLayout(false);
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
-            this.grbMeetingParentNode.ResumeLayout(false);
-            this.grbMeetingParentNode.PerformLayout();
             this.grbMeetingChildNode.ResumeLayout(false);
             this.grbMeetingChildNode.PerformLayout();
+            this.grbMeetingParentNode.ResumeLayout(false);
+            this.grbMeetingParentNode.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1059,6 +1097,9 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.ComboBox comboReportOptimizeMethod;
     }
 }
 

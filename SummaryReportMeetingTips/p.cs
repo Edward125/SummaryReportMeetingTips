@@ -15,7 +15,7 @@ namespace SummaryReportMeetingTips
         #region 参数定义
 
         public static string appFolder = Application.StartupPath + @"\SummaryRepotMeeting";
-        public static string appDataDB = appFolder + @"\DB.sqlite";
+        public static string appDataDB = appFolder + @"\DB.db";
         public static string dbConnectionString = "Data Source=" + @appDataDB;
 
         public static string logReportFile = appFolder + @"\ReportTIPs" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".log";
@@ -260,6 +260,9 @@ workdetail varchar(255) NOT NULL PRIMARY KEY,
 reporttype varchar(20),
 tips int,
 tipsavetime decimal(10,4),
+optimizemethod varchar(20),
+description varchar(255),
+reviewer varchar(50),
 reviewdate varchar(20))";
 
             if (!createTable(sql))
@@ -275,6 +278,9 @@ workdetail varchar(255) NOT NULL PRIMARY KEY,
 meetingtype varchar(20),
 tips int,
 tipsavetime decimal(10,4),
+optimizemethod varchar(20),
+description varchar(255),
+reviewer varchar(50),
 reviewdate varchar(20))";
 
             if (!createTable(sql))

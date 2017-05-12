@@ -75,6 +75,8 @@ namespace SummaryReportMeetingTips
 
 
         private DataSet ds = new DataSet();
+        private string lastParentNode = "";
+        private string lastChildNode = "";
         //p.WorkType savelogworktype;
 
         private void frmMain_Load(object sender, EventArgs e)
@@ -697,6 +699,10 @@ reviewer) VALUES (@_depcode,
 
         private void loadTreeViewData(TreeView trview, p.WorkType worktype)
         {
+            lastParentNode = "";
+            lastChildNode = "";
+            //bool _bFindNode = false;
+            //bool _bFindChildNode = false;
             trview.Nodes.Clear();
 
             string sql = "";
@@ -704,7 +710,7 @@ reviewer) VALUES (@_depcode,
                 sql = "SELECT * FROM t_reportrawdata ORDER by reporttype ASC";
             if (worktype == p.WorkType.Meeting)
                 sql = "SELECT * FROM t_meetingrawdata order by meetingtype ASC";
-
+            
             //
             SQLiteConnection conn = new SQLiteConnection(p.dbConnectionString);
             conn.Open();
@@ -725,11 +731,32 @@ reviewer) VALUES (@_depcode,
                     _childnodename = re["workdetail"].ToString();
                     //
                     TreeNode tr = new TreeNode(_nodename);
-                    tr.Text = _nodename;
-                    if (!nodeIsInTreView(tr, trview))
-                        trview.Nodes.Add(tr);
+                    //tr.Text = _nodename;
+                    ////---------------                   
+                    if ( _nodename != lastParentNode)
+                    {
+                        decimal _totaltime = 0;
+                        decimal _savetime = 0;
+                        int _itemscount = 0;
+                        int _tipscount = 0;
+
+                        loadNodeItemsTimeTipsSavetimeInfo(worktype, true, _nodename, out _totaltime, out _savetime, out _itemscount, out _tipscount);
+                        tr.Text = _nodename + ";Items:" + _itemscount + ",TotalTime(h):" + _totaltime + ",Tips:" + _tipscount + ",SaveTime(h):" +
+                           _savetime + ",PCT(%):" + p.CalcPCT(_savetime, _totaltime);
+                    }
+                    else
+                        tr.Text = _nodename;
+                    ////----------------
+
+                    if (!nodeIsInTreView(trview,_nodename  ))
+                    {
+                         trview.Nodes.Add(tr);
+                         lastParentNode = _nodename;
+                          
+                    }
+                    
                     //
-                    int nodeindex = getNodeIndex(tr, trview) ;
+                    int nodeindex = getNodeIndex( trview,tr.Text ) ;
                     if (nodeindex  != -1)
                     {
                         tr = trview.Nodes[nodeindex];
@@ -740,7 +767,59 @@ reviewer) VALUES (@_depcode,
             }
             conn.Close();
          }
-        
+
+
+
+
+        private void loadNodeItemsTimeTipsSavetimeInfo(p.WorkType worktype,bool _bselectparentnode,string _nodename,out decimal _totaltime,out decimal _savetime,out int _itemscount ,out int _tipscount)
+        {
+            _totaltime = _savetime = 0;
+           _itemscount = _tipscount = 0;
+            string sql ="";
+            if (worktype == p.WorkType.Meeting)
+            {
+                if (_bselectparentnode)
+                {
+                    sql = "SELECT SUM (weeklyworktime) FROM t_meetingrawdata WHERE meetingtype = '" + _nodename + "'";
+                    _totaltime = p.querySum(sql);
+                    _savetime = p.querySum("SELECT SUM(tipsavetime) FROM t_meetingtips WHERE meetingtype = '" + _nodename + "'");
+                    _itemscount = p.queryCount("SELECT COUNT(*) FROM t_meetingrawdata WHERE meetingtype = '" + _nodename + "'");
+                    _tipscount = Convert.ToInt16(p.querySum("SELECT COUNT(tips) FROM t_meetingtips WHERE meetingtype = '" + _nodename + "'"));
+                }
+                else
+                {
+                    sql = "SELECT SUM (weeklyworktime) FROM t_meetingrawdata WHERE workdetail = '" + _nodename + "'";
+                    _totaltime = p.querySum(sql);
+                    _savetime = p.querySum("SELECT SUM(tipsavetime) FROM t_meetingtips WHERE wokdetail = '" + _nodename + "'");
+                    _itemscount = p.queryCount("SELECT COUNT(*) FROM t_meetingrawdata WHERE workdetail = '" + _nodename + "'");
+                    _tipscount = Convert.ToInt16(p.querySum("SELECT COUNT(tips) FROM t_meetingtips WHERE workdetail = '" + _nodename + "'"));
+                }
+                
+            }
+            if (worktype == p.WorkType.Report)
+            {
+                if (_bselectparentnode)
+                {
+                    sql = "SELECT SUM (weeklyworktime) FROM t_reportrawdata WHERE reporttype = '" + _nodename + "'";
+                    _totaltime = p.querySum(sql);
+                    _savetime = p.querySum("SELECT SUM(tipsavetime) FROM t_reporttips WHERE reporttype = '" + _nodename + "'");
+                    _itemscount = p.queryCount("SELECT COUNT(*) FROM t_reportrawdata WHERE reporttype = '" + _nodename + "'");
+                    _tipscount = Convert.ToInt16(p.querySum("SELECT COUNT(tips) FROM t_reporttips WHERE reporttype = '" + _nodename + "'"));
+                }
+                else
+                {
+                    sql = "SELECT SUM (weeklyworktime) FROM t_reportrawdata WHERE workdetail = '" + _nodename + "'";
+                    _totaltime = p.querySum(sql);
+                    _savetime = p.querySum("SELECT SUM(tipsavetime) FROM t_reporttips WHERE workdetail = '" + _nodename + "'");
+                    _itemscount = p.queryCount("SELECT COUNT(*) FROM t_reportrawdata WHERE workdetail = '" + _nodename + "'");
+                    _tipscount = Convert.ToInt16(p.querySum("SELECT COUNT(tips) FROM t_reporttips WHERE workdetail = '" + _nodename + "'"));
+                }
+                
+            }
+        }
+
+
+
 
         private void tabMain_Selected(object sender, TabControlEventArgs e)
         {
@@ -799,6 +878,28 @@ reviewer) VALUES (@_depcode,
             return false;
         }
 
+
+        /// <summary>
+        /// check node is in treeview
+        /// </summary>
+        /// <param name="node">node</param>
+        /// <param name="trview">treeview</param>
+        /// <returns>exist,return true;not exist,return false </returns>
+        private bool nodeIsInTreView( TreeView trview,string keyname)
+        {
+            if (trview.Nodes.Count > 0)
+            {
+                for (int i = 0; i < trview.Nodes.Count; i++)
+                {
+                    if (trview.Nodes[i].Text.Trim().ToUpper().StartsWith (keyname.ToUpper ().Trim ()))
+                        return true;
+                }
+            }
+            return false;
+        }
+
+
+
         /// <summary>
         /// get node in treeview index 
         /// </summary>
@@ -812,6 +913,25 @@ reviewer) VALUES (@_depcode,
                 for (int i = 0; i < trview.Nodes.Count; i++)
                 {
                     if (trview.Nodes[i].Text.Trim().ToUpper() == node.Text.Trim().ToUpper())
+                        return i;
+                }
+            }
+            return -1;
+        }
+
+        /// <summary>
+        /// get node in treeview index 
+        /// </summary>
+        /// <param name="node">node</param>
+        /// <param name="trview">treeview</param>
+        /// <returns></returns>
+        private int getNodeIndex( TreeView trview,string keyname)
+        {
+            if (trview.Nodes.Count > 0)
+            {
+                for (int i = 0; i < trview.Nodes.Count; i++)
+                {
+                    if (trview.Nodes[i].Text.Trim().ToUpper().StartsWith (keyname.Trim ().ToUpper ()))
                         return i;
                 }
             }
@@ -892,7 +1012,7 @@ reviewer) VALUES (@_depcode,
             catch (Exception)
             {
                 _bSelectParentNode = true;
-                workdetail = treview.SelectedNode.Text;
+                workdetail = treview.SelectedNode.Text.Substring(0, treview.SelectedNode.Text.IndexOf(';'));
                 if (worktype == p.WorkType.Report)
                 {
                     grbReportChildNode.Enabled = false;
@@ -962,12 +1082,15 @@ reviewer) VALUES (@_depcode,
                     if (worktype == p.WorkType.Report)
                     {
                         //
-                        //
+                        //                     
                         decimal _savetime = p.querySum("SELECT SUM(tipsavetime) FROM t_reporttips");
                         txtReportSummary.Text = "Items:" + p.queryCount("SELECT COUNT(*) FROM t_reportrawdata") + ",TotalTime(h):" + totalworktime + ",Tips:" + p.querySum("SELECT COUNT(tips) FROM t_reporttips") + ",SaveTime(h):" +
                            _savetime + ",PCT(%):" + p.CalcPCT(_savetime, totalworktime);
-                        _savetime = p.querySum("SELECT SUM(tipsavetime) FROM t_reporttips WHERE reporttype = '" + workdetail +"'");
-                        txtReportParentType.Text = "Items:" + p.queryCount("SELECT COUNT(*) FROM t_reportrawdata WHERE reporttype =  '" + workdetail +"'") + ",TotalTime(h):" + totaltime + ",Tips:" + p.querySum("SELECT COUNT(tips) FROM t_reporttips WHERE reporttype = '" + workdetail +"'") + ",SaveTime(h):" +
+
+                        int _itemscount,_tipscount = 0;
+                        loadNodeItemsTimeTipsSavetimeInfo (worktype,_bSelectParentNode,workdetail,out totaltime,out _savetime,out _itemscount,out _tipscount );
+                        //_savetime = p.querySum("SELECT SUM(tipsavetime) FROM t_reporttips WHERE reporttype = '" + workdetail +"'");
+                        txtReportParentType.Text = "Items:" +  _itemscount +  ",TotalTime(h):" + totaltime + ",Tips:" + _tipscount  + ",SaveTime(h):" +
                            _savetime + ",PCT(%):" + p.CalcPCT(_savetime, totaltime);
 
 
@@ -991,8 +1114,11 @@ reviewer) VALUES (@_depcode,
                         decimal _savetime = p.querySum("SELECT SUM(tipsavetime) FROM t_meetingtips");
                         txtMeetingSummary.Text = "Items:" + p.queryCount("SELECT COUNT(*) FROM t_meetingrawdata") + ",TotalTime(h):" + totalworktime + ",Tips:" + p.querySum("SELECT COUNT(tips) FROM t_meetingtips") + ",SaveTime(h):" +
                            _savetime + ",PCT(%):" + p.CalcPCT(_savetime, totalworktime);
-                        _savetime = p.querySum("SELECT SUM(tipsavetime) FROM t_meetingtips WHERE meetingtype = '" + workdetail + "'");
-                        txtMeetingParentType.Text = "Items:" + p.queryCount("SELECT COUNT(*) FROM t_meetingrawdata WHERE meetingtype =  '" + workdetail + "'") + ",TotalTime(h):" + totaltime + ",Tips:" + p.querySum("SELECT COUNT(tips) FROM t_meetingtips WHERE meetingtype = '" + workdetail + "'") + ",SaveTime(h):" +
+
+                        int _itemscount, _tipscount = 0;
+                        loadNodeItemsTimeTipsSavetimeInfo(worktype, _bSelectParentNode, workdetail, out totaltime, out _savetime, out _itemscount, out _tipscount);
+                        //_savetime = p.querySum("SELECT SUM(tipsavetime) FROM t_reporttips WHERE reporttype = '" + workdetail +"'");
+                        txtMeetingParentType.Text = "Items:" + _itemscount + ",TotalTime(h):" + totaltime + ",Tips:" + _tipscount + ",SaveTime(h):" +
                            _savetime + ",PCT(%):" + p.CalcPCT(_savetime, totaltime);
 
 
@@ -1061,11 +1187,12 @@ reviewer) VALUES (@_depcode,
             listview.Columns.Add("ID", 60, HorizontalAlignment.Center);            
             listview.Columns.Add("Sec.Code", 60, HorizontalAlignment.Center);
             listview.Columns.Add("OPID", 60, HorizontalAlignment.Center);
-            listview.Columns.Add("Eng.Name", 90, HorizontalAlignment.Center);
+            listview.Columns.Add("Eng.Name", 80, HorizontalAlignment.Center);
             //if (worktype == p.WorkType.Meeting )
                // listview.Columns.Add("Meeting Type", 80, HorizontalAlignment.Center);
            // if (worktype == p.WorkType.Report)
                // listview.Columns.Add("Report Type", 80, HorizontalAlignment.Center);
+            listview.Columns.Add("Work Content", 120, HorizontalAlignment.Center);
             listview.Columns.Add("Work Detail", 150, HorizontalAlignment.Center);
             listview.Columns.Add("单次工作时间(h)", 80, HorizontalAlignment.Center);
             listview.Columns.Add("周工作频率(次)", 80, HorizontalAlignment.Center);
@@ -1124,6 +1251,7 @@ reviewer) VALUES (@_depcode,
                        // lt.SubItems.Add(re["reporttype"].ToString());
                     //if (worktype == p.WorkType.Meeting)
                        // lt.SubItems.Add(re["meetingtype"].ToString());
+                    lt.SubItems.Add(re["workcontent"].ToString());
                     lt.SubItems.Add (re["workdetail"].ToString());
                     lt.SubItems.Add(re["singleworktime"].ToString());
                     lt.SubItems.Add(re["weeklyworkfreq"].ToString());
