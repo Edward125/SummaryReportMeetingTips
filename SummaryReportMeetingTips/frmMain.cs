@@ -1156,6 +1156,17 @@ reviewer) VALUES (@_depcode,
                         txtReportHaveTipsSaveTime.Text = p.querySum(sql).ToString();
                         txtReportHaveTipsOptimizePCT.Text = p.CalcPCT(Convert.ToDecimal(txtReportHaveTipsSaveTime.Text.Trim()), totaltime);
                         txtReportHaveTipsOptimizePCTTotal.Text = p.CalcPCT(Convert.ToDecimal(txtReportHaveTipsSaveTime.Text.Trim()), totalworktime);
+                        //reviewer,description,method
+                        string _reviewer, _description, _method;
+                        sql = "SELECT reviewer FROM t_reportips WHERE workdetail = '" + workdetail + "'";
+                        p.queryData(sql, "reviewer", out _reviewer);
+                        txtReportOldReviwer.Text = _reviewer;
+                        sql = "SELECT description FROM t_reportips WHERE workdetail = '" + workdetail + "'";
+                        p.queryData(sql, "description", out _description);
+                        txtReportOldDescription.Text = _description;
+                        sql = "SELECT optimizemethod FROM t_reporttips WHERE workdetail = '" + workdetail + "'";
+                        p.queryData(sql, "optimizemethod", out _method);
+                        comboReportOptimizeMethod.Text = _method;
 
                     }
 
@@ -1185,6 +1196,17 @@ reviewer) VALUES (@_depcode,
                         txtMeetingHaveTipsOptimizePCT.Text = p.CalcPCT(Convert.ToDecimal(txtMeetingHaveTipsSaveTime.Text.Trim()), totaltime);
                         txtMeetingHaveTipsOptimizePCTTotal.Text = p.CalcPCT(Convert.ToDecimal(txtMeetingHaveTipsSaveTime.Text.Trim()), totalworktime);
 
+                        //reviewer,description,method
+                        string _reviewer, _description, _method;
+                        sql = "SELECT reviewer FROM t_meetingtips WHERE workdetail = '" + workdetail + "'";
+                        p.queryData(sql, "reviewer", out _reviewer);
+                        txtMeetingOldReviwer.Text = _reviewer;
+                        sql = "SELECT description FROM t_meetingtips WHERE workdetail = '" + workdetail + "'";
+                        p.queryData(sql, "description", out _description);
+                        txtMeetingOldDescription.Text = _description;
+                        sql = "SELECT optimizemethod FROM t_meetingtips WHERE workdetail = '" + workdetail + "'";
+                        p.queryData(sql, "optimizemethod", out _method);
+                        comboMeetingOptimizeMethod.Text = _method;
                     }
                 }
                 else //childnode
