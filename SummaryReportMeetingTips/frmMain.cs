@@ -1013,6 +1013,11 @@ reviewer) VALUES (@_depcode,
             txtReportHaveTipsOptimizePCT.Text = "";
             txtReportHaveTipsOptimizePCTTotal.Text = "";
 
+            txtReportNewReviewer.Text = "";
+            txtReportNewDescription.Text = "";
+            this.comboReportTipsStatus.SelectedIndex = -1;
+            this.comboReportOptimizeMethod.SelectedIndex = -1;
+
             //meeting
             txtMeetingNewTipsSaveTime.Text = "";
             txtMeetingNewTips.Text = "";
@@ -1025,6 +1030,10 @@ reviewer) VALUES (@_depcode,
             txtMeetingHaveTipsOptimizePCT.Text = "";
             txtMeetingHaveTipsOptimizePCTTotal.Text = "";
 
+            txtMeetingNewReviewer.Text = "";
+            txtMeetingNewDescription.Text = "";
+            this.comboMeetingTipsStatus.SelectedIndex = -1;
+            this.comboMeetingOptimizeMethod.SelectedIndex = -1;
 
 
 
@@ -1139,10 +1148,10 @@ reviewer) VALUES (@_depcode,
                         txtReportSummary.Text = "Items:" + p.queryCount("SELECT COUNT(*) FROM t_reportrawdata") + ",TotalTime(h):" + totalworktime + ",Tips:" + p.querySum("SELECT COUNT(tips) FROM t_reporttips") + ",SaveTime(h):" +
                            _savetime + ",PCT(%):" + p.CalcPCT(_savetime, totalworktime);
 
-                        int _itemscount,_tipscount = 0;
-                        loadNodeItemsTimeTipsSavetimeInfo (worktype,_bSelectParentNode,workdetail,out totaltime,out _savetime,out _itemscount,out _tipscount );
+                        int _itemscount, _tipscount = 0;
+                        loadNodeItemsTimeTipsSavetimeInfo(worktype, _bSelectParentNode, workdetail, out totaltime, out _savetime, out _itemscount, out _tipscount);
                         //_savetime = p.querySum("SELECT SUM(tipsavetime) FROM t_reporttips WHERE reporttype = '" + workdetail +"'");
-                        txtReportParentType.Text = "Items:" +  _itemscount +  ",TotalTime(h):" + totaltime + ",Tips:" + _tipscount  + ",SaveTime(h):" +
+                        txtReportParentType.Text = "Items:" + _itemscount + ",TotalTime(h):" + totaltime + ",Tips:" + _tipscount + ",SaveTime(h):" +
                            _savetime + ",PCT(%):" + p.CalcPCT(_savetime, totaltime);
 
 
@@ -1156,31 +1165,9 @@ reviewer) VALUES (@_depcode,
                         txtReportHaveTipsSaveTime.Text = p.querySum(sql).ToString();
                         txtReportHaveTipsOptimizePCT.Text = p.CalcPCT(Convert.ToDecimal(txtReportHaveTipsSaveTime.Text.Trim()), totaltime);
                         txtReportHaveTipsOptimizePCTTotal.Text = p.CalcPCT(Convert.ToDecimal(txtReportHaveTipsSaveTime.Text.Trim()), totalworktime);
-                        //reviewer,description,method,
-                        string _reviewer, _description, _method, _duedate, _status;
-
-                        sql = "SELECT reviewer FROM t_reportips WHERE workdetail = '" + workdetail + "'";
-                        p.queryData(sql, "reviewer", out _reviewer);
-                        txtReportOldReviwer.Text = _reviewer;
-
-                        sql = "SELECT description FROM t_reportips WHERE workdetail = '" + workdetail + "'";
-                        p.queryData(sql, "description", out _description);
-                        txtReportOldDescription.Text = _description;
-
-                        sql = "SELECT optimizemethod FROM t_reporttips WHERE workdetail = '" + workdetail + "'";
-                        p.queryData(sql, "optimizemethod", out _method);
-                        txtMeetingOptimizeMethod.Text = _method;
-
-                        sql = "SELECT duedate FROM t_reporttips WHERE workdetail = '" + workdetail + "'";
-                        p.queryData(sql, "duedate", out _duedate );
-                        txtReportOldDueDate.Text = _duedate;
-
-                        sql = "SELECT status FROM t_reporttips WHERE workdetail = '" + workdetail + "'";
-                        p.queryData(sql, "status", out _status );
-                        txtReportTipsStatus.Text = _status;
-
 
                     }
+
 
                     if (worktype == p.WorkType.Meeting)
                     {
@@ -1208,29 +1195,9 @@ reviewer) VALUES (@_depcode,
                         txtMeetingHaveTipsOptimizePCT.Text = p.CalcPCT(Convert.ToDecimal(txtMeetingHaveTipsSaveTime.Text.Trim()), totaltime);
                         txtMeetingHaveTipsOptimizePCTTotal.Text = p.CalcPCT(Convert.ToDecimal(txtMeetingHaveTipsSaveTime.Text.Trim()), totalworktime);
 
-                        //reviewer,description,method
-                        string _reviewer, _description, _method, _duedate, _status;
 
-                        sql = "SELECT reviewer FROM t_meetingtips WHERE workdetail = '" + workdetail + "'";
-                        p.queryData(sql, "reviewer", out _reviewer);
-                        txtMeetingOldReviwer.Text = _reviewer;
-
-                        sql = "SELECT description FROM t_meetingtips WHERE workdetail = '" + workdetail + "'";
-                        p.queryData(sql, "description", out _description);
-                        txtMeetingOldDescription.Text = _description;
-
-                        sql = "SELECT optimizemethod FROM t_meetingtips WHERE workdetail = '" + workdetail + "'";
-                        p.queryData(sql, "optimizemethod", out _method);
-                        comboMeetingOptimizeMethod.Text = _method;
-
-                        sql = "SELECT duedate FROM t_meetingtips WHERE workdetail = '" + workdetail + "'";
-                        p.queryData(sql, "duedate", out _duedate);
-                        txtMeetingOldDueDate.Text = _duedate;
-
-                        sql = "SELECT status FROM t_meetingtips WHERE workdetail = '" + workdetail + "'";
-                        p.queryData(sql, "status", out _status);
-                        txtMeetingTipsStatus.Text = _status;
                     }
+
                 }
                 else //childnode
                 {
@@ -1249,6 +1216,29 @@ reviewer) VALUES (@_depcode,
                         string lastdate = "";
                         p.queryData("SELECT * FROM t_reporttips WHERE workdetail = '" + workdetail + "'", "reviewdate", out lastdate);
                         txtReportLastUpdateTime.Text = lastdate;
+
+                        //reviewer,description,method,
+                        string _reviewer, _description, _method, _duedate, _status;
+
+                        sql = "SELECT reviewer FROM t_reporttips WHERE workdetail = '" + workdetail + "'";
+                        p.queryData(sql, "reviewer", out _reviewer);
+                        txtReportOldReviwer.Text = _reviewer;
+
+                        sql = "SELECT description FROM t_reporttips WHERE workdetail = '" + workdetail + "'";
+                        p.queryData(sql, "description", out _description);
+                        txtReportOldDescription.Text = _description;
+
+                        sql = "SELECT optimizemethod FROM t_reporttips WHERE workdetail = '" + workdetail + "'";
+                        p.queryData(sql, "optimizemethod", out _method);
+                        txtReportOptimizeMethod.Text = _method;
+
+                        sql = "SELECT duedate FROM t_reporttips WHERE workdetail = '" + workdetail + "'";
+                        p.queryData(sql, "duedate", out _duedate);
+                        txtReportOldDueDate.Text = _duedate;
+
+                        sql = "SELECT status FROM t_reporttips WHERE workdetail = '" + workdetail + "'";
+                        p.queryData(sql, "status", out _status);
+                        txtReportTipsStatus.Text = _status;
                     }
 
                     if (worktype == p.WorkType.Meeting)
@@ -1266,6 +1256,29 @@ reviewer) VALUES (@_depcode,
                         string lastdate = "";
                         p.queryData("SELECT * FROM t_meetingtips WHERE workdetail = '" + workdetail + "'", "reviewdate", out lastdate);
                         txtMeetingLastUpdateTime.Text = lastdate;
+
+                        //reviewer,description,method
+                        string _reviewer, _description, _method, _duedate, _status;
+
+                        sql = "SELECT reviewer FROM t_meetingtips WHERE workdetail = '" + workdetail + "'";
+                        p.queryData(sql, "reviewer", out _reviewer);
+                        txtMeetingOldReviwer.Text = _reviewer;
+
+                        sql = "SELECT description FROM t_meetingtips WHERE workdetail = '" + workdetail + "'";
+                        p.queryData(sql, "description", out _description);
+                        txtMeetingOldDescription.Text = _description;
+
+                        sql = "SELECT optimizemethod FROM t_meetingtips WHERE workdetail = '" + workdetail + "'";
+                        p.queryData(sql, "optimizemethod", out _method);
+                        txtMeetingOptimizeMethod .Text  = _method;
+
+                        sql = "SELECT duedate FROM t_meetingtips WHERE workdetail = '" + workdetail + "'";
+                        p.queryData(sql, "duedate", out _duedate);
+                        txtMeetingOldDueDate.Text = _duedate;
+
+                        sql = "SELECT status FROM t_meetingtips WHERE workdetail = '" + workdetail + "'";
+                        p.queryData(sql, "status", out _status);
+                        txtMeetingTipsStatus.Text = _status;
 
                     }
                 }
@@ -1337,10 +1350,6 @@ reviewer) VALUES (@_depcode,
                         lt.ForeColor = Color.FromArgb(255, 51, 156, 150);
                     if (_seccode.ToUpper() == "KD1230")
                         lt.ForeColor = Color.FromArgb(255, 201, 137, 100);
-                       
-
-
-
 
                     lt.SubItems.Add(re["opid"].ToString());
                     lt.SubItems.Add(re["engname"].ToString());
@@ -1573,12 +1582,24 @@ reviewer) VALUES (@_depcode,
             this.Enabled = false;
             int _tips = Convert.ToInt16(txtReportAlreadyHaveTips.Text.Trim()) + Convert.ToInt16(txtReportNewTips.Text.Trim());
             decimal _tipsavetime = Convert.ToDecimal(txtReportHaveTipsSaveTime.Text.Trim()) + Convert.ToDecimal(txtReportNewTipsSaveTime .Text.Trim() );
+            string _reporttype = grbReportParentNode.Text;
+            string _optimizemethod = this.comboReportOptimizeMethod.SelectedItem.ToString();
+            string _description = p.replaceString(txtReportNewDescription.Text.Trim());
+            string _reviewer = txtReportNewReviewer.Text.Trim();
+            string _duedate = dtpReportDueDate.Value.ToString("yyyy-MM-dd");
+            string _status = this.comboReportTipsStatus.SelectedItem.ToString ();
 
-            string sql = @"REPLACE INTO t_reporttips (workdetail,reporttype,tips,tipsavetime,reviewdate) VALUES ('" +
+
+            string sql = @"REPLACE INTO t_reporttips  VALUES ('" +
                 grbReportChildNode.Text + "','" +
-                grbReportParentNode.Text + "','" +
+                _reporttype  + "','" +
                 _tips + "','" +
                 _tipsavetime  + "','" +
+                _optimizemethod +"','" +
+                _description +"','" +
+                _duedate +"','" +
+                _status +"','"+
+                _reviewer +"','"+
                 DateTime.Now.ToString("yyyy-MM-dd") + "')";
 
             if (p.updateData2DB(sql))
@@ -1722,11 +1743,24 @@ reviewer) VALUES (@_depcode,
             int _tips = Convert.ToInt16(txtMeetingAlreadyHaveTips.Text.Trim()) + Convert.ToInt16(txtMeetingNewTips.Text.Trim());
             decimal _tipsavetime = Convert.ToDecimal(txtMeetingHaveTipsSaveTime.Text.Trim()) + Convert.ToDecimal(txtMeetingNewTipsSaveTime.Text.Trim());
 
-            string sql = @"REPLACE INTO t_meetingtips (workdetail,meetingtype,tips,tipsavetime,reviewdate) VALUES ('" +
+            string _meetingtype = grbMeetingParentNode.Text;
+            string _optimizemethod = this.comboMeetingOptimizeMethod.SelectedItem.ToString();
+            string _description = p.replaceString(txtMeetingNewDescription.Text.Trim());
+            string _reviewer = txtMeetingNewReviewer.Text.Trim();
+            string _duedate = dtpMeetingDueDate.Value.ToString("yyyy-MM-dd");
+            string _status = this.comboMeetingTipsStatus.SelectedItem.ToString();
+
+
+            string sql = @"REPLACE INTO t_meetingtips  VALUES ('" +
                 grbMeetingChildNode.Text + "','" +
-                grbMeetingParentNode.Text + "','" +
+                _meetingtype + "','" +
                 _tips + "','" +
                 _tipsavetime + "','" +
+                _optimizemethod + "','" +
+                _description + "','" +
+                _duedate + "','" +
+                _status + "','" +
+                _reviewer + "','" +
                 DateTime.Now.ToString("yyyy-MM-dd") + "')";
 
             if (p.updateData2DB(sql))
