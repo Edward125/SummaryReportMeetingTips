@@ -110,8 +110,16 @@
             this.tsslStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.comboReportOptimizeMethod = new System.Windows.Forms.ComboBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtReportOldDescription = new System.Windows.Forms.TextBox();
+            this.txtReportOldReviwer = new System.Windows.Forms.TextBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.txtReportNewReviewer = new System.Windows.Forms.TextBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.txtReportNewDescription = new System.Windows.Forms.TextBox();
             this.tabMain.SuspendLayout();
             this.tabRawData.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datagridRawData)).BeginInit();
@@ -262,8 +270,15 @@
             // 
             // grbReportChildNode
             // 
-            this.grbReportChildNode.Controls.Add(this.textBox2);
-            this.grbReportChildNode.Controls.Add(this.textBox1);
+            this.grbReportChildNode.Controls.Add(this.label32);
+            this.grbReportChildNode.Controls.Add(this.txtReportNewDescription);
+            this.grbReportChildNode.Controls.Add(this.label31);
+            this.grbReportChildNode.Controls.Add(this.txtReportNewReviewer);
+            this.grbReportChildNode.Controls.Add(this.label30);
+            this.grbReportChildNode.Controls.Add(this.label28);
+            this.grbReportChildNode.Controls.Add(this.label27);
+            this.grbReportChildNode.Controls.Add(this.txtReportOldReviwer);
+            this.grbReportChildNode.Controls.Add(this.txtReportOldDescription);
             this.grbReportChildNode.Controls.Add(this.comboReportOptimizeMethod);
             this.grbReportChildNode.Controls.Add(this.btnOutputReports);
             this.grbReportChildNode.Controls.Add(this.btnSaveReport);
@@ -289,6 +304,7 @@
             this.grbReportChildNode.Controls.Add(this.label5);
             this.grbReportChildNode.Controls.Add(this.txtReportTotalTime);
             this.grbReportChildNode.Controls.Add(this.lblTotalWorkTime);
+            this.grbReportChildNode.Controls.Add(this.label29);
             this.grbReportChildNode.Enabled = false;
             this.grbReportChildNode.Location = new System.Drawing.Point(475, 5);
             this.grbReportChildNode.Name = "grbReportChildNode";
@@ -298,7 +314,7 @@
             // 
             // btnOutputReports
             // 
-            this.btnOutputReports.Location = new System.Drawing.Point(737, 109);
+            this.btnOutputReports.Location = new System.Drawing.Point(737, 104);
             this.btnOutputReports.Name = "btnOutputReports";
             this.btnOutputReports.Size = new System.Drawing.Size(56, 29);
             this.btnOutputReports.TabIndex = 26;
@@ -308,9 +324,9 @@
             // 
             // btnSaveReport
             // 
-            this.btnSaveReport.Location = new System.Drawing.Point(672, 109);
+            this.btnSaveReport.Location = new System.Drawing.Point(659, 104);
             this.btnSaveReport.Name = "btnSaveReport";
-            this.btnSaveReport.Size = new System.Drawing.Size(59, 29);
+            this.btnSaveReport.Size = new System.Drawing.Size(69, 29);
             this.btnSaveReport.TabIndex = 25;
             this.btnSaveReport.Text = "Save";
             this.btnSaveReport.UseVisualStyleBackColor = true;
@@ -319,7 +335,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(240, 118);
+            this.label13.Location = new System.Drawing.Point(242, 79);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(43, 14);
             this.label13.TabIndex = 24;
@@ -328,7 +344,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(340, 119);
+            this.label12.Location = new System.Drawing.Point(342, 79);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(79, 14);
             this.label12.TabIndex = 23;
@@ -346,7 +362,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(97, 119);
+            this.label11.Location = new System.Drawing.Point(99, 80);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(97, 14);
             this.label11.TabIndex = 21;
@@ -354,7 +370,7 @@
             // 
             // txtReportNewTipsSaveTime
             // 
-            this.txtReportNewTipsSaveTime.Location = new System.Drawing.Point(194, 115);
+            this.txtReportNewTipsSaveTime.Location = new System.Drawing.Point(196, 77);
             this.txtReportNewTipsSaveTime.Name = "txtReportNewTipsSaveTime";
             this.txtReportNewTipsSaveTime.Size = new System.Drawing.Size(41, 22);
             this.txtReportNewTipsSaveTime.TabIndex = 20;
@@ -382,7 +398,7 @@
             // 
             // txtReportNewTipsOptimizePCT
             // 
-            this.txtReportNewTipsOptimizePCT.Location = new System.Drawing.Point(283, 114);
+            this.txtReportNewTipsOptimizePCT.Location = new System.Drawing.Point(285, 77);
             this.txtReportNewTipsOptimizePCT.Name = "txtReportNewTipsOptimizePCT";
             this.txtReportNewTipsOptimizePCT.ReadOnly = true;
             this.txtReportNewTipsOptimizePCT.Size = new System.Drawing.Size(55, 22);
@@ -392,7 +408,7 @@
             // 
             // txtReportNewTips
             // 
-            this.txtReportNewTips.Location = new System.Drawing.Point(54, 117);
+            this.txtReportNewTips.Location = new System.Drawing.Point(56, 77);
             this.txtReportNewTips.Name = "txtReportNewTips";
             this.txtReportNewTips.Size = new System.Drawing.Size(36, 22);
             this.txtReportNewTips.TabIndex = 16;
@@ -402,7 +418,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(0, 118);
+            this.label10.Location = new System.Drawing.Point(2, 80);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(54, 14);
             this.label10.TabIndex = 15;
@@ -457,7 +473,7 @@
             // 
             // txtReportNewTipsOptimizePCTTotal
             // 
-            this.txtReportNewTipsOptimizePCTTotal.Location = new System.Drawing.Point(419, 115);
+            this.txtReportNewTipsOptimizePCTTotal.Location = new System.Drawing.Point(421, 77);
             this.txtReportNewTipsOptimizePCTTotal.Name = "txtReportNewTipsOptimizePCTTotal";
             this.txtReportNewTipsOptimizePCTTotal.ReadOnly = true;
             this.txtReportNewTipsOptimizePCTTotal.Size = new System.Drawing.Size(41, 22);
@@ -962,24 +978,96 @@
             "取消报告",
             "重复内容合并",
             "维持不变"});
-            this.comboReportOptimizeMethod.Location = new System.Drawing.Point(475, 116);
+            this.comboReportOptimizeMethod.Location = new System.Drawing.Point(527, 76);
             this.comboReportOptimizeMethod.Name = "comboReportOptimizeMethod";
             this.comboReportOptimizeMethod.Size = new System.Drawing.Size(125, 22);
             this.comboReportOptimizeMethod.TabIndex = 27;
             // 
-            // textBox1
+            // txtReportOldDescription
             // 
-            this.textBox1.Location = new System.Drawing.Point(241, 47);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 22);
-            this.textBox1.TabIndex = 28;
+            this.txtReportOldDescription.Location = new System.Drawing.Point(226, 42);
+            this.txtReportOldDescription.Name = "txtReportOldDescription";
+            this.txtReportOldDescription.ReadOnly = true;
+            this.txtReportOldDescription.Size = new System.Drawing.Size(426, 22);
+            this.txtReportOldDescription.TabIndex = 28;
             // 
-            // textBox2
+            // txtReportOldReviwer
             // 
-            this.textBox2.Location = new System.Drawing.Point(713, 42);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(78, 22);
-            this.textBox2.TabIndex = 29;
+            this.txtReportOldReviwer.Location = new System.Drawing.Point(713, 41);
+            this.txtReportOldReviwer.Name = "txtReportOldReviwer";
+            this.txtReportOldReviwer.ReadOnly = true;
+            this.txtReportOldReviwer.Size = new System.Drawing.Size(78, 22);
+            this.txtReportOldReviwer.TabIndex = 29;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(659, 45);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(50, 14);
+            this.label27.TabIndex = 30;
+            this.label27.Text = "Reviwer";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(165, 47);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(55, 14);
+            this.label28.TabIndex = 31;
+            this.label28.Text = "改善描述";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(2, 62);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(799, 14);
+            this.label29.TabIndex = 32;
+            this.label29.Text = "---------------------------------------------------------------------------------" +
+    "--------------------------------------------------------------------------------" +
+    "-------------------------------------";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(658, 79);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(50, 14);
+            this.label30.TabIndex = 33;
+            this.label30.Text = "Reviwer";
+            // 
+            // txtReportNewReviewer
+            // 
+            this.txtReportNewReviewer.Location = new System.Drawing.Point(717, 77);
+            this.txtReportNewReviewer.Name = "txtReportNewReviewer";
+            this.txtReportNewReviewer.Size = new System.Drawing.Size(78, 22);
+            this.txtReportNewReviewer.TabIndex = 34;
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(466, 80);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(55, 14);
+            this.label31.TabIndex = 35;
+            this.label31.Text = "改善方式";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(6, 113);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(55, 14);
+            this.label32.TabIndex = 37;
+            this.label32.Text = "改善描述";
+            // 
+            // txtReportNewDescription
+            // 
+            this.txtReportNewDescription.Location = new System.Drawing.Point(67, 108);
+            this.txtReportNewDescription.Name = "txtReportNewDescription";
+            this.txtReportNewDescription.Size = new System.Drawing.Size(585, 22);
+            this.txtReportNewDescription.TabIndex = 36;
             // 
             // frmMain
             // 
@@ -1097,9 +1185,17 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtReportOldReviwer;
+        private System.Windows.Forms.TextBox txtReportOldDescription;
         private System.Windows.Forms.ComboBox comboReportOptimizeMethod;
+        private System.Windows.Forms.TextBox txtReportNewReviewer;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.TextBox txtReportNewDescription;
     }
 }
 
