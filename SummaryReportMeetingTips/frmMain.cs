@@ -1054,46 +1054,52 @@ reviewer) VALUES (@_depcode,
             string sql = "";
             try
             {
-                try
+
+                    //workdetail = treview.SelectedNode.Parent.Text.Substring(0, treview.SelectedNode.Parent.Text.IndexOf(';'));
+                    //workdetail = treview.SelectedNode.Text.Substring(0, treview.SelectedNode.Text.IndexOf(';'));
+
+                workdetail = treview.SelectedNode.Text;
+
+                if (workdetail.Contains("Items") && workdetail.Contains("TotalTime"))
                 {
-                    workdetail = treview.SelectedNode.Parent.Text.Substring(0, treview.SelectedNode.Parent.Text.IndexOf(';'));
-                    workdetail = treview.SelectedNode.Text.Substring(0, treview.SelectedNode.Text.IndexOf(';'));
+                    _bSelectParentNode = true;
+                    workdetail = workdetail.Substring(0, workdetail.IndexOf(';'));
+                    if (worktype == p.WorkType.Report)
+                    {
+                        grbReportChildNode.Enabled = false;
+                        grbReportParentNode.Text = workdetail;
+                    }
+                    if (worktype == p.WorkType.Meeting)
+                    {
+                        grbMeetingChildNode.Enabled = false;
+                        grbMeetingParentNode.Text = workdetail;
+                    }
                 }
-                catch (ArgumentException )
+                else
                 {
-                    workdetail = treview.SelectedNode.Parent.Text;
-                    workdetail = treview.SelectedNode.Text;
+                    _bSelectParentNode = false;
+                    if (worktype == p.WorkType.Report)
+                    {
+                        grbReportChildNode.Enabled = true;
+                        grbReportParentNode.Text = treview.SelectedNode.Parent.Text.Substring(0, treview.SelectedNode.Parent.Text.IndexOf(';'));
+                    }
+                    if (worktype == p.WorkType.Meeting)
+                    {
+                        grbMeetingChildNode.Enabled = true;
+                        grbMeetingParentNode.Text = treview.SelectedNode.Parent.Text.Substring(0, treview.SelectedNode.Parent.Text.IndexOf(';'));
+                    }
                 }
 
-                if (worktype == p.WorkType.Report)
-                    grbReportChildNode.Enabled = true;
-                if (worktype == p.WorkType.Meeting)
-                    grbMeetingChildNode.Enabled = true;
-  
             }
             catch (Exception)
             {
-                _bSelectParentNode = true;
+                //_bSelectParentNode = true;
 
-                try
-                {
-                    workdetail = treview.SelectedNode.Text.Substring(0, treview.SelectedNode.Text.IndexOf(';'));
-                }
-                catch (ArgumentException )
-                {
-                    workdetail = treview.SelectedNode.Text;
-                }
+         
+                   // workdetail = treview.SelectedNode.Parent .Text.Substring(0, treview.SelectedNode.Text.IndexOf(';'));
+             
               
-                if (worktype == p.WorkType.Report)
-                {
-                    grbReportChildNode.Enabled = false;
-                    grbReportParentNode.Text = workdetail;
-                }
-                if (worktype == p.WorkType.Meeting)
-                {
-                    grbMeetingChildNode.Enabled = false;
-                    grbMeetingParentNode.Text = workdetail;
-                }
+
             }
 
             //-------------------------------------
@@ -1295,6 +1301,8 @@ reviewer) VALUES (@_depcode,
          
               
             }
+
+            //MessageBox.Show(_bSelectParentNode.ToString());
                  
         }
 
