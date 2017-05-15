@@ -505,9 +505,19 @@ reviewer) VALUES (@_depcode,
                             cmd.Parameters[1].Value = ds.Tables[combo.SelectedIndex].Rows[i]["課別代碼"].ToString();
                             cmd.Parameters[2].Value = ds.Tables[combo.SelectedIndex].Rows[i]["工號"].ToString();
                             cmd.Parameters[3].Value = ds.Tables[combo.SelectedIndex].Rows[i]["英文姓名"].ToString();
-                            cmd.Parameters[4].Value = p.replaceString(ds.Tables[combo.SelectedIndex].Rows[i]["会议类型"].ToString());
-                            cmd.Parameters[5].Value = p.replaceString(ds.Tables[combo.SelectedIndex].Rows[i]["工作內容"].ToString());
-                            cmd.Parameters[6].Value = p.replaceString ( ds.Tables[combo.SelectedIndex].Rows[i]["工作細目"].ToString());
+
+                            string _temp = ds.Tables[combo.SelectedIndex].Rows[i]["会议类型"].ToString();
+                            p.replaceString(ref _temp);
+                            cmd.Parameters[4].Value = _temp;
+
+                            _temp = ds.Tables[combo.SelectedIndex].Rows[i]["工作內容"].ToString();
+                            p.replaceString(ref  _temp);
+                            cmd.Parameters[5].Value = _temp;
+
+                            _temp = ds.Tables[combo.SelectedIndex].Rows[i]["工作細目"].ToString();
+                             p.replaceString(ref  _temp);
+                             cmd.Parameters[6].Value = _temp;
+
                             cmd.Parameters[7].Value = ds.Tables[combo.SelectedIndex].Rows[i]["工作分类"].ToString();
                             cmd.Parameters[8].Value = ds.Tables[combo.SelectedIndex].Rows[i]["是否在岗位说明书"].ToString();
                             cmd.Parameters[9].Value = ds.Tables[combo.SelectedIndex].Rows[i]["本职/非本职"].ToString();
@@ -1584,7 +1594,8 @@ reviewer) VALUES (@_depcode,
             decimal _tipsavetime = Convert.ToDecimal(txtReportHaveTipsSaveTime.Text.Trim()) + Convert.ToDecimal(txtReportNewTipsSaveTime .Text.Trim() );
             string _reporttype = grbReportParentNode.Text;
             string _optimizemethod = this.comboReportOptimizeMethod.SelectedItem.ToString();
-            string _description = p.replaceString(txtReportNewDescription.Text.Trim());
+            string _description = txtReportNewDescription.Text.Trim();
+            p.replaceString(ref  _description );
             string _reviewer = txtReportNewReviewer.Text.Trim();
             string _duedate = dtpReportDueDate.Value.ToString("yyyy-MM-dd");
             string _status = this.comboReportTipsStatus.SelectedItem.ToString ();
@@ -1606,6 +1617,8 @@ reviewer) VALUES (@_depcode,
             {
                 MessageBox.Show("update date into database success...", "Update Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 loadInfo2toolStrip(p.WorkType.Report, lstviewReport, trviewReport);
+                OutputData2Text(p.WorkType.Report);
+                loadTreeViewData(trviewReport, p.WorkType.Report);
              }
             this.Enabled = true;
 
@@ -1745,7 +1758,8 @@ reviewer) VALUES (@_depcode,
 
             string _meetingtype = grbMeetingParentNode.Text;
             string _optimizemethod = this.comboMeetingOptimizeMethod.SelectedItem.ToString();
-            string _description = p.replaceString(txtMeetingNewDescription.Text.Trim());
+            string _description = txtMeetingNewDescription.Text.Trim();
+            p.replaceString(ref _description);
             string _reviewer = txtMeetingNewReviewer.Text.Trim();
             string _duedate = dtpMeetingDueDate.Value.ToString("yyyy-MM-dd");
             string _status = this.comboMeetingTipsStatus.SelectedItem.ToString();
@@ -1767,6 +1781,8 @@ reviewer) VALUES (@_depcode,
             {
                 MessageBox.Show("update date into database success...", "Update Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 loadInfo2toolStrip(p.WorkType.Meeting, lstviewMeeting, trviewMeeting);
+                loadTreeViewData(trviewMeeting, p.WorkType.Meeting);
+                trviewMeeting.Sort();
             }
             this.Enabled = true;
         }
@@ -1802,7 +1818,7 @@ reviewer) VALUES (@_depcode,
 
             //
             string filepath, _item, _depcode, _subtype, _workdetail, _type, _itemscount, _workingtime, _weeklyfreq, _weeklyworkingtime, _monthlyworkingtime, _optimizemethod, _tips, _savetime, _savepct, _updatedate, _description, _duedate, _status;
-            filepath = _item = _depcode = _subtype = _workdetail = _type = _itemscount = _workingtime = _weeklyfreq = _weeklyworkingtime = _monthlyworkingtime = _optimizemethod = _tips = _savetime = _savepct = _updatedate = _description = _duedate = _status = " ";
+            filepath = _item = _depcode = _subtype = _workdetail = _type = _itemscount = _workingtime = _weeklyfreq = _weeklyworkingtime = _monthlyworkingtime = _optimizemethod = _tips = _savetime = _savepct = _updatedate = _description = _duedate = _status = "";
             //
             _type= worktype.ToString();
             if (worktype == p.WorkType.Report)
@@ -1817,33 +1833,43 @@ reviewer) VALUES (@_depcode,
                     for (int i = 0; i < trviewReport.Nodes.Count ; i++)
                     {
                         _item = (i + 1).ToString();//
-                        _subtype = trviewReport.Nodes[i].Text;//
+                        //_subtype = trviewReport.Nodes[i].Text.Substring(0, trviewReport.Nodes[i].Text.IndexOf(';'));
                         _itemscount = trviewReport.Nodes[i].Nodes.Count.ToString();//
 
-                         sql = "SELECT SUM(weeklyworktime) FROM t_reportrawdata WHERE reporttype = '" + _subtype + "'";
-                        _weeklyworkingtime = p.querySum(sql).ToString();
+                        spliteParentInfo(trviewReport.Nodes[i].Text,
+                            out _subtype, out _weeklyworkingtime, out _monthlyworkingtime,
+                            out _tips,out  _savetime, out  _savepct);
 
-                        sql = "SELECT SUM(monthlyworktime) FROM t_reportrawdata WHERE reporttype = '" + _subtype + "'";
-                        _monthlyworkingtime = p.querySum(sql).ToString();
 
-                        sql = "SELECT SUM(tips) FROM t_reporttips WHERE reporttype = '" + _subtype + "'";
-                        _tips = p.querySum(sql).ToString();
-                        sql = "SELECT SUM(tipsavetime) FROM t_reporttips WHERE reporttype = '" + _subtype + "'";
-                        _savetime = p.querySum(sql).ToString();
-                        _savepct = p.CalcPCT(Convert.ToDecimal(_savetime), Convert.ToDecimal(_workingtime));
+                        // sql = "SELECT SUM(weeklyworktime) FROM t_reportrawdata WHERE reporttype = '" + _subtype + "'";
+                        //_weeklyworkingtime = p.querySum(sql).ToString();
 
-                        sql = "SELECT optimizemethod FROM t_reporttips WHERE reporttype = '" + _subtype + "'";
-                        p.queryData(sql, "optimizemethod", out  _optimizemethod);
+                        //sql = "SELECT SUM(monthlyworktime) FROM t_reportrawdata WHERE reporttype = '" + _subtype + "'";
+                        //_monthlyworkingtime = p.querySum(sql).ToString();
 
-                        sql = "SELECT duedate FROM t_reporttips WHERE reporttype = '" + _subtype + "'";
-                        p.queryData(sql, "duedate", out _duedate);
+                        //sql = "SELECT SUM(tips) FROM t_reporttips WHERE reporttype = '" + _subtype + "'";
+                        //_tips = p.querySum(sql).ToString();
+                        //sql = "SELECT SUM(tipsavetime) FROM t_reporttips WHERE reporttype = '" + _subtype + "'";
+                        //_savetime = p.querySum(sql).ToString();                        
+                        //_savepct = p.CalcPCT(Convert.ToDecimal(_savetime), Convert.ToDecimal(_weeklyworkingtime));
 
-                        sql = "SELECT description FROM t_reporttips WHERE reporttype = '" + _subtype + "'";
-                        p.queryData(sql, "description", out _description);
+                        //sql = "SELECT optimizemethod FROM t_reporttips WHERE reporttype = '" + _subtype + "'";
+                        //p.queryData(sql, "optimizemethod", out  _optimizemethod);
 
+                        //sql = "SELECT duedate FROM t_reporttips WHERE reporttype = '" + _subtype + "'";
+                        //p.queryData(sql, "duedate", out _duedate);
+
+                        //sql = "SELECT description FROM t_reporttips WHERE reporttype = '" + _subtype + "'";
+                        //p.queryData(sql, "description", out _description);
+
+                        //sql = "SELECT status FROM t_reporttips WHERE reporttype = '" + _subtype + "'";
+                        //p.queryData(sql, "description", out _status);
                         ////////
 
-                        saveLog(filepath, _item, _type, _subtype, _workdetail, _itemscount, _workingtime, _tips, _savetime, _savepct, _updatedate);
+                        saveLog(filepath, _item, _depcode, _subtype, _workdetail, _type,
+                            _itemscount, _workingtime, _weeklyfreq, _weeklyworkingtime, _monthlyworkingtime,
+                            _optimizemethod, _tips, _savetime, _savepct, _updatedate, _description,
+                            _duedate, _status);
 
                         tsslStatus.Text = "正在保存文件," + (i + 1) + "-0";
                         Application.DoEvents();
@@ -1851,18 +1877,40 @@ reviewer) VALUES (@_depcode,
                         {
                             _item = _subtype = "";
                             _workdetail = trviewReport.Nodes[i].Nodes[j].Text;
+
                             sql = "SELECT COUNT(workdetail) FROM t_reportrawdata WHERE workdetail = '" + _workdetail + "'";
                             _itemscount = p.queryCount(sql).ToString();
+
                             sql = "SELECT SUM(weeklyworktime) FROM t_reportrawdata WHERE workdetail = '" + _workdetail + "'";
-                            _workingtime = p.querySum(sql).ToString();
+                            _weeklyworkingtime = p.querySum(sql).ToString();
+
+                            sql = "SELECT SUM(monthlyworktime) FROM t_reportrawdata WHERE workdetail = '" + _workdetail + "'";
+                            _monthlyworkingtime = p.querySum(sql).ToString();
+
                             sql = "SELECT SUM(tips) FROM t_reporttips WHERE workdetail = '" + _workdetail + "'";
                             _tips = p.querySum(sql).ToString();
-                            sql = "SELECT SUM(tipsavetime) FROM t_reporttips WHERE  workdetail = '" + _workdetail + "'";
+                            sql = "SELECT SUM(tipsavetime) FROM t_reporttips WHERE workdetail = '" + _workdetail + "'";
                             _savetime = p.querySum(sql).ToString();
-                            _savepct = p.CalcPCT(Convert.ToDecimal(_savetime), Convert.ToDecimal(_workingtime));
-                            sql = "SELECT * FROM t_reporttips WHERE workdetail = '" + _workdetail + "'";
-                            p.queryData(sql,"reviewdate", out _updatedate );
-                            saveLog(filepath, _item, _type, _subtype, _workdetail, _itemscount, _workingtime, _tips, _savetime, _savepct, _updatedate);
+                            _savepct = p.CalcPCT(Convert.ToDecimal(_savetime), Convert.ToDecimal( _weeklyworkingtime));
+
+                            sql = "SELECT optimizemethod FROM t_reporttips WHERE workdetail = '" + _workdetail + "'";
+                            p.queryData(sql, "optimizemethod", out  _optimizemethod);
+
+                            sql = "SELECT duedate FROM t_reporttips WHERE workdetail= '" + _workdetail + "'";
+                            p.queryData(sql, "duedate", out _duedate);
+
+                            sql = "SELECT description FROM t_reporttips WHERE workdetail = '" + _workdetail + "'";
+                            p.queryData(sql, "description", out _description);
+
+                            sql = "SELECT status FROM t_reporttips WHERE workdetail = '" + _workdetail + "'";
+                            p.queryData(sql, "description", out _status);
+
+                            p.replaceString(ref _workdetail);
+
+                            saveLog(filepath, _item, _depcode, _subtype, _workdetail, _type,
+                           _itemscount, _workingtime, _weeklyfreq, _weeklyworkingtime, _monthlyworkingtime,
+                           _optimizemethod, _tips, _savetime, _savepct, _updatedate, _description,
+                           _duedate, _status);
                             tsslStatus.Text = "正在保存文件," + (i + 1) + "-" + (j + 1);
                             Application.DoEvents();
                         }
@@ -1876,39 +1924,87 @@ reviewer) VALUES (@_depcode,
                 filepath = p.logMeetingFile;
                 if (trviewMeeting.Nodes.Count > 0)
                 {
+                    string sql = "SELECT depcode FROM t_meetingrawdata where id = '1'";
+                    p.queryData(sql, "depcode", out _depcode);
+
                     for (int i = 0; i < trviewMeeting.Nodes.Count; i++)
                     {
                         _item = (i + 1).ToString();//
-                        _subtype = trviewMeeting.Nodes[i].Text;//
+                       // _subtype = trviewMeeting.Nodes[i].Text.Substring(0, trviewMeeting.Nodes[i].Text.IndexOf(';'));
                         _itemscount = trviewMeeting.Nodes[i].Nodes.Count.ToString();//
 
-                        string sql = "SELECT SUM(weeklyworktime) FROM t_meetingrawdata WHERE meetingtype = '" + _subtype + "'";
-                        _workingtime = p.querySum(sql).ToString();
-                        sql = "SELECT SUM(tips) FROM t_meetingtips WHERE meetingtype = '" + _subtype + "'";
-                        _tips = p.querySum(sql).ToString();
-                        sql = "SELECT SUM(tipsavetime) FROM t_meetingtips WHERE meetingtype = '" + _subtype + "'";
-                        _savetime = p.querySum(sql).ToString();
-                        _savepct = p.CalcPCT(Convert.ToDecimal(_savetime), Convert.ToDecimal(_workingtime));
+                        spliteParentInfo(trviewMeeting.Nodes[i].Text,
+                            out _subtype, out _weeklyworkingtime, out _monthlyworkingtime,
+                            out _tips, out  _savetime, out  _savepct);
 
-                        saveLog(filepath, _item, _type, _subtype, _workdetail, _itemscount, _workingtime, _tips, _savetime, _savepct, _updatedate);
+                        //sql = "SELECT SUM(weeklyworktime) FROM t_meetingrawdata WHERE meetingtype = '" + _subtype + "'";
+                        //_weeklyworkingtime = p.querySum(sql).ToString();
+
+                        //sql = "SELECT SUM(monthlyworktime) FROM t_meetingrawdata WHERE meetingtype = '" + _subtype + "'";
+                        //_monthlyworkingtime = p.querySum(sql).ToString();
+
+                        //sql = "SELECT SUM(tips) FROM t_meetingtips WHERE meetingtype = '" + _subtype + "'";
+                        //_tips = p.querySum(sql).ToString();
+                        //sql = "SELECT SUM(tipsavetime) FROM t_meetingtips WHERE meetingtype = '" + _subtype + "'";
+                        //_savetime = p.querySum(sql).ToString();
+                        //_savepct = p.CalcPCT(Convert.ToDecimal(_savetime), Convert.ToDecimal(_workingtime));
+
+                        //sql = "SELECT optimizemethod FROM t_meetingtips WHERE meetingtype = '" + _subtype + "'";
+                        //p.queryData(sql, "optimizemethod", out  _optimizemethod);
+
+                        //sql = "SELECT duedate FROM t_meetingtips WHERE meetingtype = '" + _subtype + "'";
+                        //p.queryData(sql, "duedate", out _duedate);
+
+                        //sql = "SELECT description FROM t_meetingtips WHERE meetingtype = '" + _subtype + "'";
+                        //p.queryData(sql, "description", out _description);
+
+                        //sql = "SELECT status FROM t_meetingtips WHERE meetingtype = '" + _subtype + "'";
+                        //p.queryData(sql, "description", out _status);
+
+                        saveLog(filepath, _item, _depcode, _subtype, _workdetail, _type,
+                            _itemscount, _workingtime, _weeklyfreq, _weeklyworkingtime, _monthlyworkingtime,
+                            _optimizemethod, _tips, _savetime, _savepct, _updatedate, _description,
+                            _duedate, _status);
+
                         tsslStatus.Text = "正在保存文件," + (i + 1) + "-0";
                         Application.DoEvents();
                         for (int j = 0; j < trviewMeeting.Nodes[i].Nodes.Count; j++)
                         {
                             _item = _subtype = "";
                             _workdetail = trviewMeeting.Nodes[i].Nodes[j].Text;
+
                             sql = "SELECT COUNT(workdetail) FROM t_meetingrawdata WHERE workdetail = '" + _workdetail + "'";
                             _itemscount = p.queryCount(sql).ToString();
+
                             sql = "SELECT SUM(weeklyworktime) FROM t_meetingrawdata WHERE workdetail = '" + _workdetail + "'";
-                            _workingtime = p.querySum(sql).ToString();
+                            _weeklyworkingtime = p.querySum(sql).ToString();
+
+                            sql = "SELECT SUM(monthlyworktime) FROM t_meetingrawdata WHERE workdetail = '" + _workdetail + "'";
+                            _monthlyworkingtime = p.querySum(sql).ToString();
+
                             sql = "SELECT SUM(tips) FROM t_meetingtips WHERE workdetail = '" + _workdetail + "'";
                             _tips = p.querySum(sql).ToString();
-                            sql = "SELECT SUM(tipsavetime) FROM t_meetingtips WHERE  workdetail = '" + _workdetail + "'";
+                            sql = "SELECT SUM(tipsavetime) FROM t_meetingtips WHERE workdetail = '" + _workdetail + "'";
                             _savetime = p.querySum(sql).ToString();
-                            _savepct = p.CalcPCT(Convert.ToDecimal(_savetime), Convert.ToDecimal(_workingtime));
-                            sql = "SELECT * FROM t_meetingtips WHERE workdetail = '" + _workdetail + "'";
-                            p.queryData(sql, "reviewdate", out _updatedate);
-                            saveLog(filepath, _item, _type, _subtype, _workdetail, _itemscount, _workingtime, _tips, _savetime, _savepct, _updatedate);
+                            _savepct = p.CalcPCT(Convert.ToDecimal(_savetime), Convert.ToDecimal(_weeklyworkingtime ));
+
+                            sql = "SELECT optimizemethod FROM t_meetingtips WHERE workdetail = '" + _workdetail + "'";
+                            p.queryData(sql, "optimizemethod", out  _optimizemethod);
+
+                            sql = "SELECT duedate FROM t_meetingtips WHERE workdetail = '" + _workdetail + "'";
+                            p.queryData(sql, "duedate", out _duedate);
+
+                            sql = "SELECT description FROM t_meetingtips WHERE workdetail = '" + _workdetail + "'";
+                            p.queryData(sql, "description", out _description);
+
+                            sql = "SELECT status FROM t_meetingtips WHERE workdetail = '" + _workdetail + "'";
+                            p.queryData(sql, "description", out _status);
+
+                            saveLog(filepath, _item, _depcode, _subtype, _workdetail, _type,
+                           _itemscount, _workingtime, _weeklyfreq, _weeklyworkingtime, _monthlyworkingtime,
+                           _optimizemethod, _tips, _savetime, _savepct, _updatedate, _description,
+                           _duedate, _status);
+
                             tsslStatus.Text = "正在保存文件," + (i + 1) + "-" + (j + 1);
                             Application.DoEvents();
                         }
@@ -1924,131 +2020,28 @@ reviewer) VALUES (@_depcode,
         }
 
 
-        private void OutputData2Text(p.WorkType worktype,BackgroundWorker bk)
-        {
-           // this.Enabled = false;
-            p.checkLogFile(worktype);
 
-            //
-            string filepath, _item, _type, _subtype, _workdetail, _itemscount, _workingtime, _tips, _savetime, _savepct, _updatedate;
-            filepath = _item = _type = _subtype = _workdetail = _itemscount = _workingtime = _tips = _savetime = _savepct = _updatedate = " ";
-            //
-            _type = worktype.ToString();
-            if (worktype == p.WorkType.Report)
-            {
-                filepath = p.logReportFile;
-                if (trviewReport.Nodes.Count > 0)
-                {
-                    for (int i = 0; i < trviewReport.Nodes.Count; i++)
-                    {
-                        _item = (i + 1).ToString();//
-                        _subtype = trviewReport.Nodes[i].Text;//
-                        _itemscount = trviewReport.Nodes[i].Nodes.Count.ToString();//
-
-                        string sql = "SELECT SUM(weeklyworktime) FROM t_reportrawdata WHERE reporttype = '" + _subtype + "'";
-                        _workingtime = p.querySum(sql).ToString();
-                        sql = "SELECT SUM(tips) FROM t_reporttips WHERE reporttype = '" + _subtype + "'";
-                        _tips = p.querySum(sql).ToString();
-                        sql = "SELECT SUM(tipsavetime) FROM t_reporttips WHERE reporttype = '" + _subtype + "'";
-                        _savetime = p.querySum(sql).ToString();
-                        _savepct = p.CalcPCT(Convert.ToDecimal(_savetime), Convert.ToDecimal(_workingtime));
-
-                        saveLog(filepath, _item, _type, _subtype, _workdetail, _itemscount, _workingtime, _tips, _savetime, _savepct, _updatedate);
-
-                        tsslStatus.Text = "正在保存文件," + (i + 1) + "-0";
-                        Application.DoEvents();
-
-                        for (int j = 0; j < trviewReport.Nodes[i].Nodes.Count; j++)
-                        {
-                            _item = _subtype = "";
-                            _workdetail = trviewReport.Nodes[i].Nodes[j].Text;
-                            sql = "SELECT COUNT(workdetail) FROM t_reportrawdata WHERE workdetail = '" + _workdetail + "'";
-                            _itemscount = p.queryCount(sql).ToString();
-                            sql = "SELECT SUM(weeklyworktime) FROM t_reportrawdata WHERE workdetail = '" + _workdetail + "'";
-                            _workingtime = p.querySum(sql).ToString();
-                            sql = "SELECT SUM(tips) FROM t_reporttips WHERE workdetail = '" + _workdetail + "'";
-                            _tips = p.querySum(sql).ToString();
-                            sql = "SELECT SUM(tipsavetime) FROM t_reporttips WHERE  workdetail = '" + _workdetail + "'";
-                            _savetime = p.querySum(sql).ToString();
-                            _savepct = p.CalcPCT(Convert.ToDecimal(_savetime), Convert.ToDecimal(_workingtime));
-                            sql = "SELECT * FROM t_reporttips WHERE workdetail = '" + _workdetail + "'";
-                            p.queryData(sql, "reviewdate", out _updatedate);
-                            saveLog(filepath, _item, _type, _subtype, _workdetail, _itemscount, _workingtime, _tips, _savetime, _savepct, _updatedate);
-                            tsslStatus.Text = "正在保存文件," + (i + 1) + "-" + (j + 1);
-                            Application.DoEvents();
-                        }
-
-                    }
-                }
-            }
-
-            if (worktype == p.WorkType.Meeting)
-            {
-                filepath = p.logMeetingFile;
-                if (trviewMeeting.Nodes.Count > 0)
-                {
-                    for (int i = 0; i < trviewMeeting.Nodes.Count; i++)
-                    {
-                        _item = (i + 1).ToString();//
-                        _subtype = trviewMeeting.Nodes[i].Text;//
-                        _itemscount = trviewMeeting.Nodes[i].Nodes.Count.ToString();//
-
-                        string sql = "SELECT SUM(weeklyworktime) FROM t_meetingrawdata WHERE meetingtype = '" + _subtype + "'";
-                        _workingtime = p.querySum(sql).ToString();
-                        sql = "SELECT SUM(tips) FROM t_meetingtips WHERE meetingtype = '" + _subtype + "'";
-                        _tips = p.querySum(sql).ToString();
-                        sql = "SELECT SUM(tipsavetime) FROM t_meetingtips WHERE meetingtype = '" + _subtype + "'";
-                        _savetime = p.querySum(sql).ToString();
-                        _savepct = p.CalcPCT(Convert.ToDecimal(_savetime), Convert.ToDecimal(_workingtime));
-
-                        saveLog(filepath, _item, _type, _subtype, _workdetail, _itemscount, _workingtime, _tips, _savetime, _savepct, _updatedate);
-                        tsslStatus.Text = "正在保存文件," + (i + 1) + "-0";
-                        Application.DoEvents();
-                        for (int j = 0; j < trviewMeeting.Nodes[i].Nodes.Count; j++)
-                        {
-                            _item = _subtype = "";
-                            _workdetail = trviewMeeting.Nodes[i].Nodes[j].Text;
-                            sql = "SELECT COUNT(workdetail) FROM t_meetingrawdata WHERE workdetail = '" + _workdetail + "'";
-                            _itemscount = p.queryCount(sql).ToString();
-                            sql = "SELECT SUM(weeklyworktime) FROM t_meetingrawdata WHERE workdetail = '" + _workdetail + "'";
-                            _workingtime = p.querySum(sql).ToString();
-                            sql = "SELECT SUM(tips) FROM t_meetingtips WHERE workdetail = '" + _workdetail + "'";
-                            _tips = p.querySum(sql).ToString();
-                            sql = "SELECT SUM(tipsavetime) FROM t_meetingtips WHERE  workdetail = '" + _workdetail + "'";
-                            _savetime = p.querySum(sql).ToString();
-                            _savepct = p.CalcPCT(Convert.ToDecimal(_savetime), Convert.ToDecimal(_workingtime));
-                            sql = "SELECT * FROM t_meetingtips WHERE workdetail = '" + _workdetail + "'";
-                            p.queryData(sql, "reviewdate", out _updatedate);
-                            saveLog(filepath, _item, _type, _subtype, _workdetail, _itemscount, _workingtime, _tips, _savetime, _savepct, _updatedate);
-                            tsslStatus.Text = "正在保存文件," + (i + 1) + "-" + (j + 1);
-                            //Application.DoEvents();
-                        }
-
-                    }
-                }
-            }
-
-
-            MessageBox.Show("Save OK,file is " + filepath);
-            tsslStatus.Text = "";
-            //this.Enabled = true;
-
-        }
 
 
         private void saveLog(string filepath,
-            string _item,string _type,
-            string _subtype,string _workdetail,
-            string _itemscount,string _workingtime,
-            string _tips,string _savetime,
-            string _savepct,string _updatedate)
+            string _item,string _depcode,string _subtype,
+            string _workdetail,string _type,string _itemscount,
+            string _workingtime,string _weeklyfreq,string _weeklyworkingtime,
+            string _monthlyworkingtime,string _optimizeMethod,string _tips,
+            string _savetime,string _savepct,string _updatedate,string _description,
+            string _duedate,string _status)
 
         {
-            string line = _item.PadRight(6) +"*"+ _type.PadRight(10) +"*"+
-                _subtype.PadRight(40) + "*" + _workdetail.PadRight(60) +"*"+
-                _itemscount.PadRight(12) +"*"+ _workingtime.PadRight(16) +"*"+
-                _tips.PadRight(6) + "*"+_savetime.PadRight(10) +"*"+
-                _savepct.PadRight(15) +"*"+ _updatedate.PadRight(15);
+            string line = _item.PadRight(6) + "*" + _depcode.PadRight(6) + "*" +
+                _subtype.PadRight(40) + "*" + _workdetail.PadRight(100) + "*" +
+                _type.PadRight(10) + "*" +
+                _itemscount +"*"+_workingtime +"*"+   _weeklyfreq.PadRight(15) + "*" +
+                _weeklyworkingtime.PadRight(25) + "*" + _monthlyworkingtime.PadRight(30) + "*" +
+                _optimizeMethod.PadRight(20) + "*" +
+                _tips.PadRight(6) + "*" + _savetime.PadRight(10) + "*" +
+                 _savepct.PadRight(15) + "*" + _updatedate.PadRight(15) + "*" +
+                 _description.PadRight(100) + "*" + _duedate.PadRight(15) + "*" +
+                 _status.PadRight(10);                
             StreamWriter sw = new StreamWriter (filepath,true);
             sw.WriteLine(line);
             sw.Close();
@@ -2059,12 +2052,49 @@ reviewer) VALUES (@_depcode,
 
 
 
+        private void spliteParentInfo(string parentstring,
+            out string _parentnode,out string _weeklyworkingtime,out string _monthlyworkingtime,
+            out string _tips, out string _savetime, out string _savepct)
+        {
+            _parentnode = "";
+            _weeklyworkingtime = _monthlyworkingtime  =_tips = _savetime  = _savepct ="0";
+
+            try
+            {
+                _parentnode = parentstring.Substring(0, parentstring.IndexOf(';'));
+                string tailstring = parentstring.Replace(_parentnode, "");
+                string[] s = tailstring.Split(',');
+                foreach (string  item in s )
+                {
+                    if (item.ToUpper().Contains("TOTALTIME")) 
+                        _weeklyworkingtime = item.ToUpper().Replace("TOTALTIME(H):","");
+                    if (item.ToUpper().Contains("TIPS"))
+                        _tips = item.ToUpper().Replace("TIPS:", "");
+                     if (item.ToUpper().Contains("SAVETIME"))
+                         _savetime = item.ToUpper().Replace("SAVETIME(H):", "");
+                    if (item.ToUpper().Contains("PCT"))
+                        _savepct = item.ToUpper().Replace("PCT(%):", "");
+                    
+                }
+                _monthlyworkingtime = (Convert.ToDecimal(_weeklyworkingtime) * 4).ToString();
+            }
+            catch (Exception)
+            {
+                
+                //pthrow;
+            }
+
+
+
+        }
+
+
 
 
         private void btnOutputMeetinig_Click(object sender, EventArgs e)
         {
             this.btnOutputMeetinig.Enabled = false;
-            OutputData2Text(p.WorkType.Meeting);
+            OutputData2Text(p.WorkType.Meeting);            
             this.btnOutputMeetinig.Enabled = true;
         }
 
@@ -2072,7 +2102,10 @@ reviewer) VALUES (@_depcode,
         {
             //this.Enabled = false;
             this.btnOutputReports.Enabled = false;
-            OutputData2Text(p.WorkType.Report);
+            
+            trviewReport.Sort();
+
+
             this.btnOutputReports.Enabled = true;
             //savelogworktype = p.WorkType.Report;
             //backgroundWorker1.RunWorkerAsync();

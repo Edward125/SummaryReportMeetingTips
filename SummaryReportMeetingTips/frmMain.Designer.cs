@@ -1044,14 +1044,12 @@
             this.comboMeetingOptimizeMethod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboMeetingOptimizeMethod.FormattingEnabled = true;
             this.comboMeetingOptimizeMethod.Items.AddRange(new object[] {
-            "简化(消除浪费)",
-            "标准化格式",
-            "降低频率",
-            "集中化制作",
-            "自动化制作",
-            "取消报告",
-            "重复内容合并",
-            "维持不变"});
+            "维持不变",
+            "合并会议",
+            "取消会议",
+            "5P原则",
+            "减少参予者",
+            "缩短会议时间"});
             this.comboMeetingOptimizeMethod.Location = new System.Drawing.Point(531, 104);
             this.comboMeetingOptimizeMethod.Name = "comboMeetingOptimizeMethod";
             this.comboMeetingOptimizeMethod.Size = new System.Drawing.Size(125, 22);
