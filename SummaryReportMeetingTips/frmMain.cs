@@ -794,14 +794,22 @@ reviewer) VALUES (@_depcode,
                           //Application.DoEvents();
 
                             if (worktype == p.WorkType.Report)
-                                sql = "SELECT COUNT(*) FROM t_reporttips WHERE workdetail = '" + _childnodename + "'";
+                                sql = "SELECT SUM(tips) FROM t_reporttips WHERE workdetail = '" + _childnodename + "'";
                             if (worktype == p.WorkType.Meeting)
-                                sql = "SELECT COUNT(*) FROM t_meetingtips WHERE workdetail = '" + _childnodename + "'";
+                                sql = "SELECT SUM(tips) FROM t_meetingtips WHERE workdetail = '" + _childnodename + "'";
+
+
+         
                             if (p.queryCount(sql) > 0)
                             {
 
                                 childnode.BackColor = Color.Green;
                                 childnode.ForeColor = Color.White;
+                            }
+                            else
+                            {
+                                childnode.BackColor = Color.White;
+                                childnode.ForeColor = Color.Black;
                             }
                             tr.Nodes.Add(childnode);
                             lastChildNode = _childnodename;
@@ -810,6 +818,9 @@ reviewer) VALUES (@_depcode,
                 }
             }
             conn.Close();
+
+
+            trview.ExpandAll();
          }
 
 
@@ -1417,6 +1428,8 @@ reviewer) VALUES (@_depcode,
            
 
             listview.EndUpdate();//结束数据处理，UI界面一次性绘制。
+
+            
             
         }
 
@@ -1625,7 +1638,7 @@ reviewer) VALUES (@_depcode,
             {
                 MessageBox.Show("update date into database success...", "Update Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 loadInfo2toolStrip(p.WorkType.Report, lstviewReport, trviewReport);
-                OutputData2Text(p.WorkType.Report);
+                //OutputData2Text(p.WorkType.Report);
                 loadTreeViewData(trviewReport, p.WorkType.Report);
              }
             this.Enabled = true;
@@ -1659,7 +1672,7 @@ reviewer) VALUES (@_depcode,
 
         private void onlyNumberInput(KeyPressEventArgs e)
         {
-            if (!(char.IsNumber(e.KeyChar)) && e.KeyChar != (char)8)
+            if (!(char.IsNumber(e.KeyChar)) && e.KeyChar != (char)8 && e.KeyChar != (char)45)
                 e.Handled = true;
             else
                 e.Handled = false;
@@ -1667,7 +1680,7 @@ reviewer) VALUES (@_depcode,
 
         private void onlyDecimalInput(KeyPressEventArgs e)
         {
-            if (!(char.IsNumber(e.KeyChar)) && e.KeyChar != (char)8 && e.KeyChar !=(char)46)
+            if (!(char.IsNumber(e.KeyChar)) && e.KeyChar != (char)8 && e.KeyChar !=(char)46 && e.KeyChar !=(char) 45)
                 e.Handled = true;
             else
                 e.Handled = false;

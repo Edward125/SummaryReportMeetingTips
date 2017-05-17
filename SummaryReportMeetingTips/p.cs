@@ -459,7 +459,16 @@ reviewdate varchar(20))";
             SQLiteCommand cmd = new SQLiteCommand(sql, conn);
             var i = cmd.ExecuteScalar();
             conn.Close();
-            return Convert.ToInt16(i);
+            try
+            {
+                return Convert.ToInt16(i);
+            }
+            catch (Exception)
+            {
+
+                return 0;
+            }
+            
         }
 
        /// <summary>
