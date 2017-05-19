@@ -1405,6 +1405,7 @@ reviewer) VALUES (@_depcode,
             lt.SubItems.Add("");
             lt.SubItems.Add("");
             lt.SubItems.Add("");
+            lt.SubItems.Add("");
             if (worktype == p.WorkType.Meeting )
             {
                 if (selectparentnode )
@@ -1838,8 +1839,8 @@ reviewer) VALUES (@_depcode,
             p.checkLogFile(worktype);
 
             //
-            string filepath, _item, _depcode, _subtype, _workdetail, _type, _itemscount, _workingtime, _weeklyfreq, _weeklyworkingtime, _monthlyworkingtime, _optimizemethod, _tips, _savetime, _savepct, _updatedate, _description, _duedate, _status;
-            filepath = _item = _depcode = _subtype = _workdetail = _type = _itemscount = _workingtime = _weeklyfreq = _weeklyworkingtime = _monthlyworkingtime = _optimizemethod = _tips = _savetime = _savepct = _updatedate = _description = _duedate = _status = "";
+            string filepath, _item, _depcode, _subtype,_workcontent, _workdetail, _type, _itemscount, _workingtime, _weeklyfreq, _weeklyworkingtime, _monthlyworkingtime, _optimizemethod, _tips, _savetime, _savepct, _updatedate, _description, _duedate, _status;
+            filepath = _item = _depcode = _subtype = _workcontent= _workdetail = _type = _itemscount = _workingtime = _weeklyfreq = _weeklyworkingtime = _monthlyworkingtime = _optimizemethod = _tips = _savetime = _savepct = _updatedate = _description = _duedate = _status = "";
             //
             _type= worktype.ToString();
             if (worktype == p.WorkType.Report)
@@ -1897,6 +1898,7 @@ reviewer) VALUES (@_depcode,
                         for (int j = 0; j < trviewReport.Nodes[i].Nodes.Count ; j++)
                         {
                             _item = _subtype = "";
+
                             _workdetail = trviewReport.Nodes[i].Nodes[j].Text;
 
                             sql = "SELECT COUNT(workdetail) FROM t_reportrawdata WHERE workdetail = '" + _workdetail + "'";
@@ -2123,10 +2125,7 @@ reviewer) VALUES (@_depcode,
         {
             //this.Enabled = false;
             this.btnOutputReports.Enabled = false;
-            
-            trviewReport.Sort();
-
-
+            OutputData2Text(p.WorkType.Report);
             this.btnOutputReports.Enabled = true;
             //savelogworktype = p.WorkType.Report;
             //backgroundWorker1.RunWorkerAsync();

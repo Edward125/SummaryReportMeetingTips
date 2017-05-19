@@ -49,15 +49,29 @@ namespace SummaryReportMeetingTips
 
                 StreamWriter sw = new StreamWriter(file, true, Encoding.UTF8);
 
-                string line = "Item".PadRight(6) + "*" + "Dep.".PadRight(6) + "*" + 
-                    "SubType".PadRight(40) + "*" + "WorkDetail".PadRight(100) + "*" + "Type".PadRight(10) + "*" +
-                    "ItemsCount".PadRight(12) + "*" + "WorkingTime(h)".PadRight(16) + "*" + "WeeklyFreq.".PadRight(15) + "*" +
-                    "WeeklyWorkingTime(h)".PadRight(25) + "*" + "MonthlyWorkingTime(h)".PadRight(30) + "*" +
-                    "OptimizeMethod".PadRight(20) + "*" +
-                    "TIPs".PadRight(6) + "*" + "SaveTime".PadRight(10) + "*" +
-                    "SavePCT(%)".PadRight(15) + "*" + "UpdateDate".PadRight(15) + "*" +
-                    "Description".PadRight(50) + "*" + "DueDate".PadRight(15) + "*" +
-                    "Status".PadRight(10);
+                //string line = "Item".PadRight(6) + "*" + "Dep.".PadRight(6) + "*" + 
+                //    "SubType".PadRight(40) + "*" + "WorkContent".PadRight (50) +"*"+ "WorkDetail".PadRight(100) + "*" + "Type".PadRight(10) + "*" +
+                //    "ItemsCount".PadRight(12) + "*" + "WorkingTime(h)".PadRight(16) + "*" + "WeeklyFreq.".PadRight(15) + "*" +
+                //    "WeeklyWorkingTime(h)".PadRight(25) + "*" + "MonthlyWorkingTime(h)".PadRight(30) + "*" +
+                //    "OptimizeMethod".PadRight(20) + "*" +
+                //    "TIPs".PadRight(6) + "*" + "SaveTime".PadRight(10) + "*" +
+                //    "SavePCT(%)".PadRight(15) + "*" + "UpdateDate".PadRight(15) + "*" +
+                //    "Description".PadRight(50) + "*" + "DueDate".PadRight(15) + "*" +
+                //    "Status".PadRight(10);
+
+                string line = "Item".PadRight(6) + "*" + "Dep.".PadRight(6) + "*" +
+                  "SubType".PadRight(40) +  "*" + "WorkDetail".PadRight(100) + "*" + "Type".PadRight(10) + "*" +
+                  "ItemsCount".PadRight(12) + "*" + "WorkingTime(h)".PadRight(16) + "*" + "WeeklyFreq.".PadRight(15) + "*" +
+                  "WeeklyWorkingTime(h)".PadRight(25) + "*" + "MonthlyWorkingTime(h)".PadRight(30) + "*" +
+                  "OptimizeMethod".PadRight(20) + "*" +
+                  "TIPs".PadRight(6) + "*" + "SaveTime".PadRight(10) + "*" +
+                  "SavePCT(%)".PadRight(15) + "*" + "UpdateDate".PadRight(15) + "*" +
+                  "Description".PadRight(50) + "*" + "DueDate".PadRight(15) + "*" +
+                  "Status".PadRight(10);
+
+
+
+
                 sw.WriteLine(line);
                 sw.Close();
 
